@@ -36,14 +36,53 @@ create a specific database for testing.
 
 when testing various components functionality it is better to do so in isolation
 
-
 ## task 2 - console improvements
+
+update `def do_create(self, arg)` of the command interpreter `console.py` to allow for 
+object creation with given parameters
+
+command syntax : `cerate <class> <param1> <param2> <param3> ...`
+parameter syntax : `<key>=<value>`
+value syntax : `"<value>"`
+	- double quotes within can be escaped with `\`
+	- values passed will be deliniated by underscores. internally, replace theses with spaces
+	- floats must contain dots otherwise an integer will be the default interpretation
+uninterpretable parameters must be skipped
+
+in the checker, this will be tested with the original `FileStorage` engine
+
+FILE: `console.py`, `models/`, and `tests/`
 
 ## task 3 - mysql setup development
 
+write an sql script to prepare a mysql server for the project
+
+- database : `hbnb_dev_hb`
+- user : `hbnb_dev` in `localhost`
+- password : `hbnb_dev_pwd`
+- the new user should have **all** privileges to the new db **only**
+- add the `SELECT` privilege for the new user on `performance_schema`
+- if either the db or the user already exist, the script should not fail
+
 ## task 4 - mysql setup dev
 
+write an sql script to prepare a mysql server for the project
+
+- database : `hbnb_test_hb`
+- user : `hbnb_test` in `localhost`
+- password : `hbnb_test_pwd`
+- the new user should have **all** privileges to the new db **only**
+- add the `SELECT` privilege for the new user on `performance_schema`
+- if either the db or the user already exist, the script should not fail
+
 ## task 5 - delete object
+
+update `FileStorage` in `model/engine/file_storage.py`
+add a new public instance method : `def delete(self, obj=None):` that deletes `obj` from `__objects` if it exist within. if `obj` is `None` don't do anything
+
+update the prototype `def all(self)` to `def all(self, cls=None)` that returns a list of objects of the type of class determined by `cls` optional filter
+
+FILE: `models/engine/file_storage.py`
 
 ## task 6 - dbstorage - states nad cities
 
