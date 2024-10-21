@@ -64,7 +64,7 @@ write an sql script to prepare a mysql server for the project
 - add the `SELECT` privilege for the new user on `performance_schema`
 - if either the db or the user already exist, the script should not fail
 
-## task 4 - mysql setup dev
+## task 4 - mysql setup test
 
 write an sql script to prepare a mysql server for the project
 
