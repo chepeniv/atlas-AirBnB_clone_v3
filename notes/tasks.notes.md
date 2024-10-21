@@ -225,7 +225,59 @@ class attributes :
 
 ## task 9 - dbstorage - review
 
+#### update : `models/review.py:Review`
 
+inherit from `BaseModel` and `Base` in order
+
+`Place` class attributes :
+- `__tablename__` name of the table to map to, `reviews`
+- `text` (column-field) 1024 char string, can't be null
+- `place_id` (column-field) 60 char string, can't be null, foreign key mapped to `places.id`
+- `user_id` (column-field) 60 char string, can't be null, foreign key mapped to `users.id`
+
+#### update : `models/user.py:User`
+
+- add class attribute `reviews` that represents a relationship with the class `Review`
+- if a `User` is deleted then so too must all linked `Review`s automatically
+- the reference from `Review` to its `User` is `user`
+
+#### update : `models/place.py:Place`
+
+for `DBStorage`
+- class attribute `reviews` represents a relationship with the class `Review`
+- if a `Place` is deleted then so too must all linked `Review`s automatically
+- the reference from `Review` to its `Place` is `place`
+
+for `FileStorage`
+- getter attribute `reviews` returns a list of `Review` instances with `place_id` equal to current `Place.id` -- this will be the `FileStorage` relationship between `Place` and `Review`
 
 ## task 10 - dbstorage - amenity
 
+#### update : `models/amenity.py:Amenity`
+
+inherit from `BaseModel` and `Base` in order
+
+`Amenity` class attributes :
+- `__tablename__` name of the table to map to, `amenities`
+- `name` (column-field) 128 char string, can't be null
+- `place_amenities` (column-field) represents a many-to-many relationship between `Place` and `Amenity`
+
+#### update : `models/place.py:Place`
+
+- add an instance of an sqlalchemy-table called `place_amenity` for creating the 
+  many-to-many relationship
+	- table name `place_amenity`
+	- `metadata = Base.metadata`
+	- `place_id` (column-field) 60 char string, foreign key to `places.id`, primary key, never null
+	- `amenity_id` (column-field) 60 char string, foreign key to `amenities.id`, primary key, never null
+
+for `DBStorage` :
+- the class attribute `amenities` represents a relationship with the class `Amenity`, but also as `secondary` to `place_amenity` with option `viewonly=False` 
+
+for `FileStorage` :
+- getter attribute `amenities` returns a list of `Amenity` instances based on the attribute `amenity_ids` containing all `Amenity.id` linked to `Place`
+- setter attribute `amenities` handles `append` method for adding an `Amenity.id` to the attribute `amenity_ids`. this method should only accept `Amenity` object - otherwise do nothing
+
+### many-to-many relationships
+
+these relationships are implemented by creating a table that references the two tables to link. each entry is a unique pairing of records from each table. this ways the original tables can retain their simpler format
