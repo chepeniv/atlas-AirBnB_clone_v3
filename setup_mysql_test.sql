@@ -1,4 +1,4 @@
--- Ariel: create database if it doesn't exist
+-- Ariel create database if it doesn't exist
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 --Ariel:  create user if it doesn't exist
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_pwd'
