@@ -138,35 +138,94 @@ create `Base = declarative_base()` before `class BaseMode`.
 
 #### new engine: `model/engine/db_storage.py:DBStorage`
 
-- private class attributes :
-	- `__engine` set to `None`
-	- `__session` set to `None`
-- public instance methods :
-	- `__init__(self)` :
-		- create engine `self.__engine`
-		- link this engine to the mysql database and user : `hbnb_dev` and `hbnb_dev_db`:
-			- dialect : `mysql` ; driver `mysqldb`
-		- retrieve values from the given environment variables :
-			- mysql user from `HBNB_MYSQL_USER`
-			- mysql password from `HBNB_MYSQL_PWD`
-			- mysql host from `HBNB_MYSQL_HOST` (=`localhost`)
-			- mysql database from `HBNB_MYSQL_DB`
-		- set the option `pool_pre_ping=True` when calling `create_engine`
-		- drop all tables if `HBNB_ENV` is equal to `test`
-	- `all(self, cls=None)`:
-		- query the current database session `self.__session` to extract all objects dependant on the class name `cls`
+private class attributes :
+- `__engine` set to `None`
+- `__session` set to `None`
 
+public instance methods :
+- `__init__(self)` :
+	- create engine `self.__engine`
+	- link this engine to the mysql database and user : `hbnb_dev` and `hbnb_dev_db`:
+		- dialect : `mysql` ; driver `mysqldb`
+	- retrieve values from the given environment variables :
+		- mysql user from `HBNB_MYSQL_USER`
+		- mysql password from `HBNB_MYSQL_PWD`
+		- mysql host from `HBNB_MYSQL_HOST` (=`localhost`)
+		- mysql database from `HBNB_MYSQL_DB`
+	- set the option `pool_pre_ping=True` when calling `create_engine`
+	- drop all tables if `HBNB_ENV` is equal to `test`
+- `all(self, cls=None)`:
+	- query the current database session `self.__session` to extract all objects dependant on the class name `cls`
+	- if `cls=None` query all types of objects
+	- method must return a dictionary with elements of the form :
+		- `'<class>.<id>': <object>`
+- `new(self, obj)` : adds the object to the current database session (`self.__session`)
+- `save(self)` : commit all changes to the current database session
+- `delete(self, obj=None)` : if not `None`, delete given object from the current database session
+- `reload(self)`:
+	- create all tables in the database (sqlalchemy)
+		- **ALL** classes that inherit from `Base` **MUST** be imported before calling `Base.metadata.create_all(engine)`
+	- create the current database session `self.__session` from the engine `self.__engine` by using a `sessionmaker`
+		- `expire_on_commit` must be set to `False`
+		- `scoped_session` to ensure the session is thread-safe
 
-	- `new(self, obj)`
-	- `save(self)`
-	- `delete(self, obj=None)`
-	- `reload(self)`
+#### add `models/__init__.py`
+
+- add a conditional that depends on the value `HBNB_TYPE_STORAGE`
+	- if equal to `db`:
+		- import `DBStorage`
+		- create and instance of `DBStorage` and store it in the variable `storage`
+		- execute `storage.reload()` afterwards
+	- this switch permits the changing of the storage type directly by manipulating an environment variable
 
 ## task 7 - dbstorage - user
 
+#### update : `models/user.py:User`
+- inherit from `BaseModel` and `Base` in order
+- implement the class `User`
+class attributes : 
+- `__tablename__` the table `users` to map to
+- `email` (column-field) 128 char string, can't be null
+- `password` (column-field) 128 char string, can't be null
+- `first_name` (column-field) 128 char string, can't be null
+- `last_name` (column-field) 128 char string, can't be null
+
 ## task 8 - dbstorage - place
 
+#### update : `models/place.py:Place`
+
+- inherit from `BaseModel` and `Base` in order
+
+implement the class `Place`
+
+class attributes : 
+- `__tablename__` the table `places` to map to
+- `city_id` (column-field) 60 char string, can't be null, foreign key to `cities.id`
+- `user_id` (column-field) 60 char string, can't be null, foreign key to `users.id`
+- `name` (column-field) 60 char string, can't be null
+- `description` (column-field) 1024 char string, can't be null
+- `number_rooms` (column-field) integer, can't be null, default value `0`
+- `number_bathrooms` (column-field) integer, can't be null, default value `0`
+- `max_guest` (column-field) integer, can't be null, default value `0`
+- `price_by_night` (column-field) integer, can't be null, default value `0`
+- `latitude` (column-field) float, can't be null
+- `longitude` (column-field) float, can't be null
+
+#### update : `models/user.py`
+
+- class attribute `places` represents a relationship the class `PLace`
+- if the `User` object is deleted so too must all linked `Place` objects automatically
+- the reference from a `Place` to its `User` should be named `user`
+
+#### update : `models/city.py:City`
+
+- class attribute `places` must represent a relationship with the class `Place`
+- if the `City` object is deleted so too must all linked `Place` objects automatically
+- the reference from `Place` to `City` should be named `cities` (plural?)
+
 ## task 9 - dbstorage - review
+
+
 
 ## task 10 - dbstorage - amenity
 
