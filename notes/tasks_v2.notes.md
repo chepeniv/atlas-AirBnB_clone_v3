@@ -86,6 +86,8 @@ FILE: `models/engine/file_storage.py`
 
 ## task 6 - dbstorage - states and cities
 
+![database schema](../assets/AtlasAirBnB-DB-Schema.jpg)
+
 here we will transition from `FileStorage` to `DBStorage`.
 
 it is not adviced that a service work with multiple backend storage systems
