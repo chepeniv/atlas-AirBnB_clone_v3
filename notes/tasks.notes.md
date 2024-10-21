@@ -84,7 +84,83 @@ update the prototype `def all(self)` to `def all(self, cls=None)` that returns a
 
 FILE: `models/engine/file_storage.py`
 
-## task 6 - dbstorage - states nad cities
+## task 6 - dbstorage - states and cities
+
+here we will transition from `FileStorage` to `DBStorage`.
+
+it is not adviced that a service work with multiple backend storage systems
+simultaneously. but it is common to have the storage layer abstracted in order to
+be able to swap out the implementation as need be
+
+add class attributes to `SQLStorage` with values for description and mapping to the 
+database. modifying these values, or adding or removing attributes to the model will
+force you to delete and reconstruct the database. although not optimal, it's fine 
+for development purpsoses.
+
+### steps
+
+#### update : `models/base_model.py:BaseModel`
+
+create `Base = declarative_base()` before `class BaseMode`.
+
+- `BaseModel`: 
+	- `id` - 60 char, unique, not null, primary key
+	- `created_at` - datetime, not null, default is `datetime.utcnow()`
+	- `updated_at` - datetime, not null, default is `datetime.utcnow()`
+- move `models.storage.new(self)` from `def __init__(self, *args, **kwargs):` over to `def save(self):` and call it just before `model.storage.save()`
+- in `def __init__(self, *args, **kwargs)` use `**kwargs` to create instance attributes
+	- example: `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
+- update `to_dict()`
+	- remove `_sa_instance_state` from the dictionary recturned if it exist
+- add the public instance method `def delete(self)` to remove the current instance from `models.storage` by calling the mothod `delete`
+
+#### update : `models/city.py:City`
+
+- `City` inherits from `BaseModel` and then `Base` (order is important)
+- `City`:
+	- `__tablename__` represents the table name `cities`
+	- `name` - string of 128 chars, can't be null
+	- `state_id` 60 char, not null, foreign key to `state.id`
+
+#### update : `models/state.py:State`
+
+- `State` inherits from `BaseModel` and then `Base` (order is important)
+- `State`:
+	- `__tablename__` represents the table name `states`
+	- `name` - string of 128 chars, can't be null
+	- `state_id` 60 char, not null, foreign key to `state.id`
+	- in `DBStorage` :
+		- `cities` attribute must represent a relationship with class `Cities`
+		- if a `State` object is deleted, then all linked `City` must be deleted as well
+		- the reference from a `City` object to it's `State` should be named `state`
+	- in `FileStorage` :
+		- the getter attribute `cities` should return a list of `City` instances with `state_id` equal to the current `State.id` -- the relationship between `State` and `City` in `FileStorage`
+
+#### new engine: `model/engine/db_storage.py:DBStorage`
+
+- private class attributes :
+	- `__engine` set to `None`
+	- `__session` set to `None`
+- public instance methods :
+	- `__init__(self)` :
+		- create engine `self.__engine`
+		- link this engine to the mysql database and user : `hbnb_dev` and `hbnb_dev_db`:
+			- dialect : `mysql` ; driver `mysqldb`
+		- retrieve values from the given environment variables :
+			- mysql user from `HBNB_MYSQL_USER`
+			- mysql password from `HBNB_MYSQL_PWD`
+			- mysql host from `HBNB_MYSQL_HOST` (=`localhost`)
+			- mysql database from `HBNB_MYSQL_DB`
+		- set the option `pool_pre_ping=True` when calling `create_engine`
+		- drop all tables if `HBNB_ENV` is equal to `test`
+	- `all(self, cls=None)`:
+		- query the current database session `self.__session` to extract all objects dependant on the class name `cls`
+
+
+	- `new(self, obj)`
+	- `save(self)`
+	- `delete(self, obj=None)`
+	- `reload(self)`
 
 ## task 7 - dbstorage - user
 
