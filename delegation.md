@@ -5,7 +5,8 @@ if need be, add more subtask for any issues that arise
 - [x] task0 - fork
 
 - [ ] task1 - bug free
-	- **chepe**
+	- **Ariel**, **chepe**
+	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
 	- [ ] subcheck placeholder
 
 - [ ] task2 - console improvements
