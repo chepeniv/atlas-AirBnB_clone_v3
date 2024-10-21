@@ -31,6 +31,13 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'
+        # update to accept input form :
+        # create ClassName keyA="valueA" keyB="valueB" ...
+        # values will be deliniated by underscores
+        # internally replace these with spaces
+        # a number with a dot is a floats, without one it is an int
+        # uninterpretable key-value args must be skipped
+        # tested using FileStorage
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -115,6 +122,10 @@ class HBNBCommand(cmd.Cmd):
             print("** no such attribute found **")
 
     def do_quit(self, arg):
+        'exit this CLI instance hbnb'
+        quit()
+
+    def do_exit(self, arg):
         'exit this CLI instance hbnb'
         quit()
 

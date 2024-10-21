@@ -38,8 +38,7 @@ when testing various components functionality it is better to do so in isolation
 
 ## task 2 - console improvements
 
-update `def do_create(self, arg)` of the command interpreter `console.py` to allow for 
-object creation with given parameters
+update `def do_create(self, arg)` of the command interpreter `console.py` to allow for object creation with given parameters
 
 command syntax : `cerate <class> <param1> <param2> <param3> ...`
 parameter syntax : `<key>=<value>`
