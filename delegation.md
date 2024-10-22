@@ -9,7 +9,7 @@ if need be, add more subtask for any issues that arise
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
 	- [ ] subcheck placeholder
 
-- [ ] task2 - console improvements
+- [x] task2 - console improvements
 	- **chepe**
 
 - [ ] task3 - mysql setup dev
@@ -18,7 +18,7 @@ if need be, add more subtask for any issues that arise
 - [ ] task4 - mysql setup test
 	- **Ariel**
 
-- [ ] task5 - delete object
+- [x] task5 - delete object
 	- **chepe**
 
 - [ ] task6 - dbstorage states and cities
