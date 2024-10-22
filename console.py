@@ -78,9 +78,10 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
 
-        for obj in obj_list:
-            print(obj)
-            print("----------------")
+        print(obj_list)
+        #for obj in obj_list:
+        #    print(obj)
+        #    print("----------------")
 
     def do_update(self, arg):
         """ updates the instance given by class_name and id.
@@ -179,7 +180,7 @@ class HBNBCommand(cmd.Cmd):
                     value = number
                 else:
                     continue
-                print(key, ": ", value, " - ", type(value))
+                # print(key, ": ", value, " - ", type(value))
                 with (open(os.devnull, 'w')
                       as devnull, contextlib.redirect_stdout(devnull)):
                     self.update(obj, key, value)
