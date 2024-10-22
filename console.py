@@ -14,16 +14,6 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 
-model_classes = {
-        'BaseModel': BaseModel,
-        'User': User,
-        'State': State,
-        'City': City,
-        'Place': Place,
-        'Amenity': Amenity,
-        'Review': Review
-        }
-
 
 class HBNBCommand(cmd.Cmd):
     """ our reimplementation of cmd.Cmd
@@ -32,12 +22,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'
-        # update to accept input form :
+        # update to accept input of the form :
         # create ClassName keyA="valueA" keyB="valueB" ...
+        #
         # values will be deliniated by underscores
-        # allow quote escape with \
         # internally replace these with spaces
+        #
+        # allow quote escape with \
         # a number with a dot is a floats, without one it is an int
+        #
         # uninterpretable key-value args must be skipped
         # tested using FileStorage
         args = arg.split()
@@ -51,6 +44,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             else: 
                 new_obj = model_class()
+                #### new code here ####
                 new_obj.save()
                 print(new_obj.id)
 
