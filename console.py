@@ -4,8 +4,10 @@ this is the launch point of our CLI
 which imports and customize the cmd.Cmd class
 """
 
+import os
 import cmd
 import models
+import contextlib
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -33,8 +35,8 @@ class HBNBCommand(cmd.Cmd):
                 return
             else: 
                 new_obj = model_class()
-                new_obj.save()
                 self.process_key_value_pairs(new_obj, args)
+                new_obj.save()
                 print(new_obj.id)
 
     def do_show(self, args):
@@ -96,19 +98,7 @@ class HBNBCommand(cmd.Cmd):
         attr = attr_val[0]
         value = attr_val[1]
 
-        if hasattr(instance, attr):
-            attr_type = type(getattr(instance, attr))
-
-            try:
-                value = attr_type(value)
-            except (ValueError, TypeError):
-                print("** value given could not be typecast correctly **")
-                value = getattr(instance, attr)
-
-            setattr(instance, attr, value)
-            instance.save()
-        else:
-            print("** no such attribute found **")
+        self.update(instance, attr, value)
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
@@ -170,12 +160,12 @@ class HBNBCommand(cmd.Cmd):
                 return None
             return instance
 
-    def process_key_value_pairs(self, new_obj, key_value_list):
+    def process_key_value_pairs(self, obj, key_value_list):
         """
         parse arguments passed and set values accordingly
         """
         # create ClassName keyA="valueA" keyB="valueB" ...
-        # allow quote escape with \
+        # allow double quotes with escape \
         # a number with a dot is a floats, without one it is an int
 
         key_value_dict = {} # a dictionary
@@ -184,15 +174,15 @@ class HBNBCommand(cmd.Cmd):
                 (key, value) = key_value.split("=")
                 if (value.startswith('"')
                     and value.endswith('"')):
-                    value = value.replace("_", " ")
-                    print(key, ": ", value)
+                    value = self.clean_string(value)
                 elif (number := self.string_to_number(value)) is not None:
-                    print("value is {}".format(type(number)))
+                    value = number
                 else:
                     continue
-                # with open(os.devnull, 'w') as devnull, 
-                #       contextlib.redirect_stdout(devnull):
-                #       print("will not be output")
+                print(key, ": ", value, " - ", type(value))
+                with (open(os.devnull, 'w')
+                      as devnull, contextlib.redirect_stdout(devnull)):
+                    self.update(obj, key, value)
             except ValueError:
                 continue
 
@@ -208,6 +198,26 @@ class HBNBCommand(cmd.Cmd):
             except ValueError:
                 return None
         return number
+
+    def clean_string(self, old_string):
+        new_string = old_string.replace("_", " ")
+        new_string = new_string[1:-1]
+        new_string = new_string.replace('"', '\\"')
+        return new_string
+
+    def update(self, instance, attr, value):
+        if hasattr(instance, attr):
+            attr_type = type(getattr(instance, attr))
+            try:
+                value = attr_type(value)
+            except (ValueError, TypeError):
+                print("** value given could not be typecast correctly **")
+                value = getattr(instance, attr)
+
+            setattr(instance, attr, value)
+            instance.save()
+        else:
+            print("** no such attribute found **")
 
 
 if __name__ == '__main__':
