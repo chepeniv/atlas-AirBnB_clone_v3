@@ -20,11 +20,17 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
+    def all(self, search_class=None):
         """ returns a dictionary of objects """
-        # restructure signature to `def all(self, cls=None)
-        # to return a list of objects belonging to the class cls
-        return self.__objects
+        if search_class == None:
+            return self.__objects
+        else:
+            class_name = search_class.__name__
+            objects_of_class = {}
+            for (key, value) in self.__objects.items():
+                if key.find(class_name) == 0:
+                    objects_of_class.update({key: value})
+            return objects_of_class
 
     def new(self, obj):
         """ adds a new object to the dictionary object with
@@ -67,8 +73,12 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        # delete obj from __objects if it exist within
-        # if obj=None do nothing
+        if obj == None:
+            return
+        else:
+            key = self.construct_key(obj)
+            if self.__objects.get(key) is not None:
+                self.__objects.pop(key)
 
     def construct_key(self, obj):
         """ helper method to construct key for object dictionary """
