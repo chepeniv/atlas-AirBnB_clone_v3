@@ -85,6 +85,8 @@ FILE: `models/engine/file_storage.py`
 
 ## task 6 - dbstorage - states and cities
 
+FILES: `base_model.py`, `city.py`, `state.py`, `models/engine/db_storage.py`, and `models/__init__.py`
+
 ![database schema](../assets/AtlasAirBnB-DB-Schema.jpg)
 
 here we will transition from `FileStorage` to `DBStorage`.
