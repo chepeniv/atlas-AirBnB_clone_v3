@@ -22,6 +22,8 @@ class FileStorage:
 
     def all(self):
         """ returns a dictionary of objects """
+        # restructure signature to `def all(self, cls=None)
+        # to return a list of objects belonging to the class cls
         return self.__objects
 
     def new(self, obj):
@@ -63,6 +65,10 @@ class FileStorage:
 
         except FileNotFoundError:
             pass
+
+    def delete(self, obj=None):
+        # delete obj from __objects if it exist within
+        # if obj=None do nothing
 
     def construct_key(self, obj):
         """ helper method to construct key for object dictionary """
