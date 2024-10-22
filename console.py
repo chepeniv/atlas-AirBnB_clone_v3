@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-""" this is the launch point of our CLI
+"""
+this is the launch point of our CLI
 which imports and customize the cmd.Cmd class
 """
 
@@ -34,6 +35,7 @@ class HBNBCommand(cmd.Cmd):
         # update to accept input form :
         # create ClassName keyA="valueA" keyB="valueB" ...
         # values will be deliniated by underscores
+        # allow quote escape with \
         # internally replace these with spaces
         # a number with a dot is a floats, without one it is an int
         # uninterpretable key-value args must be skipped
@@ -42,14 +44,15 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
             return
-        elif args[0] not in model_classes.keys():
-            print("** class doesn't exist **")
-            return
         else:
-            model_class = model_classes.get(args[0])
-            new_obj = model_class()
-            new_obj.save()
-            print(new_obj.id)
+            model_class = globals().get(args[0])
+            if model_class is None:
+                print("** class doesn't exist **")
+                return
+            else: 
+                new_obj = model_class()
+                new_obj.save()
+                print(new_obj.id)
 
     def do_show(self, args):
         'outputs representation of an instance given the class name and id'
@@ -81,7 +84,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             class_given = args.split()
             class_given = class_given[0]
-            if class_given in model_classes.keys():
+            model_class = globals().get(class_given)
+            if model_class is not None:
                 for key, value in models.storage.all().items():
                     if key.startswith(class_given):
                         obj_list.append(str(value))
@@ -162,11 +166,12 @@ class HBNBCommand(cmd.Cmd):
         args = args.split()
         class_name = args[0] if len(args) > 0 else None
         id_num = args[1] if len(args) > 1 else None
+        model_class = globals().get(class_name)
 
         if class_name is None:
             print('** class name missing **')
             return None
-        elif class_name not in model_classes.keys():
+        elif model_class is None:
             print("** class doesn't exist **")
             return None
         elif id_num is None:
