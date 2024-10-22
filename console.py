@@ -22,17 +22,6 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'
-        # update to accept input of the form :
-        # create ClassName keyA="valueA" keyB="valueB" ...
-        #
-        # values will be deliniated by underscores
-        # internally replace these with spaces
-        #
-        # allow quote escape with \
-        # a number with a dot is a floats, without one it is an int
-        #
-        # uninterpretable key-value args must be skipped
-        # tested using FileStorage
         args = arg.split()
         if len(args) == 0:
             print("** class name missing **")
@@ -44,8 +33,8 @@ class HBNBCommand(cmd.Cmd):
                 return
             else: 
                 new_obj = model_class()
-                #### new code here ####
                 new_obj.save()
+                self.process_key_value_pairs(new_obj, args)
                 print(new_obj.id)
 
     def do_show(self, args):
@@ -87,7 +76,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
 
-        print(obj_list)
+        for obj in obj_list:
+            print(obj)
+            print("----------------")
 
     def do_update(self, arg):
         """ updates the instance given by class_name and id.
@@ -178,6 +169,45 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
                 return None
             return instance
+
+    def process_key_value_pairs(self, new_obj, key_value_list):
+        """
+        parse arguments passed and set values accordingly
+        """
+        # create ClassName keyA="valueA" keyB="valueB" ...
+        # allow quote escape with \
+        # a number with a dot is a floats, without one it is an int
+
+        key_value_dict = {} # a dictionary
+        for key_value in key_value_list:
+            try:
+                (key, value) = key_value.split("=")
+                if (value.startswith('"')
+                    and value.endswith('"')):
+                    value = value.replace("_", " ")
+                    print(key, ": ", value)
+                elif (number := self.string_to_number(value)) is not None:
+                    print("value is {}".format(type(number)))
+                else:
+                    continue
+                # with open(os.devnull, 'w') as devnull, 
+                #       contextlib.redirect_stdout(devnull):
+                #       print("will not be output")
+            except ValueError:
+                continue
+
+    def string_to_number(self, num_string):
+        if num_string.count(".") == 1:
+            try:
+                number = float(num_string)
+            except ValueError:
+                return None
+        else:
+            try:
+                number = int(num_string)
+            except ValueError:
+                return None
+        return number
 
 
 if __name__ == '__main__':
