@@ -131,7 +131,6 @@ create `Base = declarative_base()` before `class BaseMode`.
 - `State`:
 	- `__tablename__` represents the table name `states`
 	- `name` - string of 128 chars, can't be null
-	- `state_id` 60 char, not null, foreign key to `state.id`
 	- in `DBStorage` :
 		- `cities` attribute must represent a relationship with class `Cities`
 		- if a `State` object is deleted, then all linked `City` must be deleted as well

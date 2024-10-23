@@ -7,8 +7,18 @@ from uuid import uuid4
 
 
 class BaseModel:
+    # id : 60 char, unique, not null, primary key
+    # created_at : datetime, not null, default is datetime.utcnow()
+    # updated_at : datetime, not null, default is datetime.utcnow()
+    #
+    # move models.storage.new(self) from def __init__(...) over to 
+    #       def save(self) and call it just before model.storage.save()
+
+    # add public instance method def delete(self) to remove current instance from models.storage by calling delete()
 
     def __init__(self, *args, **kwargs):
+        # **kwargs to create instance attributes
+        # example: kwargs={ 'name': 'value' } --> self.name = 'value'
         if kwargs:
             self.id = kwargs.get('id')
             created_at = kwargs.get('created_at')
@@ -42,6 +52,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
+        # remove _sa_instance_state from the dictionary recturned if it exist
         obj_dict = self.__dict__.copy()
         obj_dict.update({
             '__class__': self.__class__.__name__,
