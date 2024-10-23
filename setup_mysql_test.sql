@@ -8,7 +8,7 @@ CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
 GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
 
 -- grant priveleges for user on schema db
-GRANT SELECT PRIVILEGES ON performance_schema.* TO 'hbnb_test'@'localhost';
+GRANT SELECT ON PRIVILEGES ON performance_schema.* TO 'hbnb_test'@'localhost';
 
 -- push priveleges
 FLUSH PRIVILEGES;
