@@ -70,9 +70,9 @@ class DBStorage:
 
     def save(self):
         """
+        save all changes onto to the database
         """
-        # commit all changes from self.__session
-        pass
+        self.__session.commit()
 
     def reload(self):
         """
@@ -89,11 +89,15 @@ class DBStorage:
         remove the given object from __objects if it exist within
         if nothing is given do nothing
         """
-        # if not None, delete obj from self.__session
         if obj == None:
             return
         else:
-            pass
+            ObjClass = type(obj)
+            (self
+             .__session
+             .query(ObjClass)
+             .filter(ObjClass.id == obj.id)
+             .delete(synchronize_session=False))
 
     def construct_key(self, obj):
         """

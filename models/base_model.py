@@ -10,8 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base() 
 
 class BaseModel:
-    identity = Column(
-            "id",
+    id = Column(
             String(60),
             Primary_key=True, # implies uniqueness
             nullable=False

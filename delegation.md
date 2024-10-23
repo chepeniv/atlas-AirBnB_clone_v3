@@ -1,6 +1,6 @@
 # delegation
 
-if need be, add more subtask for any issues that arise 
+add more subtask for any issues that arise 
 
 - [x] task0 - fork
 
@@ -15,7 +15,7 @@ if need be, add more subtask for any issues that arise
 
 - [x] task5 - delete object - **chepe**
 
-- [~] task6 - dbstorage states and cities - **chepe**
+- [ ] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
 	- [ ] update `models/base_model.py`
 		- [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
@@ -25,7 +25,7 @@ if need be, add more subtask for any issues that arise
 		- [ ] `new(self, obj)`
 		- [ ] `save(self)`
 		- [ ] `reload(self)`
-		- [ ] `delete(self, obj=None)`
+		- [x] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
 	- [ ] update `models/city.py`
 
