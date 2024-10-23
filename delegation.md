@@ -15,11 +15,17 @@ if need be, add more subtask for any issues that arise
 
 - [x] task5 - delete object - **chepe**
 
-- [ ] task6 - dbstorage states and cities - **chepe**
+- [~] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
 	- [ ] update `models/base_model.py`
-        - [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
+		- [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
 	- [ ] create new engine `models/engine/db_storage.py`
+		- [x] `__init__(self)`
+		- [ ] `all(self, cls=None)`
+		- [ ] `new(self, obj)`
+		- [ ] `save(self)`
+		- [ ] `reload(self)`
+		- [ ] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
 	- [ ] update `models/city.py`
 

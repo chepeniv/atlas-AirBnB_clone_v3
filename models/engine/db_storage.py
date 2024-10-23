@@ -8,7 +8,7 @@ our web service
 import os
 import sqlalchemy
 import importlib
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -16,35 +16,37 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 from datetime import datetime
-# import sys
-# import MySQLdb
-# from sqlalchemy import create_engine, Column, Integer, String
-# from sqlalchemy.orm import sessionmaker
-# from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
-# use python-object_relational_mapping/ as reference
 class DBStorage:
     # __objects = {}
     __engine = None
     __session = None
-    __environment_var_names = [
-            'HBNB_MYSQL_USER',
-            'HBNB_MYSQL_PWD',
-            'HBNB_MYSQL_HOST', # default localhost
-            'HBNB_MYSQL_DB'
-            ]
 
     def __init__(self):
-        # creat self.__engine linked to hbnb_dev user and hbnb_dev_db
-        #       dialect: mysql, driver: mysqldb
-        # retrieve environmnent variables
-        # when calling create_engine() set pool_pre_ping=True
-        # if HBNB_ENV == test, drop all tables (before loading any data ??)
-        pass
+        env = os.environ.get('HBNB_ENV')
+        env_user = os.environ.get('HBNB_MYSOL_USER', 'hbnb_dev')
+        env_user_pwd = os.environ.get('HBNB_MYSOL_PWD', 'hbnb_dev_pwd')
+        env_host = os.environ.get('HBNB_MYSOL_HOST', 'localhost')
+        env_db = os.environ.get('HBNB_MYSOL_DB', 'hbnb_dev_db')
+
+        db_url = "mysql+mysqldb://{}:{}@{}/{}".format(
+                env_user, env_user_pwd, env_host, env_db)
+        self.__engine = create_engine(db_url, pool_pre_ping=True)
+        # all classes that inherit from Base must be imported calling create_all()
+        Base.metadata.create_all(self.__engine)
+        Session = sessionmaker(self.__engine)
+        if env == "test":
+            Base.metadata.drop_all(self.__engine)
+        self.__session = Session()
+
 
     def all(self, search_class=None):
-        """ returns a dictionary of objects """
+        """
+        returns a dictionary of objects based on the class given
+        """
         # query self.__session to extract all objects of the class search_class
         # return a dictionary (like that of FileStorage)
         #       with elements of the form <class>.<id>: <object>
@@ -59,19 +61,22 @@ class DBStorage:
             return objects_of_class
 
     def new(self, obj):
-        """ adds a new object to the dictionary object with
+        """
+        adds a new object to the dictionary object with
         the key string <class>.<id>
         """
         # add obj to self.__session
         pass
 
     def save(self):
-        """ serializes objects into a json file """
+        """
+        """
         # commit all changes from self.__session
         pass
 
     def reload(self):
-        """Deserializes objects from a JSON file."""
+        """
+        """
         # create all tables in the database (sqlalchemy)
         # ALL classes that inherit from Base MUST be imported before calling Base.metadata.create_all(engine)
         # create self.__session from self.__engine using sessionmaker
@@ -91,5 +96,7 @@ class DBStorage:
             pass
 
     def construct_key(self, obj):
-        """ helper method to construct key for object dictionary """
+        """
+        helper method to construct key for object dictionary
+        """
         return type(obj).__name__ + "." + obj.id
