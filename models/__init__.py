@@ -1,10 +1,14 @@
 #!/usr/bin/python3
 
-import models.engine.file_storage as fs
+import os
 
-# add conditional on HBNB_TYPE_STORAGE
-# if equal to db,
-#       import DBStorage
-#       execute storage.reload()
+
+storage_type = os.environ['HBNB_TYPE_STORAGE']
+
+if storage_type == 'db':
+    import models.engine.DBStorage as fs
+else:
+    import models.engine.file_storage as fs
+
 storage = fs.FileStorage()
 storage.reload()
