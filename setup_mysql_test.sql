@@ -12,3 +12,6 @@ GRANT SELECT PRIVILEGES ON performance_schema.* TO 'hbnb_test'@'localhost';
 
 -- push priveleges
 FLUSH PRIVILEGES;
+
+-- show grants for user
+SHOW GRANTS FOR 'hbnb_test'@'localhost';
