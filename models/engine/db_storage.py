@@ -17,13 +17,14 @@ from models.amenity import Amenity
 from models.review import Review
 from datetime import datetime
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 
 class DBStorage:
     # __objects = {}
     __engine = None
     __session = None
+    __session_generator = None
 
     def __init__(self):
         env = os.environ.get('HBNB_ENV')
@@ -37,10 +38,10 @@ class DBStorage:
         self.__engine = create_engine(db_url, pool_pre_ping=True)
         # all classes that inherit from Base must be imported calling create_all()
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(self.__engine)
+        self.__session_generator = sessionmaker(self.__engine, expire_on_commit=False)
         if env == "test":
             Base.metadata.drop_all(self.__engine)
-        self.__session = Session()
+        self.__session = self.__session_generator()
 
 
     def all(self, search_class=None):
@@ -65,8 +66,9 @@ class DBStorage:
         adds a new object to the dictionary object with
         the key string <class>.<id>
         """
-        # add obj to self.__session
-        pass
+        # this might just be enough, since obj would 
+        # presumably already be mapped to the database table
+        self.__session.add(obj)
 
     def save(self):
         """
@@ -78,11 +80,11 @@ class DBStorage:
         """
         """
         # create all tables in the database (sqlalchemy)
-        # ALL classes that inherit from Base MUST be imported before calling Base.metadata.create_all(engine)
-        # create self.__session from self.__engine using sessionmaker
-        #       expire_on_commit=False
-        #       set scope_session to ensure the session is thread-safe
-        pass
+        # use Session.refresh() ?
+        self.__session.close()
+        Base.metadata.create_all(self.__engine)
+        new_session = scoped_session(self.__session_generator)
+        self.__session = new_session()
 
     def delete(self, obj=None):
         """

@@ -22,8 +22,8 @@ add more subtask for any issues that arise
 	- [ ] create new engine `models/engine/db_storage.py`
 		- [x] `__init__(self)`
 		- [ ] `all(self, cls=None)`
-		- [ ] `new(self, obj)`
-		- [ ] `save(self)`
+		- [x] `new(self, obj)`
+		- [x] `save(self)`
 		- [ ] `reload(self)`
 		- [x] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
