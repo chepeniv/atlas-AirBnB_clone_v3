@@ -4,6 +4,9 @@ this module handles the mysql database storage backend of
 our web service
 """
 
+
+import os
+import sqlalchemy
 import importlib
 from models.base_model import BaseModel
 from models.user import User
@@ -13,35 +16,38 @@ from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
 from datetime import datetime
+# import sys
+# import MySQLdb
+# from sqlalchemy import create_engine, Column, Integer, String
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy.ext.declarative import declarative_base
 
 
-# import sqlalchemy
-# import MySQLdb ?
 # use python-object_relational_mapping/ as reference
 class DBStorage:
-    # create private class attributes:
-    # __engine = None
-    # __session = None
-    __file_path = "file.json"
-    __objects = {}
+    # __objects = {}
+    __engine = None
+    __session = None
+    __environment_var_names = [
+            'HBNB_MYSQL_USER',
+            'HBNB_MYSQL_PWD',
+            'HBNB_MYSQL_HOST', # default localhost
+            'HBNB_MYSQL_DB'
+            ]
 
-    # create public class methods:
-    # __init__(self)
-    #       create engine self.engine 
-    #           linked to hbnb_dev user and hbnb_dev_db
-    #       retrieve environmnent variables
-    #           HBNB_MYSQL_USER
-    #           HBNB_MYSQL_PWD
-    #           HBNB_MYSQL_HOST default localhost ?
-    #           HBNB_MYSQL_DB
-    #       when calling create_engine() set pool_pre_ping=True
-    #       if HBNB_ENV == test, drop all tables (afterwards ?)
+    def __init__(self):
+        # creat self.__engine linked to hbnb_dev user and hbnb_dev_db
+        #       dialect: mysql, driver: mysqldb
+        # retrieve environmnent variables
+        # when calling create_engine() set pool_pre_ping=True
+        # if HBNB_ENV == test, drop all tables (before loading any data ??)
+        pass
 
     def all(self, search_class=None):
         """ returns a dictionary of objects """
         # query self.__session to extract all objects of the class search_class
-        # if search_class=None return all objects
-        # elements must be in the form <class>.<id>: <object>
+        # return a dictionary (like that of FileStorage)
+        #       with elements of the form <class>.<id>: <object>
         if search_class == None:
             return self.__objects
         else:
@@ -57,24 +63,12 @@ class DBStorage:
         the key string <class>.<id>
         """
         # add obj to self.__session
-        key = self.construct_key(obj)
-        self.__objects.update({key: obj})
+        pass
 
     def save(self):
         """ serializes objects into a json file """
-        # commit all changes to self.__session
-        decomposed = {}
-        for key, obj in self.__objects.items():
-            obj_dict = obj.to_dict()
-            decomposed.update({key: obj_dict})
-
-        json_string = json.dumps(decomposed)
-        try:
-            json_file = open(self.__file_path, "w")
-            json_file.write(json_string)
-            json_file.close()
-        except FileNotFoundError:
-            pass
+        # commit all changes from self.__session
+        pass
 
     def reload(self):
         """Deserializes objects from a JSON file."""
@@ -83,21 +77,7 @@ class DBStorage:
         # create self.__session from self.__engine using sessionmaker
         #       expire_on_commit=False
         #       set scope_session to ensure the session is thread-safe
-        try:
-            json_file = open(self.__file_path, 'r')
-            json_data = json_file.read()
-            json_file.close()
-            extracted_data = json.loads(json_data)
-
-            for key, value in extracted_data.items():
-                model_class = value['__class__']
-                model_class = globals().get(model_class)
-                if model_class is not None:
-                    obj = model_class(**value)
-                    self.__objects.update({key: obj})
-
-        except FileNotFoundError:
-            pass
+        pass
 
     def delete(self, obj=None):
         """
@@ -108,9 +88,7 @@ class DBStorage:
         if obj == None:
             return
         else:
-            key = self.construct_key(obj)
-            if self.__objects.get(key) is not None:
-                self.__objects.pop(key)
+            pass
 
     def construct_key(self, obj):
         """ helper method to construct key for object dictionary """
