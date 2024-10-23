@@ -9,9 +9,9 @@ add more subtask for any issues that arise
 
 - [x] task2 - console improvements - **chepe**
 
-- [ ] task3 - mysql setup dev - **Ariel**
+- [x] task3 - mysql setup dev - **Ariel**
 
-- [ ] task4 - mysql setup test - **Ariel**
+- [x] task4 - mysql setup test - **Ariel**
 
 - [x] task5 - delete object - **chepe**
 
