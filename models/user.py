@@ -5,19 +5,20 @@
 # also importing base from file base_model in models folder
 
 from sqlalchemy import Column, String
+from sqlalchemy.orm import relationships
 import models.base_model as basemodel, Base
 
 # Ariel - base inherited, kept syntax from chepe
 class User(basemodel.BaseModel, base.BaseModel):
     # Ariel - class attributes
-    __tablename_ = users
+    __tablename__ = "users"
     
     # Ariel - using column containing a string with 128 char
     # email and password cannot be name, where as first and last name can be null
     
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
-    first_name = Column(String(128), nullable=True)
+    first_name = Column(String(128"), nullable=True)
     last_name = Column(String(128), nullable=True)
     
     ####################
@@ -36,3 +37,10 @@ class User(basemodel.BaseModel, base.BaseModel):
             self.password = ""
             self.first_name = ""
             self.last_name = ""
+
+######## ARIEL
+# Relationship that represents attribute place with class place
+# and Cities also if user is deleted linked place are automatically deleted
+# unfinished and syntax needs to be changed, add declarativeBase and Mapped
+
+places = relationship("Place", )
