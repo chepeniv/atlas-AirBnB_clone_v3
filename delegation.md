@@ -17,8 +17,9 @@ if need be, add more subtask for any issues that arise
 
 - [ ] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
-	- [ ] create new engine `models/engine/db_storage.py`
 	- [ ] update `models/base_model.py`
+        - [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
+	- [ ] create new engine `models/engine/db_storage.py`
 	- [ ] update `models/state.py`
 	- [ ] update `models/city.py`
 

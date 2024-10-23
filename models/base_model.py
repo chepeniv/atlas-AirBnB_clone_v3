@@ -1,26 +1,37 @@
 #!/usr/bin/python3
 
-
 import models
-from datetime import datetime, time
+from datetime import datetime
 from uuid import uuid4
+from sqlalchemy import Column, DateTime, String
+from sqlalchemy.ext.declarative import declarative_base
 
+
+Base = declarative_base() 
 
 class BaseModel:
-    # id : 60 char, unique, not null, primary key
-    # created_at : datetime, not null, default is datetime.utcnow()
-    # updated_at : datetime, not null, default is datetime.utcnow()
-    #
-    # move models.storage.new(self) from def __init__(...) over to 
-    #       def save(self) and call it just before model.storage.save()
+    identity = Column(
+            "id",
+            String(60),
+            Primary_key=True, # implies uniqueness
+            nullable=False
+            )
 
-    # add public instance method def delete(self) to remove current instance from models.storage by calling delete()
+    # default value on DateTime types might simply be enforced by __init__
+    created_at = Column(
+            DateTime,
+            nullable=False
+            )
+
+    updated_at = Column(
+            DateTime,
+            nullable=False
+            )
 
     def __init__(self, *args, **kwargs):
-        # **kwargs to create instance attributes
-        # example: kwargs={ 'name': 'value' } --> self.name = 'value'
+        # kwargs={ 'name': 'value' } --> self.name = 'value'
         if kwargs:
-            self.id = kwargs.get('id')
+            self.id = kwargs.geat('id')
             created_at = kwargs.get('created_at')
             updated_at = kwargs.get('updated_at')
 
@@ -39,16 +50,19 @@ class BaseModel:
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            models.storage.new(self)
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
 
     def __str__(self):
         obj_str = "[{}] ({}) {}"
         return obj_str.format(type(self).__name__, self.id, self.__dict__)
 
+    def delete(self):
+        models.storage.delete(self)
+
     def save(self):
         self.updated_at = datetime.now()
+        models.storage.new(self)
         models.storage.save()
 
     def to_dict(self):
