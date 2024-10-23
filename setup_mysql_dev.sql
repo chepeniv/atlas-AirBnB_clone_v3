@@ -6,3 +6,5 @@ CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
 GRANT ALL ON hbnb_dev_db.* TO 'hbnb_dev'@'localhost';
 -- Ariel: grant select priveleges only on performance_schema database
 GRANT SELECT ON performance_schema.* TO 'hbnb_dev'@'localhost';
+-- push priveleges
+FLUSH PRIVELEGES;
