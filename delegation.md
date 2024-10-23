@@ -7,7 +7,6 @@ if need be, add more subtask for any issues that arise
 - [ ] task1 - bug free
 	- **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
-	- [ ] subcheck placeholder
 
 - [x] task2 - console improvements
 	- **chepe**
@@ -23,6 +22,11 @@ if need be, add more subtask for any issues that arise
 
 - [ ] task6 - dbstorage states and cities
 	- **chepe**
+	- [x] update `models/__init__.py`
+	- [ ] create new engine `models/engine/db_storage.py`
+	- [ ] update `models/base_model.py`
+	- [ ] update `models/state.py`
+	- [ ] update `models/city.py`
 
 - [ ] task7 - dbstorage user
 	- **Ariel**
