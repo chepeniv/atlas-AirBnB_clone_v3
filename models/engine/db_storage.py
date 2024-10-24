@@ -20,11 +20,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
+# all classes that inherit from Base must be imported calling create_all()
 class DBStorage:
     # __objects = {}
     __engine = None
     __session = None
     __session_generator = None
+    __db_url = None
 
     def __init__(self):
         env = os.environ.get('HBNB_ENV')
@@ -33,12 +35,13 @@ class DBStorage:
         env_host = os.environ.get('HBNB_MYSOL_HOST', 'localhost')
         env_db = os.environ.get('HBNB_MYSOL_DB', 'hbnb_dev_db')
 
-        db_url = "mysql+mysqldb://{}:{}@{}/{}".format(
+        self.__db_url = "mysql+mysqldb://{}:{}@{}/{}".format(
                 env_user, env_user_pwd, env_host, env_db)
-        self.__engine = create_engine(db_url, pool_pre_ping=True)
-        # all classes that inherit from Base must be imported calling create_all()
+
+        self.__engine = create_engine(self.__db_url, pool_pre_ping=True)
         Base.metadata.create_all(self.__engine)
         self.__session_generator = sessionmaker(self.__engine, expire_on_commit=False)
+        self.__session_generator = scoped_session(self.__session_generator)
         if env == "test":
             Base.metadata.drop_all(self.__engine)
         self.__session = self.__session_generator()
@@ -81,10 +84,12 @@ class DBStorage:
         """
         # create all tables in the database (sqlalchemy)
         # use Session.refresh() ?
-        self.__session.close()
+        try: 
+            self.__session.close()
+        raise InvalidRequestError:
+            pass
         Base.metadata.create_all(self.__engine)
-        new_session = scoped_session(self.__session_generator)
-        self.__session = new_session()
+        self.__session = self.__session_generator()
 
     def delete(self, obj=None):
         """

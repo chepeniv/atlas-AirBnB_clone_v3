@@ -24,7 +24,7 @@ add more subtask for any issues that arise
 		- [ ] `all(self, cls=None)`
 		- [x] `new(self, obj)`
 		- [x] `save(self)`
-		- [ ] `reload(self)`
+		- [x] `reload(self)`
 		- [x] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
 	- [ ] update `models/city.py`
