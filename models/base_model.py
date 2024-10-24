@@ -7,7 +7,7 @@ from sqlalchemy import Column, DateTime, String
 from sqlalchemy.ext.declarative import declarative_base
 
 
-Base = declarative_base() 
+Base = declarative_base()
 
 class BaseModel:
     id = Column(
@@ -28,9 +28,8 @@ class BaseModel:
             )
 
     def __init__(self, *args, **kwargs):
-        # kwargs={ 'name': 'value' } --> self.name = 'value'
         if kwargs:
-            self.id = kwargs.geat('id')
+            self.id = kwargs.get('id')
             created_at = kwargs.get('created_at')
             updated_at = kwargs.get('updated_at')
 
@@ -45,7 +44,7 @@ class BaseModel:
                 self.updated_at = datetime.now()
 
             for key, value in kwargs.items():
-                if key not in ['__class__', 'id', 'created_at', 'updated_at']:
+                if key not in ['id', 'created_at', 'updated_at']:
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())

@@ -1,6 +1,6 @@
 # delegation
 
-add more subtask for any issues that arise 
+add more subtask for any issues that arise
 
 - [x] task0 - fork
 
@@ -17,9 +17,9 @@ add more subtask for any issues that arise
 
 - [ ] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
-	- [ ] update `models/base_model.py`
-		- [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
-	- [ ] create new engine `models/engine/db_storage.py`
+	- [x] update `models/base_model.py`
+		- [x] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
+	- [x] create new engine `models/engine/db_storage.py`
 		- [x] `__init__(self)`
 		- [x] `all(self, cls=None)`
 		- [x] `new(self, obj)`
@@ -27,6 +27,7 @@ add more subtask for any issues that arise
 		- [x] `reload(self)`
 		- [x] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
+		- [ ] implement storage-dependent behavior
 	- [ ] update `models/city.py`
 
 - [ ] task7 - dbstorage user - **Ariel**
