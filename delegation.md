@@ -36,5 +36,5 @@ add more subtask for any issues that arise
 
 - [ ] task9 - dbstorage review - **Ariel**
 
-- [ ] task10 - dbstorage amenity - **chepe**
+- [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
 

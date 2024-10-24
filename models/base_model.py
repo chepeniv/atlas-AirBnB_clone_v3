@@ -10,6 +10,8 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
+    storage = models.storage
+
     id = Column(
             String(60),
             Primary_key=True, # implies uniqueness
@@ -64,7 +66,7 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        # remove _sa_instance_state from the dictionary recturned if it exist
+        # remove _sa_instance_state from the dictionary returned if it exist
         obj_dict = self.__dict__.copy()
         obj_dict.update({
             '__class__': self.__class__.__name__,
