@@ -3,24 +3,22 @@
 City class that inherits from BaseModel
 """
 
-from models.base_model import BaseModel
+from models import storage_type
+from models.base_model import BaseModel, Base
+from sqlalchemy import ForeignKey, Column, String
 
 
-# inherit from BaseModel and then from Base
-class City(BaseModel):
+class City(BaseModel, Base):
     """
     City class that inherits from BaseModel
     Public class attributes:
         state_id: string - empty string: it will be the State.id
         name: string - empty string
     """
-    # __tablename__ = "cities"
-    # name : 128 chars, not null
-    # state_id : 60 chars, not null, foreign key to state.id
+    __tablename__ = "cities"
+
+    name = Column(String(128), nullable=False)
+    state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
+
     def __init__(self, *args, **kwargs):
-        if kwargs:
-            super().__init__(*args, **kwargs)
-        else:
-            super().__init__()
-            self.state_id = ""
-            self.name = ""
+        super().__init__(*args, **kwargs)

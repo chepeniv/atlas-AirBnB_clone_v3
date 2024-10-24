@@ -28,7 +28,7 @@ add more subtask for any issues that arise
 		- [x] `delete(self, obj=None)`
 	- [ ] update `models/state.py`
 		- [ ] implement storage-dependent behavior
-	- [ ] update `models/city.py`
+	- [x] update `models/city.py`
 
 - [ ] task7 - dbstorage user - **Ariel**
 
