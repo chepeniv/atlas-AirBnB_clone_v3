@@ -11,7 +11,7 @@ import models.base_model as basemodel, Base
 # Ariel - base inherited, kept syntax from chepe
 class User(basemodel.BaseModel, base.BaseModel):
     # Ariel - class attributes
-    __tablename__ = "users"
+    __tablename__ = 'users'
     
     # Ariel - using column containing a string with 128 char
     # email and password cannot be name, where as first and last name can be null
