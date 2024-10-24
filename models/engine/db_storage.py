@@ -6,8 +6,9 @@ our web service
 
 
 import os
-import sqlalchemy
-import importlib
+from datetime import datetime
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import BaseModel, Base
 from models.user import User
 from models.state import State
@@ -15,11 +16,9 @@ from models.city import City
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
-from datetime import datetime
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
 
 
+models = (User, State, City, Place, Amenity, Review)
 # all classes that inherit from Base must be imported calling create_all()
 class DBStorage:
     # __objects = {}
@@ -40,29 +39,28 @@ class DBStorage:
 
         self.__engine = create_engine(self.__db_url, pool_pre_ping=True)
         Base.metadata.create_all(self.__engine)
-        self.__session_generator = sessionmaker(self.__engine, expire_on_commit=False)
+        self.__session_generator = sessionmaker(
+                self.__engine, expire_on_commit=False)
         self.__session_generator = scoped_session(self.__session_generator)
         if env == "test":
             Base.metadata.drop_all(self.__engine)
         self.__session = self.__session_generator()
 
-
     def all(self, search_class=None):
         """
         returns a dictionary of objects based on the class given
         """
-        # query self.__session to extract all objects of the class search_class
-        # return a dictionary (like that of FileStorage)
-        #       with elements of the form <class>.<id>: <object>
+        # call self.save() first?
+        results = {}
         if search_class == None:
-            return self.__objects
+            for table in models:
+                query = self.__session.query(table)
+                query = construct_dict(query)
+                results.append(query)
+            return results
         else:
-            class_name = search_class.__name__
-            objects_of_class = {}
-            for (key, value) in self.__objects.items():
-                if key.find(class_name) == 0:
-                    objects_of_class.update({key: value})
-            return objects_of_class
+            query = self.__session.query(search_class)
+            return construct_dict(query)
 
     def new(self, obj):
         """
@@ -81,13 +79,14 @@ class DBStorage:
 
     def reload(self):
         """
+        expire session and reload a new one
         """
-        # create all tables in the database (sqlalchemy)
-        # use Session.refresh() ?
         try: 
             self.__session.close()
         raise InvalidRequestError:
             pass
+        # create all tables in the database (sqlalchemy)
+        # use Session.refresh() ?
         Base.metadata.create_all(self.__engine)
         self.__session = self.__session_generator()
 
@@ -111,3 +110,10 @@ class DBStorage:
         helper method to construct key for object dictionary
         """
         return type(obj).__name__ + "." + obj.id
+
+    def construct_dict(self, query_records):
+        dictionary = {}
+        for entry in query_records:
+            key = construct_key(entry)
+            dictionary.update({key: entry})
+        return dictionary

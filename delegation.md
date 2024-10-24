@@ -21,7 +21,7 @@ add more subtask for any issues that arise
 		- [ ] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
 	- [ ] create new engine `models/engine/db_storage.py`
 		- [x] `__init__(self)`
-		- [ ] `all(self, cls=None)`
+		- [x] `all(self, cls=None)`
 		- [x] `new(self, obj)`
 		- [x] `save(self)`
 		- [x] `reload(self)`
