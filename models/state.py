@@ -6,6 +6,7 @@ State class that inherits from BaseModel
 import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
 
 
 class State(BaseModel, Base):
@@ -26,13 +27,15 @@ class State(BaseModel, Base):
     # def __del__(self):
 
     if models.storage_type == 'db':
-        cities = self.storage.new(City)
-        # cities must represent a relationship with class Cities
-        # if State objects is deleted so must all of its Cities
-        pass
+        cities = relationship('City', cascade='all, delete')
+        # in City maybe ?:
+        # state = relationship('State', back_populates('cities')
     else:
-        # cities should return a list of City objects whose state_id match this
-        #       State.id
-        # getter attr should return a list of City instances such that
-        #       state_id = State.id
-        pass
+        cities = self.__get_cities
+
+    def __get_cities(self)
+        cities = self.storage.all('City')
+        for city in cities:
+            if city.state_id != self.id:
+                cities.pop(city.id)
+        return cities
