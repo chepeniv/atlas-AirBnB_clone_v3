@@ -7,6 +7,7 @@ which imports and customize the cmd.Cmd class
 import os
 import cmd
 import contextlib
+import models
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -32,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
             if model_class is None:
                 print("** class doesn't exist **")
                 return
-            else: 
+            else:
                 new_obj = model_class()
                 self.process_key_value_pairs(new_obj, args)
                 new_obj.save()

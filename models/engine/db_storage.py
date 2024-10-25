@@ -85,7 +85,7 @@ class DBStorage:
         """
         try:
             self.__session.close()
-        raise InvalidRequestError:
+        except InvalidRequestError:
             pass
         # create all tables in the database (sqlalchemy)
         # use Session.refresh() ?

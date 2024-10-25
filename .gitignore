@@ -2,3 +2,4 @@ __pycache__
 file.json
 *.test.py
 *.test.sql
+console_err
