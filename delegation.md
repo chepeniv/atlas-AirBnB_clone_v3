@@ -15,7 +15,7 @@ add more subtask for any issues that arise
 
 - [x] task5 - delete object - **chepe**
 
-- [ ] task6 - dbstorage states and cities - **chepe**
+- [~] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
 	- [x] update `models/base_model.py`
 		- [x] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
@@ -26,9 +26,11 @@ add more subtask for any issues that arise
 		- [x] `save(self)`
 		- [x] `reload(self)`
 		- [x] `delete(self, obj=None)`
-	- [ ] update `models/state.py`
-		- [ ] implement storage-dependent behavior
+	- [x] update `models/state.py`
+		- [x] implement storage-dependent behavior
 	- [x] update `models/city.py`
+	- [ ] get code to work
+	- [ ] fix bugs
 
 - [ ] task7 - dbstorage user - **Ariel**
 
