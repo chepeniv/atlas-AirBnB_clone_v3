@@ -34,7 +34,7 @@ class Place(BaseModel, Base):
     number_of_rooms = Column(Integer, default=0, nullable=False)
     number_of_bathrooms = Column(Integer, default=0, nullable=False)
     max_guest = Column(Integer, default=0, nullable=False)
-    latitude = Column(Float, nullabe=True)
+    latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
 
     def __init__(self, *args, **kwargs):
