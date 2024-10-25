@@ -22,20 +22,17 @@ class State(BaseModel, Base):
     # likely very unnecessary
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if models.storage_type == 'db':
+            cities = relationship('City', cascade='all, delete')
+        else:
+            cities = self.__get_cities
 
-    # unclear whether this should be called regardless of storage engine
-    # def __del__(self):
-
-    if models.storage_type == 'db':
-        cities = relationship('City', cascade='all, delete')
-        # in City maybe ?:
-        # state = relationship('State', back_populates('cities')
-    else:
-        cities = self.__get_cities
-
-    def __get_cities(self)
+    def __get_cities(self):
         cities = self.storage.all('City')
         for city in cities:
             if city.state_id != self.id:
                 cities.pop(city.id)
         return cities
+
+        # in City maybe ?:
+        # state = relationship('State', back_populates('cities')

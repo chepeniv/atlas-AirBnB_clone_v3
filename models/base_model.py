@@ -13,7 +13,7 @@ class BaseModel:
 
     id = Column(
             String(60),
-            Primary_key=True, # implies uniqueness
+            primary_key=True, # implies uniqueness
             nullable=False
             )
 
