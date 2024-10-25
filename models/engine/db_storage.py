@@ -9,7 +9,7 @@ import os
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.user import User
 from models.state import State
 from models.city import City
@@ -67,7 +67,7 @@ class DBStorage:
         adds a new object to the dictionary object with
         the key string <class>.<id>
         """
-        # this might just be enough, since obj would 
+        # this might just be enough, since obj would
         # presumably already be mapped to the database table
         self.__session.add(obj)
 
@@ -81,7 +81,7 @@ class DBStorage:
         """
         expire session and reload a new one
         """
-        try: 
+        try:
             self.__session.close()
         raise InvalidRequestError:
             pass

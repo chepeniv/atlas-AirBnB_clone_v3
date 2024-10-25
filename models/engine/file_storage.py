@@ -4,7 +4,6 @@ this module handles the file storage backend of
 our web service
 """
 
-import importlib
 import json
 from models.base_model import BaseModel
 from models.user import User
