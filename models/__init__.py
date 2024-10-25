@@ -10,5 +10,5 @@ if storage_type == 'db':
 else:
     import models.engine.file_storage as fs
 
-storage = fs.FileStorage()
+storage = fs()
 storage.reload()

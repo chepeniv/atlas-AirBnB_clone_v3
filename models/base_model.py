@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import models
+from models import storage
 from datetime import datetime
 from uuid import uuid4
 from sqlalchemy import Column, DateTime, String
@@ -10,7 +10,6 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
-    storage = models.storage
 
     id = Column(
             String(60),
@@ -58,12 +57,12 @@ class BaseModel:
         return obj_str.format(type(self).__name__, self.id, self.__dict__)
 
     def delete(self):
-        models.storage.delete(self)
+        storage.delete(self)
 
     def save(self):
         self.updated_at = datetime.now()
-        models.storage.new(self)
-        models.storage.save()
+        storage.new(self)
+        storage.save()
 
     def to_dict(self):
         # remove _sa_instance_state from the dictionary returned if it exist
