@@ -6,7 +6,6 @@ which imports and customize the cmd.Cmd class
 
 import os
 import cmd
-import models
 import contextlib
 from models.base_model import BaseModel
 from models.user import User
@@ -181,8 +180,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     continue
                 # print(key, ": ", value, " - ", type(value))
-                with (open(os.devnull, 'w')
-                      as devnull, contextlib.redirect_stdout(devnull)):
+                with open(os.devnull, 'w') as devnull, contextlib.redirect_stdout(devnull):
                     self.update(obj, key, value)
             except ValueError:
                 continue

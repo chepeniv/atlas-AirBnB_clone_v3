@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ user class
 """
-# Ariel- grabbing column and string data types from sqlalchemy 
+# Ariel- grabbing column and string data types from sqlalchemy
 # also importing base from file base_model in models folder
 
 from sqlalchemy import Column, String
