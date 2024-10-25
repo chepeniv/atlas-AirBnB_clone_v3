@@ -13,8 +13,6 @@ import models.base_model as Base
 
 # Ariel - base inherited, kept syntax from chepe
 class User(basemodel, Base):
-    # redefining base
-    Base = declarative_base()
 
     # Ariel - class attributes needed for declarative orm
     __tablename__ = 'users'
