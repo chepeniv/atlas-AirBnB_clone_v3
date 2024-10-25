@@ -10,8 +10,8 @@ export HBNB_MYSQL_HOST=localhost
 export HBNB_MYSQL_DB=hbnb_dev_db
 export HBNB_TYPE_STORAGE=db
 
-cat $HBNB_ROOT/setup_mysql_dev.sql | mysql;
+cat $HBNB_ROOT/setup_mysql_dev.sql | sudo mysql;
 
 $HBNB_SH_TEST_DIR/console_cmds.sh | ./console.py &> $HBNB_SH_TEST_DIR/console_err
 
-cat $HBNB_SH_TEST_DIR/mysql_cmds.sql | mysql
+cat $HBNB_SH_TEST_DIR/mysql_cmds.sql | sudo mysql
