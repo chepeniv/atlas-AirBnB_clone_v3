@@ -20,14 +20,10 @@ class User(basemodel, Base):
     # Ariel - using column containing a string with 128 char
     # email and password cannot be name, where as first and last name can be null
 
-    # id = Column(Integer, primary_key=True)
-    # created_at = Column(Integer, primary_key=True)
-    # updated_at = Column(Integer, primary_key=True)
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
-
 
     # ARIEL
     # create relationship with places to Place using relationship
