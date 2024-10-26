@@ -7,7 +7,7 @@ which imports and customize the cmd.Cmd class
 import os
 import cmd
 import contextlib
-import models
+from models.__init__ import storage
 from models.base_model import BaseModel
 from models.user import User
 from models.state import State
@@ -53,9 +53,9 @@ class HBNBCommand(cmd.Cmd):
         if instance is None:
             return
         else:
-            key = models.storage.construct_key(instance)
-            models.storage.all().pop(key)
-            models.storage.save()
+            key = storage.construct_key(instance)
+            storage.all().pop(key)
+            storage.save()
 
     def do_all(self, args):
         """ outputs string representations for every existing
@@ -64,14 +64,14 @@ class HBNBCommand(cmd.Cmd):
         obj_list = []
 
         if not args:
-            for value in models.storage.all().values():
+            for value in storage.all().values():
                 obj_list.append(str(value))
         else:
             class_given = args.split()
             class_given = class_given[0]
             model_class = globals().get(class_given)
             if model_class is not None:
-                for key, value in models.storage.all().items():
+                for key, value in storage.all().items():
                     if key.startswith(class_given):
                         obj_list.append(str(value))
             else:
@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             return None
         else:
             key = class_name + "." + id_num
-            instance = models.storage.all().get(key)
+            instance = storage.all().get(key)
             if instance is None:
                 print('** no instance found **')
                 return None

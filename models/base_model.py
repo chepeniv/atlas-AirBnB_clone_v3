@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
-from models import storage
 from datetime import datetime
 from uuid import uuid4
 from sqlalchemy import Column, DateTime, String
 from sqlalchemy.ext.declarative import declarative_base
+from models.__init__ import storage
 
 
 Base = declarative_base()

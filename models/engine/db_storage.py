@@ -9,18 +9,8 @@ import os
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base
-'''
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
-'''
 
 
-models = (User, State, City, Place, Amenity, Review)
 # all classes that inherit from Base must be imported calling create_all()
 class DBStorage:
     # __objects = {}
@@ -30,6 +20,7 @@ class DBStorage:
     __db_url = None
 
     def __init__(self):
+        from models import Base
         env = os.environ.get('HBNB_ENV')
         env_user = os.environ.get('HBNB_MYSOL_USER', 'hbnb_dev')
         env_user_pwd = os.environ.get('HBNB_MYSOL_PWD', 'hbnb_dev_pwd')
@@ -49,6 +40,15 @@ class DBStorage:
         self.__session = self.__session_generator()
 
     def all(self, search_class=None):
+
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.review import Review
+        models = (User, State, City, Place, Amenity, Review)
+
         """
         returns a dictionary of objects based on the class given
         """
@@ -57,8 +57,8 @@ class DBStorage:
         if search_class == None:
             for table in models:
                 query = self.__session.query(table)
-                query = construct_dict(query)
-                results.append(query)
+                query = self.construct_dict(query)
+                results.update(query)
             return results
         else:
             query = self.__session.query(search_class)
@@ -80,6 +80,7 @@ class DBStorage:
         self.__session.commit()
 
     def reload(self):
+        from models import Base
         """
         expire session and reload a new one
         """
