@@ -7,15 +7,20 @@ which imports and customize the cmd.Cmd class
 import os
 import cmd
 import contextlib
-from models.__init__ import storage
-from models.base_model import BaseModel
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
+from models import storage
 
+
+def get_model_class(class_name):
+    from models.user import User
+    from models.state import State
+    from models.city import City
+    from models.place import Place
+    from models.amenity import Amenity
+    from models.review import Review
+    class_found = globals().get(class_name)
+    print(globals())
+    print(class_found)
+    return class_found
 
 class HBNBCommand(cmd.Cmd):
     """ our reimplementation of cmd.Cmd
@@ -29,7 +34,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
         else:
-            model_class = globals().get(args[0])
+            model_class = get_model_class(args[0])
             if model_class is None:
                 print("** class doesn't exist **")
                 return
@@ -69,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             class_given = args.split()
             class_given = class_given[0]
-            model_class = globals().get(class_given)
+            model_class = get_model_class(class_given)
             if model_class is not None:
                 for key, value in storage.all().items():
                     if key.startswith(class_given):
@@ -142,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
         args = args.split()
         class_name = args[0] if len(args) > 0 else None
         id_num = args[1] if len(args) > 1 else None
-        model_class = globals().get(class_name)
+        model_class = get_model_class(class_name)
 
         if class_name is None:
             print('** class name missing **')

@@ -4,7 +4,6 @@ from datetime import datetime
 from uuid import uuid4
 from sqlalchemy import Column, DateTime, String
 from sqlalchemy.ext.declarative import declarative_base
-from models.__init__ import storage
 
 
 Base = declarative_base()
@@ -57,9 +56,11 @@ class BaseModel:
         return obj_str.format(type(self).__name__, self.id, self.__dict__)
 
     def delete(self):
+        from models import storage
         storage.delete(self)
 
     def save(self):
+        from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()

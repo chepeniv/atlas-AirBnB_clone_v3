@@ -11,7 +11,36 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
-# all classes that inherit from Base must be imported calling create_all()
+def valid_models():
+    from models.user import User
+    from models.state import State
+    from models.city import City
+    from models.place import Place
+    from models.amenity import Amenity
+    from models.review import Review
+    return {
+            'User': User,
+            'State': State,
+            'City': City,
+            'Place': Place,
+            'Amenity': Amenity,
+            'Review': Review
+            }
+
+def metadata_create_all(engine):
+    '''
+    all classes that inherit from Base must be
+    imported before calling create_all()
+    '''
+    from models.base_model import Base
+    from models.user import User
+    from models.state import State
+    from models.city import City
+    from models.place import Place
+    from models.amenity import Amenity
+    from models.review import Review
+    Base.metadata.create_all(engine)
+
 class DBStorage:
     # __objects = {}
     __engine = None
@@ -20,7 +49,6 @@ class DBStorage:
     __db_url = None
 
     def __init__(self):
-        from models import Base
         env = os.environ.get('HBNB_ENV')
         env_user = os.environ.get('HBNB_MYSOL_USER', 'hbnb_dev')
         env_user_pwd = os.environ.get('HBNB_MYSOL_PWD', 'hbnb_dev_pwd')
@@ -31,23 +59,15 @@ class DBStorage:
                 env_user, env_user_pwd, env_host, env_db)
 
         self.__engine = create_engine(self.__db_url, pool_pre_ping=True)
-        Base.metadata.create_all(self.__engine)
+        metadata_create_all(self.__engine)
         self.__session_generator = sessionmaker(
                 self.__engine, expire_on_commit=False)
         self.__session_generator = scoped_session(self.__session_generator)
         if env == "test":
-            Base.metadata.drop_all(self.__engine)
+            metadata.drop_all(self.__engine)
         self.__session = self.__session_generator()
 
     def all(self, search_class=None):
-
-        from models.user import User
-        from models.state import State
-        from models.city import City
-        from models.place import Place
-        from models.amenity import Amenity
-        from models.review import Review
-        models = (User, State, City, Place, Amenity, Review)
 
         """
         returns a dictionary of objects based on the class given
@@ -55,7 +75,7 @@ class DBStorage:
         # call self.save() first?
         results = {}
         if search_class == None:
-            for table in models:
+            for table in valid_models().values:
                 query = self.__session.query(table)
                 query = self.construct_dict(query)
                 results.update(query)
@@ -80,7 +100,6 @@ class DBStorage:
         self.__session.commit()
 
     def reload(self):
-        from models import Base
         """
         expire session and reload a new one
         """
@@ -90,7 +109,7 @@ class DBStorage:
             pass
         # create all tables in the database (sqlalchemy)
         # use Session.refresh() ?
-        Base.metadata.create_all(self.__engine)
+        metadata_create_all(self.__engine)
         self.__session = self.__session_generator()
 
     def delete(self, obj=None):
