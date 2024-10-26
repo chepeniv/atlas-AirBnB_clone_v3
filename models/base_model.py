@@ -10,6 +10,8 @@ Base = declarative_base()
 
 class BaseModel:
 
+    __table_args__ = {'extend_existing': True}
+
     id = Column(
             String(60),
             primary_key=True, # implies uniqueness

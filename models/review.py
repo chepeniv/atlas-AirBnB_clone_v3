@@ -3,10 +3,11 @@
 Review class that inherits from BaseModel
 """
 
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import ForeignKey, Column, String
 
 
-class Review(BaseModel):
+class Review(BaseModel, Base):
     """
     Review class that inherits from BaseModel
     Public class attributes:
@@ -14,11 +15,11 @@ class Review(BaseModel):
         user_id: string - empty string: it will be the User.id
         text: string - empty string
     """
+    __tablename__ = "reviews"
+
+    text = Column(
+            String(1024),
+            nullable=False)
+
     def __init__(self, *args, **kwargs):
-        if kwargs:
-            super().__init__(*args, **kwargs)
-        else:
-            super().__init__()
-            self.place_id = ""
-            self.user_id = ""
-            self.text = ""
+        super().__init__(*args, **kwargs)

@@ -3,7 +3,6 @@
 City class that inherits from BaseModel
 """
 
-from models import storage_type
 from models.base_model import BaseModel, Base
 from sqlalchemy import ForeignKey, Column, String
 

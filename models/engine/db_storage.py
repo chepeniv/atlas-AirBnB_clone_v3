@@ -9,23 +9,8 @@ import os
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
+from models.engine import valid_models
 
-
-def valid_models():
-    from models.user import User
-    from models.state import State
-    from models.city import City
-    from models.place import Place
-    from models.amenity import Amenity
-    from models.review import Review
-    return {
-            'User': User,
-            'State': State,
-            'City': City,
-            'Place': Place,
-            'Amenity': Amenity,
-            'Review': Review
-            }
 
 def metadata_create_all(engine):
     '''
@@ -75,7 +60,7 @@ class DBStorage:
         # call self.save() first?
         results = {}
         if search_class == None:
-            for table in valid_models().values:
+            for table in valid_models().values():
                 query = self.__session.query(table)
                 query = self.construct_dict(query)
                 results.update(query)
