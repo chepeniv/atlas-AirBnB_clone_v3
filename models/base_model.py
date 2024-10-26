@@ -30,8 +30,9 @@ class BaseModel:
             )
 
     def __init__(self, *args, **kwargs):
+        self.id = str(uuid4())
         if kwargs:
-            self.id = kwargs.get('id')
+            #self.id = kwargs.get('id')
             created_at = kwargs.get('created_at')
             updated_at = kwargs.get('updated_at')
 
@@ -49,7 +50,6 @@ class BaseModel:
                 if key not in ['id', 'created_at', 'updated_at']:
                     setattr(self, key, value)
         else:
-            self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
 

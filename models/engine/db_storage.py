@@ -111,6 +111,7 @@ class DBStorage:
              .query(ObjClass)
              .filter(ObjClass.id == obj.id)
              .delete(synchronize_session=False))
+            self.save()
 
     def construct_key(self, obj):
         """
@@ -121,6 +122,6 @@ class DBStorage:
     def construct_dict(self, query_records):
         dictionary = {}
         for entry in query_records:
-            key = construct_key(entry)
+            key = self.construct_key(entry)
             dictionary.update({key: entry})
         return dictionary

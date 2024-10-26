@@ -28,8 +28,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                new_obj = model_class()
-                self.process_key_value_pairs(new_obj, args)
+                key_value_dict = self.process_key_value_pairs(args[1:])
+                new_obj = model_class(**key_value_dict)
                 new_obj.save()
                 print(new_obj.id)
 
@@ -47,9 +47,10 @@ class HBNBCommand(cmd.Cmd):
         if instance is None:
             return
         else:
-            key = storage.construct_key(instance)
-            storage.all().pop(key)
-            storage.save()
+            instance.delete()
+            # key = storage.construct_key(instance)
+            # storage.all().pop(key)
+            # storage.save()
 
     def do_all(self, args):
         """ outputs string representations for every existing
@@ -155,30 +156,24 @@ class HBNBCommand(cmd.Cmd):
                 return None
             return instance
 
-    def process_key_value_pairs(self, obj, key_value_list):
+    def process_key_value_pairs(self, key_value_list):
         """
         parse arguments passed and set values accordingly
+        syntax: create ClassName keyA="valueA" keyB="valueB" ...
         """
-        # create ClassName keyA="valueA" keyB="valueB" ...
-        # allow double quotes with escape \
-        # a number with a dot is a floats, without one it is an int
-
-        key_value_dict = {} # a dictionary
+        key_value_dict = {}
         for key_value in key_value_list:
-            try:
-                (key, value) = key_value.split("=")
-                if (value.startswith('"')
-                    and value.endswith('"')):
-                    value = self.clean_string(value)
-                elif (number := self.string_to_number(value)) is not None:
-                    value = number
-                else:
-                    continue
-                # print(key, ": ", value, " - ", type(value))
-                with open(os.devnull, 'w') as devnull, contextlib.redirect_stdout(devnull):
-                    self.update(obj, key, value)
-            except ValueError:
+            #try:
+            (key, value) = key_value.split("=")
+            if (value.startswith('"')
+                and value.endswith('"')):
+                value = self.clean_string(value)
+            elif (number := self.string_to_number(value)) is not None:
+                value = number
+            else:
                 continue
+            key_value_dict.update({key: value})
+        return key_value_dict
 
     def string_to_number(self, num_string):
         if num_string.count(".") == 1:
