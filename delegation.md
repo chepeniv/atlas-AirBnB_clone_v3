@@ -15,7 +15,7 @@ add more subtask for any issues that arise
 
 - [x] task5 - delete object - **chepe**
 
-- [~] task6 - dbstorage states and cities - **chepe**
+- [x] task6 - dbstorage states and cities - **chepe**
 	- [x] update `models/__init__.py`
 	- [x] update `models/base_model.py`
 		- [x] `kwargs={ 'name': 'value' }` --> `self.name = 'value'`
@@ -29,8 +29,8 @@ add more subtask for any issues that arise
 	- [x] update `models/state.py`
 		- [x] implement storage-dependent behavior
 	- [x] update `models/city.py`
-	- [ ] get code to work
-	- [ ] fix bugs
+	- [x] get code to work
+	- [x] fix bugs
 
 - [ ] task7 - dbstorage user - **Ariel**
 
@@ -40,3 +40,10 @@ add more subtask for any issues that arise
 
 - [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
 
+- [ ] `console.py`
+	- [ ] note: there might need to be some work done here
+
+- [ ] `console_util.py` - **chepe**
+
+- [ ] `file_storage.py` - **chepe**
+	- [ ] get it to work again
