@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear;
 export HBNB_DB_MODE=dev;
 export HBNB_SH_TEST_DIR=$PWD/tests/sh_tests/;
 
