@@ -12,6 +12,23 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    def __init__(self):
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.review import Review
+        self.__classes = {
+                'User':User,
+                'State': State,
+                'City': City,
+                'Place': Place,
+                'Amenity': Amenity,
+                'Review': Review
+                }
+
     def all(self, search_class=None):
         """ returns a dictionary of objects """
         if search_class == None:
@@ -56,7 +73,8 @@ class FileStorage:
 
             for key, value in extracted_data.items():
                 model_class = value['__class__']
-                model_class = self.get_model(model_class)
+                print(model_class)
+                model_class = self.__classes.get(model_class)
                 if model_class is not None:
                     obj = model_class(**value)
                     self.__objects.update({key: obj})
@@ -79,15 +97,3 @@ class FileStorage:
     def construct_key(self, obj):
         """ helper method to construct key for object dictionary """
         return type(obj).__name__ + "." + obj.id
-
-    def get_model(self, model_class):
-        if globals().get(model_class) is None:
-            from models.base_model import BaseModel
-            from models.user import User
-            from models.state import State
-            from models.city import City
-            from models.place import Place
-            from models.amenity import Amenity
-            from models.review import Review
-        return globals().get(model_class)
-
