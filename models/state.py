@@ -15,11 +15,11 @@ class State(BaseModel, Base):
     Public class attributes:
         name: string - empty string
     """
+
     __tablename__ = "states"
 
     name = Column(String(128), nullable=False)
 
-    # likely very unnecessary
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if models.storage_type == 'db':
@@ -33,6 +33,3 @@ class State(BaseModel, Base):
             if city.state_id != self.id:
                 cities.pop(city.id)
         return cities
-
-        # in City maybe ?:
-        # state = relationship('State', back_populates('cities')

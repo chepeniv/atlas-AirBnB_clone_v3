@@ -68,8 +68,8 @@ class BaseModel:
         storage.save()
 
     def to_dict(self):
-        # remove _sa_instance_state from the dictionary returned if it exist
         obj_dict = self.__dict__.copy()
+        obj_dict.pop('_sa_instance_state', None)
         obj_dict.update({
             '__class__': self.__class__.__name__,
             'id': self.id,
