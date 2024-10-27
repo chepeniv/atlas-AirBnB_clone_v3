@@ -31,6 +31,7 @@ add more subtask for any issues that arise
 	- [x] update `models/city.py`
 	- [x] get code to work
 	- [x] fix bugs
+		- [x] fixed `_sa_instance_state` issue
 
 - [ ] task7 - dbstorage user - **Ariel**
 
