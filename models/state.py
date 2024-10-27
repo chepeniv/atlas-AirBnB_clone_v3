@@ -28,11 +28,9 @@ class State(BaseModel, Base):
                 cascade='all, delete')
     else:
         name = ""
-        cities = self.__get_cities
-
-    def __get_cities(self):
-        cities = self.storage.all('City')
-        for city in cities:
-            if city.state_id != self.id:
-                cities.pop(city.id)
-        return cities
+        def cities(self):
+            cities = self.storage.all('City')
+            for city in cities:
+                if city.state_id != self.id:
+                    cities.pop(city.id)
+            return cities
