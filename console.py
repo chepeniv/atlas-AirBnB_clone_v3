@@ -4,9 +4,8 @@ this is the launch point of our CLI
 which imports and customize the cmd.Cmd class
 """
 
-import os
 import cmd
-import contextlib
+from console_util import CmdUtils
 from models import storage
 from models.engine import valid_models
 
@@ -15,6 +14,7 @@ class HBNBCommand(cmd.Cmd):
     """ our reimplementation of cmd.Cmd
     """
     prompt = '(hbnb) '
+    cmd_utils = CmdUtils()
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'
@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                key_value_dict = self.process_key_value_pairs(args[1:])
+                key_value_dict = self.cmd_utils.process_key_value_pairs(args[1:])
                 new_obj = model_class(**key_value_dict)
                 new_obj.save()
                 print(new_obj.id)
@@ -87,14 +87,14 @@ class HBNBCommand(cmd.Cmd):
         if instance is None:
             return
 
-        attr_val = self.parse_attributes(arg)
+        attr_val = self.cmd_utils.parse_attributes(arg)
         if attr_val is None:
             return
 
         attr = attr_val[0]
         value = attr_val[1]
 
-        self.update(instance, attr, value)
+        self.cmd_utils.update(instance, attr, value)
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
@@ -108,30 +108,6 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         pass
-
-    def parse_attributes(self, args):
-        'returns an touple with attribute and value'
-
-        attr = args.split()
-        attr = attr[2] if len(attr) > 2 else None
-        if args.find('"') > 0:
-            value = args.split('"')
-            value = value[1] if len(value) > 1 else None
-        elif args.find("'") > 0:
-            value = args.split("'")
-            value = value[1] if len(value) > 1 else None
-        else:
-            value = args.split()
-            value = value[3] if len(value) > 3 else None
-
-        if attr is None:
-            print('** attribute name missing **')
-            return None
-        elif value is None:
-            print('** value missing **')
-            return None
-        else:
-            return (attr, value)
 
     def get_instance(self, args):
         args = args.split()
@@ -155,58 +131,6 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
                 return None
             return instance
-
-    def process_key_value_pairs(self, key_value_list):
-        """
-        parse arguments passed and set values accordingly
-        syntax: create ClassName keyA="valueA" keyB="valueB" ...
-        """
-        key_value_dict = {}
-        for key_value in key_value_list:
-            #try:
-            (key, value) = key_value.split("=")
-            if (value.startswith('"')
-                and value.endswith('"')):
-                value = self.clean_string(value)
-            elif (number := self.string_to_number(value)) is not None:
-                value = number
-            else:
-                continue
-            key_value_dict.update({key: value})
-        return key_value_dict
-
-    def string_to_number(self, num_string):
-        if num_string.count(".") == 1:
-            try:
-                number = float(num_string)
-            except ValueError:
-                return None
-        else:
-            try:
-                number = int(num_string)
-            except ValueError:
-                return None
-        return number
-
-    def clean_string(self, old_string):
-        new_string = old_string.replace("_", " ")
-        new_string = new_string[1:-1]
-        new_string = new_string.replace('"', '\\"')
-        return new_string
-
-    def update(self, instance, attr, value):
-        if hasattr(instance, attr):
-            attr_type = type(getattr(instance, attr))
-            try:
-                value = attr_type(value)
-            except (ValueError, TypeError):
-                print("** value given could not be typecast correctly **")
-                value = getattr(instance, attr)
-
-            setattr(instance, attr, value)
-            instance.save()
-        else:
-            print("** no such attribute found **")
 
 
 if __name__ == '__main__':
