@@ -5,7 +5,7 @@ which imports and customize the cmd.Cmd class
 """
 
 import cmd
-from console_util import CmdUtils
+from console_util import cmd_utils
 from models import storage
 from models.engine import valid_models
 
@@ -14,7 +14,6 @@ class HBNBCommand(cmd.Cmd):
     """ our reimplementation of cmd.Cmd
     """
     prompt = '(hbnb) '
-    cmd_utils = CmdUtils()
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'
@@ -28,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                key_value_dict = self.cmd_utils.process_key_value_pairs(args[1:])
+                key_value_dict = cmd_utils.process_key_value_pairs(args[1:])
                 new_obj = model_class(**key_value_dict)
                 new_obj.save()
                 print(new_obj.id)
@@ -87,14 +86,14 @@ class HBNBCommand(cmd.Cmd):
         if instance is None:
             return
 
-        attr_val = self.cmd_utils.parse_attributes(arg)
+        attr_val = cmd_utils.parse_attributes(arg)
         if attr_val is None:
             return
 
         attr = attr_val[0]
         value = attr_val[1]
 
-        self.cmd_utils.update(instance, attr, value)
+        cmd_utils.update(instance, attr, value)
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'

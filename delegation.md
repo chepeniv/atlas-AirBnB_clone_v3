@@ -40,10 +40,10 @@ add more subtask for any issues that arise
 
 - [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
 
+- [x] `console_util.py` - **chepe**
+
 - [ ] `console.py`
 	- [ ] note: there might need to be some work done here
-
-- [ ] `console_util.py` - **chepe**
 
 - [ ] `file_storage.py` - **chepe**
 	- [ ] get it to work again

@@ -82,3 +82,5 @@ class CmdUtils():
             return None
         else:
             return (attr, value)
+
+cmd_utils = CmdUtils()
