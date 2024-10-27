@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+from models import storage_type
 from datetime import datetime
 from uuid import uuid4
 from sqlalchemy import Column, DateTime, String
@@ -9,6 +10,8 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
+
+    storage_type = storage_type
 
     __table_args__ = {'extend_existing': True}
 

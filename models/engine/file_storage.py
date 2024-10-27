@@ -73,7 +73,6 @@ class FileStorage:
 
             for key, value in extracted_data.items():
                 model_class = value['__class__']
-                print(model_class)
                 model_class = self.__classes.get(model_class)
                 if model_class is not None:
                     obj = model_class(**value)
