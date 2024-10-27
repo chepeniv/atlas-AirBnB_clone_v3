@@ -16,6 +16,7 @@ class City(BaseModel, Base):
     """
     __tablename__ = "cities"
 
+    # this doesn't seem needed
     # state = relationship('State', back_populates('cities')
 
     name = Column(

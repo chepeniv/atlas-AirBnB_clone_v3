@@ -2,16 +2,18 @@
 """ user class
 """
 
-import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):
-
+    '''
+    add documentation
+    '''
     __tablename__ = 'users'
 
+    # this as is should pass task 7
     email = Column(
             String(128),
             nullable=False)
@@ -27,9 +29,6 @@ class User(BaseModel, Base):
     last_name = Column(
             String(128),
             nullable=True)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
 
     # ARIEL
     # create relationship with places to Place using relationship
