@@ -2,10 +2,48 @@
 
 add more subtask for any issues that arise
 
-- [x] task0 - fork
+## priority
+
+- [ ] reintegrate `file_storage.py` - **chepe**
 
 - [ ] task1 - bug free - **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
+
+----
+
+## in progress
+
+- [~] task7 - dbstorage user - **Ariel**
+
+- [ ] task8 - dbstorage place - **Ariel**
+	- [ ] add the required columns
+	- [ ] contrary to instruction: don't rename `user_id` to `user`
+	- [ ] contrary to instruction: don't rename `city_id` to `cities`
+	- [ ] `models/user.py:User`
+		- [ ] `places = relationship('Place', cascade='all, delete')`
+	- [ ] `models/city.py:City`
+		- [ ] `places = relationship('Place', cascade='all, delete')`
+
+- [ ] task9 - dbstorage review - **Ariel**
+	- [ ] add the required columns
+	- [ ] contrary to instruction: don't rename `user_id` to `user`
+	- [ ] contrary to instruction: don't rename `place_id` to `place`
+	- [ ] `models/user.py:User`
+		- [ ] `reviews = relationship('Review', cascade='all, delete')`
+	- [ ] `models/place.py:Place`
+		- [ ] check out how state is written for this one
+
+- [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
+	- [ ] add the required columns
+	- [ ] `models/place.py:Place` - **chepe**
+		- [ ] create new table `place_amenity`
+		- [ ] update class
+
+----
+
+## completed
+
+- [x] task0 - fork
 
 - [x] task2 - console improvements - **chepe**
 
@@ -33,18 +71,5 @@ add more subtask for any issues that arise
 	- [x] fix bugs
 		- [x] fixed `_sa_instance_state` issue
 
-- [ ] task7 - dbstorage user - **Ariel**
-
-- [ ] task8 - dbstorage place - **Ariel**
-
-- [ ] task9 - dbstorage review - **Ariel**
-
-- [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
-
 - [x] `console_util.py` - **chepe**
-
-- [ ] `console.py`
-	- [ ] note: there might need to be some work done here
-
-- [ ] `file_storage.py` - **chepe**
-	- [ ] get it to work again
+- [x] `console.py`
