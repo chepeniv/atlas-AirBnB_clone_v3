@@ -5,6 +5,7 @@ add more subtask for any issues that arise
 ## priority
 
 - [ ] reintegrate `file_storage.py` - **chepe**
+	- [ ] implement `create Class key1="value1" key2="value2" ...` format
 
 - [ ] task1 - bug free - **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
@@ -38,6 +39,15 @@ add more subtask for any issues that arise
 	- [ ] `models/place.py:Place` - **chepe**
 		- [ ] create new table `place_amenity`
 		- [ ] update class
+
+----
+
+## extra
+
+### console
+
+- [ ] add `do_models` -- list all models available
+- [ ] implement `destroy all` -- for convenience
 
 ----
 
