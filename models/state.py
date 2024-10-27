@@ -18,14 +18,17 @@ class State(BaseModel, Base):
 
     __tablename__ = "states"
 
-    name = Column(String(128), nullable=False)
+    if BaseModel.storage_type == 'db':
+        name = Column(
+                String(128),
+                nullable=False)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if models.storage_type == 'db':
-            cities = relationship('City', cascade='all, delete')
-        else:
-            cities = self.__get_cities
+        cities = relationship(
+                'City',
+                cascade='all, delete')
+    else:
+        name = ""
+        cities = self.__get_cities
 
     def __get_cities(self):
         cities = self.storage.all('City')

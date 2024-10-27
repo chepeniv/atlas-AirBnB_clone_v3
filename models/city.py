@@ -19,11 +19,15 @@ class City(BaseModel, Base):
     # this doesn't seem needed
     # state = relationship('State', back_populates('cities')
 
-    name = Column(
-            String(128),
-            nullable=False)
+    if BaseModel.storage_type == 'db':
+        name = Column(
+                String(128),
+                nullable=False)
 
-    state_id = Column(
-            String(60),
-            ForeignKey("states.id"),
-            nullable=False)
+        state_id = Column(
+                String(60),
+                ForeignKey("states.id"),
+                nullable=False)
+    else:
+        name = ""
+        state_id = ""

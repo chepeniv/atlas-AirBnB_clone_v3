@@ -17,9 +17,9 @@ class Review(BaseModel, Base):
     """
     __tablename__ = "reviews"
 
-    text = Column(
-            String(1024),
-            nullable=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    if BaseModel.storage_type == 'db':
+        text = Column(
+                String(1024),
+                nullable=False)
+    else:
+        text = ""

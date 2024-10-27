@@ -15,9 +15,9 @@ class Amenity(BaseModel, Base):
     """
     __tablename__ = "cities"
 
-    name = Column(
-            String(128),
-            nullable=False)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    if BaseModel.storage_type == 'db':
+        name = Column(
+                String(128),
+                nullable=False)
+    else:
+        name = ""

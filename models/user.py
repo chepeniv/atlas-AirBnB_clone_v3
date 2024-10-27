@@ -17,20 +17,23 @@ class User(BaseModel, Base):
         email = Column(
                 String(128),
                 nullable=False)
+
         password = Column(
                 String(128),
                 nullable=False)
+
         first_name = Column(
                 String(128),
                 nullable=True)
+
         last_name = Column(
                 String(128),
                 nullable=True)
     else:
-        email=""
-        password=""
-        first_name=""
-        last_name=""
+        email = ""
+        password = ""
+        first_name = ""
+        last_name = ""
     # ARIEL
     # create relationship with places to Place using relationship
     # if user is deleted all linked place will auto delete using cascade
