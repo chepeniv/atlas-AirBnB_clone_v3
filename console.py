@@ -47,9 +47,7 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             instance.delete()
-            # key = storage.construct_key(instance)
-            # storage.all().pop(key)
-            # storage.save()
+            storage.save()
 
     def do_all(self, args):
         """ outputs string representations for every existing
@@ -98,11 +96,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
         quit()
-
-    def do_exit(self, arg):
-        'exit this CLI instance hbnb'
-        quit()
-
+    do_exit = do_quit
     do_EOF = do_quit
 
     def emptyline(self):

@@ -33,12 +33,10 @@ class CmdUtils():
             attr_type = type(getattr(instance, attr))
             try:
                 value = attr_type(value)
+                setattr(instance, attr, value)
+                instance.save()
             except (ValueError, TypeError):
                 print("** value given could not be typecast correctly **")
-                value = getattr(instance, attr)
-
-            setattr(instance, attr, value)
-            instance.save()
         else:
             print("** no such attribute found **")
 
