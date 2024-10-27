@@ -53,6 +53,9 @@ class BaseModel:
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
 
+    def __dict__(self):
+        return self.to_dict()
+
     def __str__(self):
         obj_str = "[{}] ({}) {}"
         return obj_str.format(type(self).__name__, self.id, self.__dict__)
@@ -69,11 +72,11 @@ class BaseModel:
 
     def to_dict(self):
         obj_dict = self.__dict__.copy()
-        obj_dict.pop('_sa_instance_state', None)
         obj_dict.update({
             '__class__': self.__class__.__name__,
             'id': self.id,
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
             })
+        obj_dict.pop('_sa_instance_state', None)
         return obj_dict
