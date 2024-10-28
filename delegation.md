@@ -16,7 +16,6 @@ add more subtask for any issues that arise
 	- [ ] `models/place.py:Place` - **chepe**
 		- [ ] create new table `place_amenity`
 		- [ ] update class
-- [ ] ensure `create Class key1="value1" key2="value2" ...` doesn't crash with `DB_Storage` when an invalid attribute is given
 
 ----
 
@@ -25,7 +24,6 @@ add more subtask for any issues that arise
 ### console
 
 - [ ] implement `destroy all` -- for convenience
-- [ ] get `create Class key1="value1" key2="value2" ...` to not create false
 	  params when used with `FileStorage`
 
 ----
@@ -85,3 +83,5 @@ add more subtask for any issues that arise
 - [x] `console.py`
 - [x] reintegrate `file_storage.py` - **chepe**
 	- [x] implement `create Class key1="value1" key2="value2" ...` format
+- [x] ensure `create Class key1="value1" key2="value2" ...` doesn't crash with `DB_Storage` when an invalid attribute is given
+- [x] get `create Class key1="value1" key2="value2" ...` to not create false
