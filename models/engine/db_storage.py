@@ -112,7 +112,7 @@ class DBStorage:
              .__session
              .query(ObjClass)
              .filter(ObjClass.id == obj.id)
-             .delete(synchronize_sessiohbnb_test_dbn=False))
+             .delete(synchronize_session=False))
             self.save()
 
     def construct_key(self, obj):

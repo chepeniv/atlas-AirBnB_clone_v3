@@ -43,7 +43,17 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             else:
-                key_value_dict = cmd_utils.process_key_value_pairs(args[1:])
+                try:
+                    key_value_dict = cmd_utils.process_key_value_pairs(args[1:])
+                except ValueError:
+                    print("malformed arguments. no record created")
+                    return
+
+                for key in key_value_dict.keys():
+                    if key not in cmd_utils.get_fields(model_class):
+                        print("invalid field name(s) passed. no model created")
+                        return
+
                 new_obj = model_class(**key_value_dict)
                 new_obj.save()
                 print(new_obj.id)
