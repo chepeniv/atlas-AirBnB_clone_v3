@@ -17,13 +17,13 @@ add more subtask for any issues that arise
 - [~] task7 - dbstorage user - **Ariel**
 
 - [ ] task8 - dbstorage place - **Ariel**
-	- [ ] add the required columns
+	- [x] add the required columns
 	- [ ] contrary to instruction: don't rename `user_id` to `user`
 	- [ ] contrary to instruction: don't rename `city_id` to `cities`
 	- [ ] `models/user.py:User`
 		- [ ] `places = relationship('Place', cascade='all, delete')`
-	- [ ] `models/city.py:City`
-		- [ ] `places = relationship('Place', cascade='all, delete')`
+	- [x] `models/city.py:City`
+		- [x] `places = relationship('Place', cascade='all, delete')`
 
 - [ ] task9 - dbstorage review - **Ariel**
 	- [ ] add the required columns

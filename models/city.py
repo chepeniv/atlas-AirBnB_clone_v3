@@ -3,14 +3,18 @@
 City class that inherits from BaseModel
 """
 
-import sys
-import os
-
-# Ariel
-# adding direct pathway so interpreter can find it.
-# worked, no other errors found other than Can't connect error 
-# which will be manually graded
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+################################################################################
+#CHEPE:
+#run the command i gave you, clear your db beforehand because previously
+#built tables might not match the updated models
+################################################################################
+#import sys
+#import os
+#sys.path.append(
+#        os.path.abspath(
+#            os.path.join(
+#                os.path.dirname(__file__), '..')))
+################################################################################
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import ForeignKey, Column, String
@@ -41,12 +45,11 @@ class City(BaseModel, Base):
                 String(60),
                 ForeignKey("states.id"),
                 nullable=False)
-        # Ariel
-        # Add or replace in the class City:
-        # class attribute places must represent a relationship with the class Place. If the City object is deleted, all linked Place objects must be automatically deleted. 
-        # Also, the reference from a Place object to his City should be named cities
 
-        places = relationship("Place", back_populates="cities", cascade="all, delete-orphan")
+        places = relationship(
+                "Place",
+                back_populates="cities",
+                cascade="all, delete-orphan")
 
     else:
         name = ""
