@@ -24,7 +24,9 @@ def metadata_create_all(engine):
     from models.place import Place
     from models.amenity import Amenity
     from models.review import Review
-    Base.metadata.create_all(engine)
+    metadata = Base.metadata
+    metadata.create_all(engine)
+    return metadata
 
 class DBStorage:
     # __objects = {}
@@ -44,7 +46,7 @@ class DBStorage:
                 env_user, env_user_pwd, env_host, env_db)
 
         self.__engine = create_engine(self.__db_url, pool_pre_ping=True)
-        metadata_create_all(self.__engine)
+        metadata = metadata_create_all(self.__engine)
         self.__session_generator = sessionmaker(
                 self.__engine, expire_on_commit=False)
         self.__session_generator = scoped_session(self.__session_generator)
@@ -110,7 +112,7 @@ class DBStorage:
              .__session
              .query(ObjClass)
              .filter(ObjClass.id == obj.id)
-             .delete(synchronize_session=False))
+             .delete(synchronize_sessiohbnb_test_dbn=False))
             self.save()
 
     def construct_key(self, obj):
