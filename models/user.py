@@ -2,6 +2,15 @@
 """ user class
 """
 
+import sys
+import os
+
+# Ariel
+# adding direct pathway so interpreter can find it.
+# worked, no other errors found other than Can't connect error 
+# which will be manually graded
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
@@ -9,7 +18,11 @@ from sqlalchemy.orm import relationship
 
 class User(BaseModel, Base):
     '''
-    add documentation
+    Ariel:
+    creating a table naming it users
+    columns for email, password, first and last name.
+    All strings and email and password cannot be nullable,
+    while first and last name can be nullable
     '''
     __tablename__ = 'users'
 
