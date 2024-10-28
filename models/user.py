@@ -42,6 +42,17 @@ class User(BaseModel, Base):
         last_name = Column(
                 String(128),
                 nullable=True)
+        # Ariel:
+        # Add or replace in the class User:
+        # class attribute places must represent a
+        # relationship with the class Place.
+        # If the User object is deleted, all linked Place objects
+        # must be automatically deleted.
+        # Also, the reference from a Place object to User should be named user
+        
+        places = relationship("Place", back_populates="user",
+                              casceade="all, delete-orphan")
+        
     else:
         email = ""
         password = ""

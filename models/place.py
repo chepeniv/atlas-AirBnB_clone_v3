@@ -1,7 +1,17 @@
 #!/usr/bin/python3
 """
-Place class that inherits from BaseModel
+Place class that inherits from BaseModel and Base
 """
+
+import sys
+import os
+
+# Ariel
+# adding direct pathway so interpreter can find it.
+# worked, no other errors found other than Can't connect error 
+# which will be manually graded
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
@@ -72,6 +82,12 @@ class Place(BaseModel, Base):
         longitude = Column(
                 Float,
                 nullable=True)
+        
+        # Ariel:
+        # comment this too test whether it makes a defference
+        # user = relationship("User", back_populates="places")
+        # cities = relationship("City", back_populates="places")
+        
     else:
         city_id = ""
         user_id = ""
