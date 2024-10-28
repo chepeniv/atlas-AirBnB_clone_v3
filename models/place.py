@@ -52,12 +52,12 @@ class Place(BaseModel, Base):
                 String(1024),
                 nullable=True)
 
-        number_of_rooms = Column(
+        number_rooms = Column(
                 Integer,
                 default=0,
                 nullable=False)
 
-        number_of_bathrooms = Column(
+        number_bathrooms = Column(
                 Integer,
                 default=0,
                 nullable=False)
