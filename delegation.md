@@ -23,7 +23,6 @@ add more subtask for any issues that arise
 
 ### console
 
-- [ ] add `do_models` -- list all models available
 - [ ] implement `destroy all` -- for convenience
 - [ ] get `create Class key1="value1" key2="value2" ...` to not create false
 	  params when used with `FileStorage`
@@ -80,6 +79,7 @@ add more subtask for any issues that arise
 	- [x] `models/place.py:Place`
 		- [x] check out how state is written for this one
 
+- [x] add `do_models` -- list all models available
 - [x] `console_util.py` - **chepe**
 - [x] `console.py`
 - [x] reintegrate `file_storage.py` - **chepe**

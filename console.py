@@ -10,10 +10,26 @@ from models import storage
 from models.engine import valid_models
 
 
+# chepe-work:
+# make do_create with params NOT create invalid attributes
 class HBNBCommand(cmd.Cmd):
     """ our reimplementation of cmd.Cmd
     """
     prompt = '(hbnb) '
+
+    def do_models(self, args):
+        if not args:
+            for name, model in valid_models().items():
+                print(name, end="\n| ")
+                cmd_utils.print_fields(model)
+                print(end="\n\n")
+        else:
+            model = args.split()
+            model = valid_models().get(model[0])
+            cmd_utils.print_fields(model)
+            print()
+
+    do_model = do_models
 
     def do_create(self, arg):
         'creates a new instance of BaseModel'

@@ -11,5 +11,6 @@
 clear;
 export HBNB_SH_TEST_DIR=$PWD/tests/sh_tests/;
 
+#to change modes set HBNB_ENV to dev or test
 HBNB_ENV=test HBNB_MYSQL_USER=hbnb_$HBNB_ENV HBNB_MYSQL_PWD=hbnb_$HBNB_ENV\_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_$HBNB_ENV\_db HBNB_TYPE_STORAGE=db ./console.py
 

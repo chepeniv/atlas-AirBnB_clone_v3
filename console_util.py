@@ -8,6 +8,18 @@ class CmdUtils():
     """
     """
 
+    def print_fields(self, model):
+        fields = self.get_fields(model)
+        for field in fields:
+            print(field, end=" | ")
+
+    def get_fields(self, model):
+        fields = []
+        for attr in model.__dict__.keys():
+            if attr[0] != '_':
+                fields.append(attr)
+        return fields
+
     def string_to_number(self, num_string):
         if num_string.count(".") == 1:
             try:
