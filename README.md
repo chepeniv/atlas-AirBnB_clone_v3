@@ -26,19 +26,30 @@ Here’s how our DIY rental empire is structured:
 1. **Clone it**: Fork it, clone it, download it—whatever floats your boat. Just get the code on your machine.
    ```bash
    git clone https://github.com/your-github-repo-url.git
+   ```
 
 2. **Fire Up the Console**: No, not your game console. Our command interpreter is where the fun begins:
 
-    ```bash
-        ./console.py```
+file storage mode:
+```bash
+./console.py
+```
+
+database storage mode:
+```bash
+sudo sh run_console.sh
+```
+
 3. **Create Objects**: Type create followed by the class name and voila! You've just created an instance.
 
     ```bash
-    (hbnb) create User```
+    (hbnb) create User
+	```
 4. **Show Objects**: Curious about that user you created? Use the show command.
 
     ```bash
-    (hbnb) show User [your-object-id]```
+    (hbnb) show User [your-object-id]
+	```
 5. **All Commands*(*):
 * create [class]
 * show [class] [id]
@@ -50,7 +61,7 @@ Here's a breakdown of how the command interpreter (a.k.a. **HBNBCommand**) works
 
 ### Imports:
 - Import necessary modules and classes, including all model classes you'll be handling.
-  
+
 ### Class Definition (HBNBCommand):
 - Inherits from `cmd.Cmd`, providing a command-line interface.
 - Sets the prompt to `(hbnb)`.
@@ -136,7 +147,8 @@ Here's a breakdown of how the command interpreter (a.k.a. **HBNBCommand**) works
     # Prints all User instances
 
     (hbnb) update User 1234-1234-1234 email "user@example.com"
-    # Updates the email attribute of the User instance with id 1234-1234-1234```
+    # Updates the email attribute of the User instance with id 1234-1234-1234
+	```
 
 And more… just ask the console, it knows things.
 
@@ -150,6 +162,7 @@ One day, we dream of having a beautiful front-end, real-time rental bookings, an
 
 ## Contributors (Or... Who to Blame)
 * **John Wilson**– Wannabe Python Guru, occasional meme enthusiast.
-* **Jose 'Chepe' Olmos** – The one who said “JSON is the way.”
+* **Jose 'Chepe' Olmos** – The one who said “JSON is the way.” i never actually said this
+* **AlexAndrea "Ariel" Lopez ** –
 
     Feel free to fork, contribute, or send us some encouraging words as we slowly inch towards internet stardom. And remember, even if you don't book the place, you can always create it in our console.
