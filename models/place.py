@@ -85,8 +85,8 @@ class Place(BaseModel, Base):
         
         # Ariel:
         # comment this too test whether it makes a defference
-        # user = relationship("User", back_populates="places")
-        # cities = relationship("City", back_populates="places")
+        user = relationship("User", back_populates="places")
+        cities = relationship("City", back_populates="places")
         
         # DBStorage: class attribute reviews must represent a relationship with
         # the class Review. If the Place object is deleted,
@@ -96,7 +96,7 @@ class Place(BaseModel, Base):
         
         reviews = relationship("Review", back_populates="place",
                                cascade="all, delete_orphan")
-        
+
     else:
         city_id = ""
         user_id = ""
@@ -108,3 +108,13 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
+
+        # Ariel: 
+        # will work on where to put this since it needs to be in a function
+        # think the loop is throwing it off
+
+    @property
+    def reviews(self):
+            '''
+            '''    
+        return storage.get_reviews_by_place_id(self.id)
