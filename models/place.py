@@ -88,6 +88,15 @@ class Place(BaseModel, Base):
         # user = relationship("User", back_populates="places")
         # cities = relationship("City", back_populates="places")
         
+        # DBStorage: class attribute reviews must represent a relationship with
+        # the class Review. If the Place object is deleted,
+        # all linked Review objects must be automatically deleted.
+        # Also, the reference from a Review object to 
+        # Place should be named place
+        
+        reviews = relationship("Review", back_populates="place",
+                               cascade="all, delete_orphan")
+        
     else:
         city_id = ""
         user_id = ""

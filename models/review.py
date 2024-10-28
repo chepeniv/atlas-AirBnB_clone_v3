@@ -3,6 +3,7 @@
 Review class that inherits from BaseModel
 """
 
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import ForeignKey, Column, String
 
@@ -15,7 +16,7 @@ class Review(BaseModel, Base):
         user_id: string - empty string: it will be the User.id
         text: string - empty string
     """
-    __tablename__ = "reviews"
+    __tablename__ = 'reviews'
 
     if BaseModel.storage_type == 'db':
         text = Column(
