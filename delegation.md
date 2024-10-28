@@ -4,9 +4,6 @@ add more subtask for any issues that arise
 
 ## priority
 
-- [ ] reintegrate `file_storage.py` - **chepe**
-	- [ ] implement `create Class key1="value1" key2="value2" ...` format
-
 - [ ] task1 - bug free - **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
 
@@ -28,6 +25,8 @@ add more subtask for any issues that arise
 
 - [ ] add `do_models` -- list all models available
 - [ ] implement `destroy all` -- for convenience
+- [ ] get `create Class key1="value1" key2="value2" ...` to not create false
+	  params when used with `FileStorage`
 
 ----
 
@@ -83,3 +82,5 @@ add more subtask for any issues that arise
 
 - [x] `console_util.py` - **chepe**
 - [x] `console.py`
+- [x] reintegrate `file_storage.py` - **chepe**
+	- [x] implement `create Class key1="value1" key2="value2" ...` format
