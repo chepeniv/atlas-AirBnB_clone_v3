@@ -82,8 +82,7 @@ class Place(BaseModel, Base):
 
         reviews = relationship(
                 "Review",
-                back_populates="place",
-                cascade="all, delete_orphan")
+                cascade="all, delete-orphan")
 
         ############################################################
         #CHEPE:

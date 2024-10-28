@@ -15,7 +15,7 @@ class BaseModel:
 
     id = Column(
             String(60),
-            primary_key=True, # implies uniqueness
+            primary_key=True,
             nullable=False
             )
 
@@ -30,8 +30,12 @@ class BaseModel:
             )
 
     def __init__(self, *args, **kwargs):
-        if kwargs:
+        if kwargs.get('id') is None:
+            self.id = str(uuid4())
+        else:
             self.id = kwargs.get('id')
+
+        if kwargs:
             created_at = kwargs.get('created_at')
             updated_at = kwargs.get('updated_at')
 
@@ -49,7 +53,6 @@ class BaseModel:
                 if key not in ['__class__', 'id', 'created_at', 'updated_at']:
                     setattr(self, key, value)
         else:
-            self.id = str(uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
 

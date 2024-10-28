@@ -51,13 +51,13 @@ class User(BaseModel, Base):
 
         places = relationship(
                 "Place",
-                back_populates="user",
-                casceade="all, delete-orphan")
+                #back_populates="user", #breaks mysql
+                cascade="all, delete-orphan")
 
         reviews = relationship(
                 "Review",
-                back_populates="user",
-                cascade="all, delete_orphan")
+                #back_populates="user" #this breaks mysql
+                cascade="all, delete-orphan")
 
         ########################################
         #chepe:
