@@ -13,7 +13,7 @@ class Amenity(BaseModel, Base):
     Public class attributes:
         name: string - empty string
     """
-    __tablename__ = "cities"
+    __tablename__ = "amenities"
 
     if BaseModel.storage_type == 'db':
         name = Column(
