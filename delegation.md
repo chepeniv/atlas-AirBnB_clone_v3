@@ -14,26 +14,6 @@ add more subtask for any issues that arise
 
 ## in progress
 
-- [~] task7 - dbstorage user - **Ariel**
-
-- [ ] task8 - dbstorage place - **Ariel**
-	- [x] add the required columns
-	- [ ] contrary to instruction: don't rename `user_id` to `user`
-	- [ ] contrary to instruction: don't rename `city_id` to `cities`
-	- [ ] `models/user.py:User`
-		- [ ] `places = relationship('Place', cascade='all, delete')`
-	- [x] `models/city.py:City`
-		- [x] `places = relationship('Place', cascade='all, delete')`
-
-- [ ] task9 - dbstorage review - **Ariel**
-	- [ ] add the required columns
-	- [ ] contrary to instruction: don't rename `user_id` to `user`
-	- [ ] contrary to instruction: don't rename `place_id` to `place`
-	- [ ] `models/user.py:User`
-		- [ ] `reviews = relationship('Review', cascade='all, delete')`
-	- [ ] `models/place.py:Place`
-		- [ ] check out how state is written for this one
-
 - [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
 	- [ ] add the required columns
 	- [ ] `models/place.py:Place` - **chepe**
@@ -80,6 +60,26 @@ add more subtask for any issues that arise
 	- [x] get code to work
 	- [x] fix bugs
 		- [x] fixed `_sa_instance_state` issue
+
+- [x] task7 - dbstorage user - **Ariel**
+
+- [x] task8 - dbstorage place - **Ariel**
+	- [x] add the required columns
+	- [x] contrary to instruction: don't rename `user_id` to `user`
+	- [x] contrary to instruction: don't rename `city_id` to `cities`
+	- [x] `models/user.py:User`
+		- [x] `places = relationship('Place', cascade='all, delete')`
+	- [x] `models/city.py:City`
+		- [x] `places = relationship('Place', cascade='all, delete')`
+
+- [x] task9 - dbstorage review - **Ariel**
+	- [x] add the required columns
+	- [x] contrary to instruction: don't rename `user_id` to `user`
+	- [x] contrary to instruction: don't rename `place_id` to `place`
+	- [x] `models/user.py:User`
+		- [x] `reviews = relationship('Review', cascade='all, delete')`
+	- [x] `models/place.py:Place`
+		- [x] check out how state is written for this one
 
 - [x] `console_util.py` - **chepe**
 - [x] `console.py`

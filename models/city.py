@@ -8,13 +8,6 @@ City class that inherits from BaseModel
 #run the command i gave you, clear your db beforehand because previously
 #built tables might not match the updated models
 ################################################################################
-#import sys
-#import os
-#sys.path.append(
-#        os.path.abspath(
-#            os.path.join(
-#                os.path.dirname(__file__), '..')))
-################################################################################
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import ForeignKey, Column, String

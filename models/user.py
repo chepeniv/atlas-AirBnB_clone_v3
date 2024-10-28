@@ -2,14 +2,13 @@
 """ user class
 """
 
-import sys
-import os
-
-# Ariel
-# adding direct pathway so interpreter can find it.
-# worked, no other errors found other than Can't connect error 
-# which will be manually graded
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+################################################################################
+#CHEPE:
+#if you're having issues with your configuration let me know. i can help you.
+#make a separate branch and edit that in order to get it to work with your own
+#setup. the principle here is don't make your own issues the public's problem
+#burn after reading (if you've read this delete it)
+################################################################################
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
@@ -18,12 +17,19 @@ from sqlalchemy.orm import relationship
 
 class User(BaseModel, Base):
     '''
-    Ariel:
     creating a table naming it users
     columns for email, password, first and last name.
     All strings and email and password cannot be nullable,
     while first and last name can be nullable
     '''
+    ########################################
+    #chepe:
+    #documentation comments are for describing
+    #to the end-user in straight-forward language
+    #what the purpose and behaviour of this code is
+    #it is not NOT for task management
+    #burn after reading
+    ########################################
     __tablename__ = 'users'
 
     if BaseModel.storage_type == 'db':
@@ -43,29 +49,24 @@ class User(BaseModel, Base):
                 String(128),
                 nullable=True)
 
-        # Ariel:
-        # Add or replace in the class User:
-        # class attribute places must represent a
-        # relationship with the class Place.
-        # If the User object is deleted, all linked Place objects
-        # must be automatically deleted.
-        # Also, the reference from a Place object to User should be named user
+        places = relationship(
+                "Place",
+                back_populates="user",
+                casceade="all, delete-orphan")
 
-        places = relationship("Place", back_populates="user",
-                              casceade="all, delete-orphan")
-    
-        # Ariel:
-        # now a relationship for reviews
-        reviews = relationship("Review", back_populates="user", cascade="all, delete_orphan")
-        
+        reviews = relationship(
+                "Review",
+                back_populates="user",
+                cascade="all, delete_orphan")
+
+        ########################################
+        #chepe:
+        #remember to delete your own working comments
+        #burn after reading
+        ########################################
+
     else:
         email = ""
         password = ""
         first_name = ""
         last_name = ""
-    # ARIEL
-    # create relationship with places to Place using relationship
-    # if user is deleted all linked place will auto delete using cascade
-    # refer Place to User called user using back_populates
-    # places = relationship("Place", back_populates="user",
-    #                     cascade="all, delete-orphan")

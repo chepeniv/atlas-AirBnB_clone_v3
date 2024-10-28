@@ -28,6 +28,8 @@ class State(BaseModel, Base):
                 cascade='all, delete')
     else:
         name = ""
+
+        @property
         def cities(self):
             cities = self.storage.all('City')
             for city in cities:
