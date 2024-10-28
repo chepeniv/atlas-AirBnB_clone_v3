@@ -16,6 +16,7 @@ add more subtask for any issues that arise
 	- [ ] `models/place.py:Place` - **chepe**
 		- [ ] create new table `place_amenity`
 		- [ ] update class
+- [ ] ensure `create Class key1="value1" key2="value2" ...` doesn't crash with `DB_Storage` when an invalid attribute is given
 
 ----
 

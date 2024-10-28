@@ -11,7 +11,8 @@ class CmdUtils():
     def print_fields(self, model):
         fields = self.get_fields(model)
         for field in fields:
-            print(field, end=" | ")
+            if field not in ['id', 'created_at', 'updated_at']:
+                print(field, end=" | ")
 
     def get_fields(self, model):
         fields = []

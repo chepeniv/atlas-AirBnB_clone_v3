@@ -65,6 +65,8 @@ class HBNBCommand(cmd.Cmd):
             instance.delete()
             storage.save()
 
+    do_delete = do_destroy
+
     def do_all(self, args):
         """ outputs string representations for every existing
         instance or for all of a class
@@ -90,6 +92,8 @@ class HBNBCommand(cmd.Cmd):
         #for obj in obj_list:
         #    print(obj)
         #    print("----------------")
+
+    do_list = do_all
 
     def do_update(self, arg):
         """ updates the instance given by class_name and id.
