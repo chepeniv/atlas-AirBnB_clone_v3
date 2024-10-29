@@ -24,15 +24,13 @@ class BaseModel:
                 Column: updated_at - timestamp for when object is updated
                     cannot be null
     '''
-    # ####
-    # Ariel@: is there a reason storage_type is calling itself?
-    # chepe: do you mean is there a reason why i'm assigning it to
-    # its self ?? then, yes! this allows us to set it as an attribute
+
+    # line 33 allows us to set it as an attribute
     # of this class so that we can call it as BaseModel.storage_type
-    # ####
 
     from models import storage_type
     storage_type = storage_type
+    # sets the ability to modify the existing table
     __table_args__ = {'extend_existing': True}
 
     id = Column(
@@ -51,6 +49,7 @@ class BaseModel:
             nullable=False
             )
 
+    # redefined key word arguments from ISO format to datetime format
     def __init__(self, *args, **kwargs):
         if kwargs.get('id') is None:
             self.id = str(uuid4())
@@ -71,6 +70,8 @@ class BaseModel:
             else:
                 self.updated_at = datetime.now()
 
+            # parses through key value pairs to check for
+            # line 76
             for key, value in kwargs.items():
                 if key not in ['__class__', 'id', 'created_at', 'updated_at']:
                     setattr(self, key, value)
