@@ -6,7 +6,6 @@ add more subtask for any issues that arise
 
 - [ ] task1 - bug free - **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
-- [ ] ensure `create Class key1="value1" ...` doesn't doesn't create an object when "not null" params are missing
 
 ----
 
@@ -25,7 +24,6 @@ add more subtask for any issues that arise
 ### console
 
 - [ ] implement `destroy all` -- for convenience
-	  params when used with `FileStorage`
 
 ----
 
@@ -85,4 +83,4 @@ add more subtask for any issues that arise
 - [x] reintegrate `file_storage.py` - **chepe**
 	- [x] implement `create Class key1="value1" key2="value2" ...` format
 - [x] ensure `create Class key1="value1" key2="value2" ...` doesn't crash with `DB_Storage` when an invalid attribute is given
-- [x] get `create Class key1="value1" key2="value2" ...` to not create false
+- [x] get `create Class key1="value1" key2="value2" ...` to not create false attributes with `FileStorage`
