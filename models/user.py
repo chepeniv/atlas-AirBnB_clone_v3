@@ -12,8 +12,8 @@ class User(BaseModel, Base):
     '''
     creating a table naming it users
     columns for email, password, first and last name.
-    All strings
-    email and password cannot be nullable,
+    All attributes are strings
+    email and password cannot be nullable
     while first and last name can be null
     '''
 
