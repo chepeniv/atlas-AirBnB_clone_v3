@@ -3,11 +3,7 @@
 Place class that inherits from BaseModel and Base
 """
 
-################################################################################
-#chepe:
-#see comments in user.py
-#burn after reading
-################################################################################
+
 
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
@@ -84,17 +80,6 @@ class Place(BaseModel, Base):
                 "Review",
                 cascade="all, delete-orphan")
 
-        ############################################################
-        #CHEPE:
-        #instructions like these can be ignored.
-        #"the reference from a Review object to Place should be named place"
-        #when implement, they fail the checker -- i handled a similar
-        #issue like this already. delete this comment, but if you wish
-        #leave the commented code as is for future reference
-        ############################################################
-        #user = relationship("User", back_populates="places")
-        #cities = relationship("City", back_populates="places")
-        ############################################################
 
     else:
         city_id = ""
@@ -108,11 +93,6 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
 
-        ########################################
-        #CHEPE:
-        #this is preliminary and should be tested
-        #and edited if needed
-        ########################################
 
         @property
         def reviews(self):
