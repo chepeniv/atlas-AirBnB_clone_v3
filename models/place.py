@@ -12,17 +12,26 @@ from models.base_model import BaseModel, Base
 
 class Place(BaseModel, Base):
     """
+    Table name: places
+
     Public class attributes:
-        city_id: string - empty string: it will be the City.id
-        user_id: string - empty string: it will be the User.id
-        name: string - empty string
-        description: string - empty string
-        number_rooms: integer - 0
-        number_bathrooms: integer - 0
-        max_guest: integer - 0
-        price_by_night: integer - 0
-        latitude: float - 0.0
-        longitude: float - 0.0
+        Column: city_id - string of 60 char
+                it will be the City.id cannot be null
+        Column: user_id - string of 60 char
+                it will be the User.id cannot be null
+        Column: name - string of 128 char, cannot be null
+        Column: description - string 1024 char, can be null
+        Column: number_rooms - integer, defaults to 0
+                cannot be null
+        Column: number_bathrooms - integer, defaults to 0
+                cannot be null
+        Column: max_guest - integer, defaults to 0
+                cannot be null
+        Column: price_by_night - integer, defaults to 0
+                cannot be null
+        Column: latitude - float, can be null
+        Column: longitude- float, can be null
+
         amenity_ids: list of string -
             empty list: it will be the list of Amenity.id later
     """
@@ -76,6 +85,8 @@ class Place(BaseModel, Base):
                 Float,
                 nullable=True)
 
+        # creates link from reviews to Review, when deleted, automatically
+        # deletes all linked reviews
         reviews = relationship(
                 "Review",
                 cascade="all, delete-orphan")
