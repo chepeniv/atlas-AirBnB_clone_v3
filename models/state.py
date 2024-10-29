@@ -23,19 +23,18 @@ class State(BaseModel, Base):
         name = Column(
                 String(128),
                 nullable=False)
-        
-        # cities linked with City and deletes all linked
-        # automatically when deleted
+
         cities = relationship(
                 'City',
                 cascade='all, delete')
     else:
         name = ""
 
-        # method that acts as an attribute that retrieves
-        # all instances of the City class
         @property
         def cities(self):
+            '''
+            returns dictionary of cities belonging to this state
+            '''
             cities = self.storage.all('City')
             for city in cities:
                 if city.state_id != self.id:

@@ -30,13 +30,10 @@ class City(BaseModel, Base):
                 ForeignKey("states.id"),
                 nullable=False)
 
-        # places linked to Place
-        # when deleted, automatically deletes linked places
         places = relationship(
                 "Place",
                 cascade="all, delete-orphan")
 
-    # if not then name and state_id will be an empty string
     else:
         name = ""
         state_id = ""

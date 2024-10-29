@@ -25,9 +25,6 @@ class BaseModel:
                     cannot be null
     '''
 
-    # line 33 allows us to set it as an attribute
-    # of this class so that we can call it as BaseModel.storage_type
-
     from models import storage_type
     storage_type = storage_type
     # sets the ability to modify the existing table
@@ -70,8 +67,6 @@ class BaseModel:
             else:
                 self.updated_at = datetime.now()
 
-            # parses through key value pairs to check for
-            # line 76
             for key, value in kwargs.items():
                 if key not in ['__class__', 'id', 'created_at', 'updated_at']:
                     setattr(self, key, value)

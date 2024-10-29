@@ -51,3 +51,25 @@ class User(BaseModel, Base):
         password = ""
         first_name = ""
         last_name = ""
+
+        @property
+        def places(self):
+            '''
+            reviews = self.storage.all('Review')
+            for review in reviews:
+                if review.place_id != self.id:
+                    reviews.pop(review.id)
+            return reviews
+            '''
+            pass
+
+        @property
+        def reviews(self):
+            '''
+            reviews = self.storage.all('Review')
+            for review in reviews:
+                if review.place_id != self.id:
+                    reviews.pop(review.id)
+            return reviews
+            '''
+            pass

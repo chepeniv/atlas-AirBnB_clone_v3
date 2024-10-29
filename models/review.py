@@ -38,3 +38,5 @@ class Review(BaseModel, Base):
             nullable=False)
     else:
         text = ""
+        place_id = ""
+        user_id = ""

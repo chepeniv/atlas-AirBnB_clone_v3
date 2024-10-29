@@ -40,5 +40,49 @@ class TestUser(unittest.TestCase):
         self.assertNotEqual(old_updated_at, new_user.updated_at)
         self.assertIn(key, self.storage.all())
 
+    def test_user_email(self):
+        pass
+
+    def test_user_password(self):
+        pass
+
+    def test_user_first_name(self):
+        pass
+
+    def test_user_last_name(self):
+        pass
+
+    def test_user_places(self):
+        pass
+
+    def test_user_reviews(self):
+        pass
+
+class TestUserDB(unittest.TestCase):
+
+    def test_user__init__success(self):
+        pass
+
+    def test_user__init__fail(self):
+        pass
+
+    def test_user_email(self):
+        pass
+
+    def test_user_password(self):
+        pass
+
+    def test_user_first_name(self):
+        pass
+
+    def test_user_last_name(self):
+        pass
+
+    def test_user_places(self):
+        pass
+
+    def test_user_reviews(self):
+        pass
+
 if __name__ == '__main__':
     unittest.main()
