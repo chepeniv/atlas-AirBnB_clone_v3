@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-State class that inherits from BaseModel
+State class that inherits from BaseModel and Base
 """
 
 import models
@@ -11,9 +11,10 @@ from sqlalchemy.orm import relationship
 
 class State(BaseModel, Base):
     """
-    State class that inherits from BaseModel
+    Table name is states
     Public class attributes:
-        name: string - empty string
+        name: Column: string(128) and cannot be null
+        cities: relationship with City
     """
 
     __tablename__ = "states"
@@ -22,13 +23,17 @@ class State(BaseModel, Base):
         name = Column(
                 String(128),
                 nullable=False)
-
+        
+        # cities linked with City and deletes all linked
+        # automatically when deleted
         cities = relationship(
                 'City',
                 cascade='all, delete')
     else:
         name = ""
 
+        # method that acts as an attribute that retrieves
+        # all instances of the City class
         @property
         def cities(self):
             cities = self.storage.all('City')
