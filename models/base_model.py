@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-
+'''
+BaseModel class that pushes to other modules
+(user, city, review, state, place and amenity)
+'''
 from datetime import datetime
 from uuid import uuid4
 from sqlalchemy import Column, DateTime, String
@@ -9,6 +12,24 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class BaseModel:
+    '''
+    calls models inside of BaseModel to avoid circular import error
+    
+    attributes:
+                Column: id - string of 60 char,
+                    primary_key always available and unique
+                    and cannot be null
+                Column: created_at - creates timestamp when created
+                    cannot be null
+                Column: updated_at - timestamp for when object is updated
+                    cannot be null
+    '''
+    # ####
+    # Ariel: is there a reason storage_type is calling itself?
+    # ####
+    
+    # __table_args__ allows an existing table to be modified
+    # without recreating it
     from models import storage_type
     storage_type = storage_type
     __table_args__ = {'extend_existing': True}
