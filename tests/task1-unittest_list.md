@@ -2,6 +2,13 @@
 
 ## `pycodestyle`
 
+things to check:
+- line length < 80
+- no trailing whitespace
+- correct indentation
+- add documentation
+- use explicit `except` statements
+
 - [ ] console
 - [ ] models
 - [ ] engine
@@ -11,7 +18,7 @@
 
 - [ ] test number >= 50
 - [ ] discover tests success
-- [ ] test console
+- [ ] test `console.py`
 - [ ] test `BaseModel`
 - [ ] test `models/`
 - [ ] test `FileStorage`
