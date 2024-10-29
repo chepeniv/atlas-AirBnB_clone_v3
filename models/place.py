@@ -3,12 +3,23 @@
 Place class that inherits from BaseModel and Base
 """
 
-
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy import MetaData
 from models.base_model import BaseModel, Base
 
+# import metadata to create an instance for SQLAlchemy table
+metadata_obj = Base.metadata
 
+# add instance of SQL ALchemy table called place_amenity
+# Ariel@ SideNote: need to see if this is the right orientation for this table
+place_amenity = Table("place_amenity", Base.metadata,
+                              Column("place_id", String(60),
+                                     ForeignKey("places.id"), primary_key=True,
+                                     nullable=False),
+                              Column("amenity_id", String(60),
+                                     ForeignKey("amenities.id"),
+                                     primary_key=True, nullable=False))
 class Place(BaseModel, Base):
     """
     Table name: places
@@ -88,8 +99,8 @@ class Place(BaseModel, Base):
         # deletes all linked reviews
         reviews = relationship(
                 "Review",
-                cascade="all, delete-orphan")
-
+                cascade="all, delete-orphan", secondary=place_amenity,
+                viewonly=False)
 
     else:
         city_id = ""
@@ -102,6 +113,16 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
+
+# add instance of SQL ALchemy table called place_amenity
+# Ariel@ SideNote: need to see if this is the right orientation for this table
+        place_amenity = Table("place_amenity", Base.metadata,
+                              Column("place_id", String(60),
+                                     ForeignKey("places.id"), primary_key=True,
+                                     nullable=False),
+                              Column("amenity_id", String(60),
+                                     ForeignKey("amenities.id"),
+                                     primary_key=True, nullable=False))
 
         # method that acts as an attribute
         # retrieves all instances of Review class
