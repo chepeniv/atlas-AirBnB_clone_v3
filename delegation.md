@@ -6,6 +6,7 @@ add more subtask for any issues that arise
 
 - [ ] task1 - bug free - **Ariel**, **chepe**
 	- reference: [feature](https://docs.python.org/3/library/unittest.html#skipping-tests-and-expected-failures)
+- [ ] ensure `create Class key1="value1" ...` doesn't doesn't create an object when "not null" params are missing
 
 ----
 
