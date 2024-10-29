@@ -3,12 +3,6 @@
 City class that inherits from BaseModel
 """
 
-################################################################################
-#CHEPE:
-#run the command i gave you, clear your db beforehand because previously
-#built tables might not match the updated models
-################################################################################
-
 from models.base_model import BaseModel, Base
 from sqlalchemy import ForeignKey, Column, String
 from sqlalchemy.orm import relationship
