@@ -1,14 +1,7 @@
 #!/usr/bin/python3
 """ user class
+that inherits from basemodel and base
 """
-
-################################################################################
-#CHEPE:
-#if you're having issues with your configuration let me know. i can help you.
-#make a separate branch and edit that in order to get it to work with your own
-#setup. the principle here is don't make your own issues the public's problem
-#burn after reading (if you've read this delete it)
-################################################################################
 
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
@@ -19,17 +12,11 @@ class User(BaseModel, Base):
     '''
     creating a table naming it users
     columns for email, password, first and last name.
-    All strings and email and password cannot be nullable,
-    while first and last name can be nullable
+    All strings
+    email and password cannot be nullable,
+    while first and last name can be null
     '''
-    ########################################
-    #chepe:
-    #documentation comments are for describing
-    #to the end-user in straight-forward language
-    #what the purpose and behaviour of this code is
-    #it is not NOT for task management
-    #burn after reading
-    ########################################
+
     __tablename__ = 'users'
 
     if BaseModel.storage_type == 'db':
@@ -49,21 +36,15 @@ class User(BaseModel, Base):
                 String(128),
                 nullable=True)
 
+        # places linked to Place and deletes all that references it
         places = relationship(
                 "Place",
-                #back_populates="user", #breaks mysql
                 cascade="all, delete-orphan")
 
+        # reviews linked to Review and deletes all that references it
         reviews = relationship(
                 "Review",
-                #back_populates="user" #this breaks mysql
                 cascade="all, delete-orphan")
-
-        ########################################
-        #chepe:
-        #remember to delete your own working comments
-        #burn after reading
-        ########################################
 
     else:
         email = ""
