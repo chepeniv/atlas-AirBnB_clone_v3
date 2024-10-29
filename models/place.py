@@ -104,7 +104,8 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
 
-
+        # method that acts as an attribute
+        # retrieves all instances of Review class
         @property
         def reviews(self):
             reviews = self.storage.all('Review')
