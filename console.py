@@ -49,6 +49,15 @@ class HBNBCommand(cmd.Cmd):
                     print("malformed arguments. no record created")
                     return
 
+                unnullables = cmd_utils.unnullables(model_class)
+                for unnullable in unnullables:
+                    if unnullable not in key_value_dict.keys():
+                        print("a non-nullable parameter has not been specified."
+                              " no record created\n"
+                              "non-nullable fields: ",
+                              unnullables)
+                        return
+
                 for key in key_value_dict.keys():
                     if key not in cmd_utils.get_fields(model_class):
                         print("invalid field name(s) passed. no model created")

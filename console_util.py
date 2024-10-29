@@ -8,6 +8,14 @@ class CmdUtils():
     """
     """
 
+    def unnullables(self, model):
+        unnullables = []
+        for k, v in model.__table__.columns.items():
+            if (v.nullable is False and
+                k not in ['id', 'created_at', 'updated_at']):
+                unnullables.append(k)
+        return unnullables
+
     def print_fields(self, model):
         fields = self.get_fields(model)
         for field in fields:
@@ -39,7 +47,6 @@ class CmdUtils():
         new_string = new_string[1:-1]
         new_string = new_string.replace('"', '\\"')
         return new_string
-
 
     def update(self, instance, attr, value):
         if hasattr(instance, attr):
