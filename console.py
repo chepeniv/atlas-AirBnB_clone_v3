@@ -68,6 +68,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         'delete instance given by the class name and id'
+        if arg.lower() == 'all':
+            #define expunge() for DBStorage and FileStorage
+            #and call storage.expunge()
+            return
         instance = self.get_instance(arg)
         if instance is None:
             return

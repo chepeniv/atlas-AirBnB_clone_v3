@@ -77,8 +77,6 @@ class BaseModel:
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
 
-        print(self.id.__dir__())
-
     def __str__(self):
         obj_str = "[{}] ({}) {}"
         return obj_str.format(type(self).__name__, self.id, self.to_dict())
