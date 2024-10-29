@@ -29,21 +29,22 @@
 
 ### Task 7
 
-- [x] File exists
-- [x] Table users correctly created
-- [x] Can create User with email, password, first name and last name via the console
-- [x] Can create User with email and password via the console
-- [x] Can’t create User with only email via the console
-- [x] Can’t create User with only password via the console
-- [x] Can’t create User without email and password via the console
+- [ ] File exists
+- [ ] Table users correctly created
+- [ ] Can create User with email, password,
+      first name and last name via the console
+- [ ] Can create User with email and password via the console
+- [ ] Can’t create User with only email via the console
+- [ ] Can’t create User with only password via the console
+- [ ] Can’t create User without email and password via the console
 
 ----
 
 ### Task 8
 
-- [x] Files exist
-- [x] Test
-- [x] Rollback code
+- [ ] Files exist
+- [ ] Test
+- [ ] Rollback code
 - [ ] Table places correctly created
 - [ ] Can create Place with city id (existing),
       user id (existing), name, description, number rooms,
@@ -69,13 +70,13 @@
 - [ ] Can’t create Place with city id (not existing), user id (existing) and name via the console
 - [ ] Can’t create Place with city id (existing), user id (not existing) and name via the console
 - [ ] Can’t create Place without parameters via the console
-- [ ] Can list all Place in MySQL 
+- [ ] Can list all Place in MySQL
 
 ----
 
 ### Task 9
 
-- [x] Files exist
+- [ ] Files exist
 - [ ] Table reviews correctly created
 - [ ] Can create Review with place id (existing),
       user id (existing) and text via the console
@@ -88,5 +89,5 @@
 - [ ] Can’t create Review with only place id (existing)
       and text via the console
 - [ ] Can’t create Review with only user id (existing)
-      and text via the console:
-- [ ] Can list all Review in MySQL (created outside the program)
+      and text via the console
+- [ ] Can list all Review in MySQL
