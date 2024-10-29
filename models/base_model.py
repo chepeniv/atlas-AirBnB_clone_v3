@@ -14,7 +14,7 @@ Base = declarative_base()
 class BaseModel:
     '''
     calls models inside of BaseModel to avoid circular import error
-    
+
     attributes:
                 Column: id - string of 60 char,
                     primary_key always available and unique
@@ -25,11 +25,12 @@ class BaseModel:
                     cannot be null
     '''
     # ####
-    # Ariel: is there a reason storage_type is calling itself?
+    # Ariel@: is there a reason storage_type is calling itself?
+    # chepe: do you mean is there a reason why i'm assigning it to
+    # its self ?? then, yes! this allows us to set it as an attribute
+    # of this class so that we can call it as BaseModel.storage_type
     # ####
-    
-    # __table_args__ allows an existing table to be modified
-    # without recreating it
+
     from models import storage_type
     storage_type = storage_type
     __table_args__ = {'extend_existing': True}
@@ -82,16 +83,25 @@ class BaseModel:
         return obj_str.format(type(self).__name__, self.id, self.to_dict())
 
     def delete(self):
+        '''
+        remove this instance from the storage system
+        '''
         from models import storage
         storage.delete(self)
 
     def save(self):
+        '''
+        save this instance to the storage system
+        '''
         from models import storage
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
 
     def to_dict(self):
+        '''
+        return a dictionary version of the instance
+        '''
         obj_dict = {}
         for key, value in self.__dict__.items():
             obj_dict.update({key: value})

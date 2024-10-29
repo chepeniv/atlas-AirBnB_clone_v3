@@ -18,6 +18,7 @@ class TestBaseModel(unittest.TestCase):
     def tearDownClass(cls):
         cls.storage.all().clear()
 
+    ################ begin unittest ################
     def test_base__init__(self):
         base_obj = BaseModel()
         self.assertIsInstance(base_obj.id, str)
@@ -63,6 +64,11 @@ class TestBaseModel(unittest.TestCase):
             new_json = json_file.read()
 
         self.assertNotEqual(old_json, new_json)
+
+    def test_base_delete(self):
+        pass
+
+    ################ count 6 ################
 
 if __name__ == '__main__':
     unittest.main()
