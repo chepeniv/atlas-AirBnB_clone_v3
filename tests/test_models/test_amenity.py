@@ -36,6 +36,11 @@ class TestAmenityFile(unittest.TestCase):
         self.assertIsInstance(self.amenity, BaseModel)
         self.assertIsInstance(self.amenity, Base)
 
+    # Ariel@Chepe don't know if it's truly necessary but its another test idea
+    def test_amenity_many_to_many(self):
+        # write test here
+        pass
+        
 class TestAmenityDB(unittest.TestCase):
 
     # setup environment for db
