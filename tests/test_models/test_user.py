@@ -41,17 +41,24 @@ class TestUser(unittest.TestCase):
         self.assertIn(key, self.storage.all())
 
     def test_user_email(self):
-        pass
+        # Ariel@Chepe I put the following code in comments because it was the
+        # first thing I saw before the one I have now
+        # Let me know if either are even correct
+        # self.user = User(email="") not right?
+        self.assertEqual(User.email, "")
 
     def test_user_password(self):
-        pass
+        # self.user = User(password="")
+        self.assertEqual(User.password, "")
 
     def test_user_first_name(self):
-        pass
-
+        # self.user = User(first_name="")
+        self.assertEqual(User.first_name, "")
+        
     def test_user_last_name(self):
-        pass
-
+        # self.user = User(last_name="")
+        self.assertEqual(User.last_name, "")
+        
     def test_user_places(self):
         pass
 
