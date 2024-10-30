@@ -5,15 +5,23 @@ from models.state import State
 
 class TestStateFile(unittest.TestCase):
 
+    def setUp(self):
+        self.state = State("")
+
     def test_state__init__(self):
         new_state = State()
         self.assertEqual(new_state.name, "")
 
     def test_state_name(self):
-        pass
+        state = State()
+        state.name = ""
+        self.assertEqual(state.name, "")
+
+    def tearDown(self):
+        self.state.dispose()
 
     def test_state_cities(self):
-        pass
+        self.assertIn(self.state.cities)
 
 class TestStateDB(unittest.TestCase):
 
