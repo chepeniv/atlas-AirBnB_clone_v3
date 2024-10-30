@@ -7,6 +7,7 @@ from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy import MetaData
 from models.base_model import BaseModel, Base
+import models
 
 # import metadata to create an instance for SQLAlchemy table
 metadata_obj = Base.metadata
@@ -99,8 +100,7 @@ class Place(BaseModel, Base):
         # deletes all linked reviews
         reviews = relationship(
                 "Review",
-                cascade="all, delete-orphan", secondary=place_amenity,
-                viewonly=False)
+                cascade="all, delete-orphan")
 
     else:
         city_id = ""
@@ -114,16 +114,32 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
 
-# add instance of SQL ALchemy table called place_amenity
-# Ariel@ SideNote: need to see if this is the right orientation for this table
-        place_amenity = Table("place_amenity", Base.metadata,
-                              Column("place_id", String(60),
-                                     ForeignKey("places.id"), primary_key=True,
-                                     nullable=False),
-                              Column("amenity_id", String(60),
-                                     ForeignKey("amenities.id"),
-                                     primary_key=True, nullable=False))
+    if models.storage_type == 'db':
+            amenities = relationship('Amenity', secondary=place_amenity,
+                                     viewonly=False)
+    else:
+            amenity_ids = []
 
+        # getter for aminities in FileStorage 
+    @property
+    def amenities(self):
+        if models.storage_type == 'db':
+                return self.amenities
+                return [amenity for amenity in
+                    models.storage.all('Amenity').values() if amenity.id
+                    in self.amenity_ids]
+        
+        # setter for amenities in FileStorage
+        @amenities.setter
+        def amenities(self, obj):
+                if models.storage_type != 'db' and isinstance(obj, models.Amenity):
+                        if obj.id not in self.amenity_ids:
+                        # Ariel@chepe:
+                        # this indentation will throw flake8 all over the place if it's moved.
+                        # Tried different variations but nothing is happy
+                        self.amenity_ids.append(obj.id)
+                
+            
         # method that acts as an attribute
         # retrieves all instances of Review class
         @property
