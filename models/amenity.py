@@ -20,9 +20,12 @@ class Amenity(BaseModel, Base):
         name = Column(
                 String(128),
                 nullable=False)
-        
-        #  create Many to Many relationship between Place and Amenities
-        place_amenities = relationship("Place", secondary="Amenity")
+
+        # class attribute that represents a many-to-many relationship between
+        #   :wqa
+        place_amenities = relationship(
+                "Place",
+                secondary="Amenity")
 
     else:
         name = ""

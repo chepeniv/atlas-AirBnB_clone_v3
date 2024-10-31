@@ -9,18 +9,8 @@ from sqlalchemy import MetaData
 from models.base_model import BaseModel, Base
 import models
 
-# import metadata to create an instance for SQLAlchemy table
 metadata_obj = Base.metadata
 
-# add instance of SQL ALchemy table called place_amenity
-# Ariel@ SideNote: need to see if this is the right orientation for this table
-place_amenity = Table("place_amenity", Base.metadata,
-                              Column("place_id", String(60),
-                                     ForeignKey("places.id"), primary_key=True,
-                                     nullable=False),
-                              Column("amenity_id", String(60),
-                                     ForeignKey("amenities.id"),
-                                     primary_key=True, nullable=False))
 class Place(BaseModel, Base):
     """
     Table name: places
@@ -46,6 +36,16 @@ class Place(BaseModel, Base):
         amenity_ids: list of string -
             empty list: it will be the list of Amenity.id later
     """
+
+    # Chepe:
+    # for dbstorage, amenities represents a relationship with class Amenity
+    # and as secondary to place_amenity with option viewonly=False
+    # place_amenity would have been defined previously
+    #
+    # for filestorage, add a getter attribute that returns a list of Amenity
+    # objects where Amenity.id is in self.amenity_ids. add a setter attribute
+    # amenities that handles append() for adding an Amenity.id to amenity_ids
+    # and it should ONLY accept Amenity objects
 
     __tablename__ = 'places'
 
@@ -96,11 +96,32 @@ class Place(BaseModel, Base):
                 Float,
                 nullable=True)
 
-        # creates link from reviews to Review, when deleted, automatically
-        # deletes all linked reviews
         reviews = relationship(
                 "Review",
-                cascade="all, delete-orphan")
+                cascade="all, delete-orphan",
+                secondary=place_amenity,
+                viewonly=False)
+
+        amenities = relationship(
+                'Amenity',
+                secondary=place_amenity,
+                viewonly=False)
+
+        place_amenity = Table(
+                "place_amenity",
+                Base.metadata,
+                Column(
+                    "place_id",
+                    String(60),
+                    ForeignKey("places.id"),
+                    primary_key=True,
+                    nullable=False),
+                Column(
+                    "amenity_id",
+                    String(60),
+                    ForeignKey("amenities.id"),
+                    primary_key=True,
+                    nullable=False))
 
     else:
         city_id = ""
@@ -114,34 +135,25 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
 
-    if models.storage_type == 'db':
-            amenities = relationship('Amenity', secondary=place_amenity,
-                                     viewonly=False)
-    else:
-            amenity_ids = []
+        amenity_ids = []
 
-        # getter for aminities in FileStorage 
-    @property
-    def amenities(self):
-        if models.storage_type == 'db':
+        # chepe:
+        # gonna analyze this latter
+        '''
+        @property
+        def amenities(self):
+            if models.storage_type == 'db':
                 return self.amenities
                 return [amenity for amenity in
                     models.storage.all('Amenity').values() if amenity.id
                     in self.amenity_ids]
-        
-        # setter for amenities in FileStorage
+
         @amenities.setter
         def amenities(self, obj):
-                if models.storage_type != 'db' and isinstance(obj, models.Amenity):
-                        if obj.id not in self.amenity_ids:
-                        # Ariel@chepe:
-                        # this indentation will throw flake8 all over the place if it's moved.
-                        # Tried different variations but nothing is happy
-                        self.amenity_ids.append(obj.id)
-                
-            
-        # method that acts as an attribute
-        # retrieves all instances of Review class
+            if models.storage_type != 'db' and isinstance(obj, models.Amenity):
+                if obj.id not in self.amenity_ids:
+                self.amenity_ids.append(obj.id)
+
         @property
         def reviews(self):
             reviews = self.storage.all('Review')
@@ -149,3 +161,4 @@ class Place(BaseModel, Base):
                 if review.place_id != self.id:
                     reviews.pop(review.id)
             return reviews
+    '''
