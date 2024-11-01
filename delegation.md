@@ -11,12 +11,6 @@ add more subtask for any issues that arise
 
 ## in progress
 
-- [ ] task10 - dbstorage amenity - **Ariel**, **chepe**
-	- [ ] add the required columns
-	- [ ] `models/place.py:Place` - **chepe**
-		- [ ] create new table `place_amenity`
-		- [ ] update class
-
 ----
 
 ## extra
@@ -76,6 +70,12 @@ add more subtask for any issues that arise
 		- [x] `reviews = relationship('Review', cascade='all, delete')`
 	- [x] `models/place.py:Place`
 		- [x] check out how state is written for this one
+
+- [x] task10 - dbstorage amenity - **Ariel**, **chepe**
+	- [x] add the required columns
+	- [x] `models/place.py:Place` - **chepe**
+		- [x] create new table `place_amenity`
+		- [x] update class
 
 - [x] add `do_models` -- list all models available
 - [x] `console_util.py` - **chepe**
