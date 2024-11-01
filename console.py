@@ -6,7 +6,7 @@ which imports and customize the cmd.Cmd class
 
 import cmd
 from console_util import cmd_utils
-from models import storage
+from models import storage, storage_type, db
 from models.engine import valid_models
 
 
@@ -17,7 +17,19 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = '(hbnb) '
 
+    def do_storage(self, args):
+        '''
+        output which backend storage system is being used and which database
+        if any
+        '''
+        print("working in {} storage mode".format(storage_type))
+        if storage_type == 'db':
+            print("using database {}".format(db))
+
     def do_models(self, args):
+        '''
+        list the given or all available models and their properties
+        '''
         if not args:
             for name, model in valid_models().items():
                 print(name, end="\n| ")
