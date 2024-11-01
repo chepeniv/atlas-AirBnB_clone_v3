@@ -5,11 +5,24 @@ Place class that inherits from BaseModel and Base
 
 from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy import MetaData
 from models.base_model import BaseModel, Base
-import models
 
-metadata_obj = Base.metadata
+
+place_amenity = Table(
+        "place_amenity",
+        Base.metadata,
+        Column(
+            "place_id",
+            String(60),
+            ForeignKey("places.id"),
+            primary_key=True,
+            nullable=False),
+        Column(
+            "amenity_id",
+            String(60),
+            ForeignKey("amenities.id"),
+            primary_key=True,
+            nullable=False))
 
 class Place(BaseModel, Base):
     """
@@ -36,16 +49,6 @@ class Place(BaseModel, Base):
         amenity_ids: list of string -
             empty list: it will be the list of Amenity.id later
     """
-
-    # Chepe:
-    # for dbstorage, amenities represents a relationship with class Amenity
-    # and as secondary to place_amenity with option viewonly=False
-    # place_amenity would have been defined previously
-    #
-    # for filestorage, add a getter attribute that returns a list of Amenity
-    # objects where Amenity.id is in self.amenity_ids. add a setter attribute
-    # amenities that handles append() for adding an Amenity.id to amenity_ids
-    # and it should ONLY accept Amenity objects
 
     __tablename__ = 'places'
 
@@ -96,32 +99,14 @@ class Place(BaseModel, Base):
                 Float,
                 nullable=True)
 
-        reviews = relationship(
-                "Review",
-                cascade="all, delete-orphan",
-                secondary=place_amenity,
-                viewonly=False)
-
         amenities = relationship(
                 'Amenity',
                 secondary=place_amenity,
                 viewonly=False)
 
-        place_amenity = Table(
-                "place_amenity",
-                Base.metadata,
-                Column(
-                    "place_id",
-                    String(60),
-                    ForeignKey("places.id"),
-                    primary_key=True,
-                    nullable=False),
-                Column(
-                    "amenity_id",
-                    String(60),
-                    ForeignKey("amenities.id"),
-                    primary_key=True,
-                    nullable=False))
+        reviews = relationship(
+                "Review",
+                cascade="all, delete-orphan")
 
     else:
         city_id = ""
@@ -134,25 +119,22 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-
         amenity_ids = []
 
-        # chepe:
-        # gonna analyze this latter
-        '''
         @property
         def amenities(self):
-            if models.storage_type == 'db':
-                return self.amenities
-                return [amenity for amenity in
-                    models.storage.all('Amenity').values() if amenity.id
-                    in self.amenity_ids]
+            amenities = self.storage.all('Amenity')
+            for amenity in amenities:
+                if amenity.id not in amenity_ids:
+                    amenities.pop(amenity.id)
+            return amenities
 
         @amenities.setter
-        def amenities(self, obj):
-            if models.storage_type != 'db' and isinstance(obj, models.Amenity):
-                if obj.id not in self.amenity_ids:
-                self.amenity_ids.append(obj.id)
+        def amenities(self, amenity):
+            from models import Amenity
+            if (isinstance(amenity, Amenity) and
+                amenity.id not in self.amenity_ids):
+                amenity_ids.append(amenity.id)
 
         @property
         def reviews(self):
@@ -161,4 +143,3 @@ class Place(BaseModel, Base):
                 if review.place_id != self.id:
                     reviews.pop(review.id)
             return reviews
-    '''

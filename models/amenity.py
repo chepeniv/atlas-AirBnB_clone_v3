@@ -3,8 +3,9 @@
 Amenity class that inherits from BaseModel, Base
 """
 
+from models.place import place_amenity
 from models.base_model import BaseModel, Base
-from sqlalchemy import ForeignKey, Column, String
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 
 
@@ -21,11 +22,11 @@ class Amenity(BaseModel, Base):
                 String(128),
                 nullable=False)
 
-        # class attribute that represents a many-to-many relationship between
-        #   :wqa
         place_amenities = relationship(
                 "Place",
-                secondary="Amenity")
+                secondary=place_amenity,
+                back_populates="amenities",
+                viewonly=False)
 
     else:
         name = ""
