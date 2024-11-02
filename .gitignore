@@ -4,3 +4,5 @@ file.json
 *.test.sql
 console_err
 error.log
+flask.log
+console.log
