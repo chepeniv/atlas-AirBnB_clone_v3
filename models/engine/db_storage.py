@@ -69,7 +69,7 @@ class DBStorage:
             return results
         else:
             query = self.__session.query(search_class)
-            return construct_dict(query)
+            return self.construct_dict(query)
 
     def new(self, obj):
         """
@@ -114,6 +114,9 @@ class DBStorage:
              .filter(ObjClass.id == obj.id)
              .delete(synchronize_session=False))
             self.save()
+
+    def close(self):
+        self.__session.close()
 
     def construct_key(self, obj):
         """

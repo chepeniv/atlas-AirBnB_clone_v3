@@ -93,6 +93,9 @@ class FileStorage:
             if self.__objects.get(key) is not None:
                 self.__objects.pop(key)
 
+    def close(self):
+        self.reload()
+
     def construct_key(self, obj):
         """ helper method to construct key for object dictionary """
         return type(obj).__name__ + "." + obj.id

@@ -3,7 +3,6 @@
 State class that inherits from BaseModel and Base
 """
 
-import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
@@ -35,8 +34,11 @@ class State(BaseModel, Base):
             '''
             returns dictionary of cities belonging to this state
             '''
-            cities = self.storage.all('City')
-            for city in cities:
-                if city.state_id != self.id:
-                    cities.pop(city.id)
-            return cities
+            from models import storage
+            from models.city import City
+            all_cities = storage.all(City)
+            state_cities = {}
+            for key, city in all_cities.items():
+                if city.state_id == self.id:
+                    state_cities.update({key: city})
+            return state_cities
