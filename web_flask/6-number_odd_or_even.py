@@ -88,7 +88,7 @@ def number_template(n):
 @app.route("/number_odd_or_even/<n>", strict_slashes=False)
 def odd_even_template(n):
     '''
-    return a dynamic template webpage based on the url
+    returns a template that determines whether a number is even or not
     '''
     if n.isdecimal():
         n = int(n)
