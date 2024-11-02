@@ -123,11 +123,25 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            amenities = self.storage.all('Amenity')
-            for amenity in amenities:
-                if amenity.id not in amenity_ids:
-                    amenities.pop(amenity.id)
-            return amenities
+            from models import storage
+            from models.amenity import Amenity
+            all_amenities = storage.all(Amenity)
+            place_amenities = []
+            for amenity in all_menities.values():
+                if amenity.id in amenity_ids:
+                    place_amenities.append(amenity)
+            return place_amenities
+
+        @property
+        def reviews(self):
+            from models import storage
+            from models.review import Review
+            all_reviews = storage.all(Review)
+            place_reviews = []
+            for review in all_reviews.values():
+                if review.place_id == self.id:
+                    place_reviews.append(review)
+            return place_reviews
 
         @amenities.setter
         def amenities(self, amenity):
@@ -135,11 +149,3 @@ class Place(BaseModel, Base):
             if (isinstance(amenity, Amenity) and
                 amenity.id not in self.amenity_ids):
                 amenity_ids.append(amenity.id)
-
-        @property
-        def reviews(self):
-            reviews = self.storage.all('Review')
-            for review in reviews:
-                if review.place_id != self.id:
-                    reviews.pop(review.id)
-            return reviews

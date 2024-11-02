@@ -32,7 +32,7 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             '''
-            returns dictionary of cities belonging to this state
+            returns LIST of cities belonging to this state
             '''
             from models import storage
             from models.city import City

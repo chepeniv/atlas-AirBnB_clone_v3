@@ -36,12 +36,10 @@ class User(BaseModel, Base):
                 String(128),
                 nullable=True)
 
-        # places linked to Place and deletes all that references it
         places = relationship(
                 "Place",
                 cascade="all, delete-orphan")
 
-        # reviews linked to Review and deletes all that references it
         reviews = relationship(
                 "Review",
                 cascade="all, delete-orphan")
@@ -54,22 +52,22 @@ class User(BaseModel, Base):
 
         @property
         def places(self):
-            '''
-            reviews = self.storage.all('Review')
-            for review in reviews:
-                if review.place_id != self.id:
-                    reviews.pop(review.id)
-            return reviews
-            '''
-            pass
+            from models import storage
+            from models.place import Place
+            all_places = storage.all(Place)
+            user_places = []
+            for place in all_places.values():
+                if places.user_id == self.id:
+                    user_places.append(place)
+            return user_places
 
         @property
         def reviews(self):
-            '''
-            reviews = self.storage.all('Review')
-            for review in reviews:
-                if review.place_id != self.id:
-                    reviews.pop(review.id)
-            return reviews
-            '''
-            pass
+            from models import storage
+            from models.review import Review
+            all_reviews = storage.all(Review)
+            user_reviews = []
+            for review in all_reviews.values():
+                if review.user_id == self.id:
+                    user_reviews.append(review)
+            return user_reviews
