@@ -28,6 +28,7 @@ def metadata_create_all(engine):
     metadata.create_all(engine)
     return metadata
 
+
 class DBStorage:
     # __objects = {}
     __engine = None
@@ -61,7 +62,7 @@ class DBStorage:
         """
         # call self.save() first?
         results = {}
-        if search_class == None:
+        if search_class is None:
             for table in valid_models().values():
                 query = self.__session.query(table)
                 query = self.construct_dict(query)
@@ -104,7 +105,7 @@ class DBStorage:
         remove the given object from __objects if it exist within
         if nothing is given do nothing
         """
-        if obj == None:
+        if obj is None:
             return
         else:
             ObjClass = type(obj)

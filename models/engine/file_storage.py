@@ -21,7 +21,7 @@ class FileStorage:
         from models.amenity import Amenity
         from models.review import Review
         self.__classes = {
-                'User':User,
+                'User': User,
                 'State': State,
                 'City': City,
                 'Place': Place,
@@ -31,7 +31,7 @@ class FileStorage:
 
     def all(self, search_class=None):
         """ returns a dictionary of objects """
-        if search_class == None:
+        if search_class is None:
             return self.__objects
         else:
             class_name = search_class.__name__
@@ -86,7 +86,7 @@ class FileStorage:
         remove the given object from __objects if it exist within
         if nothing is given do nothing
         """
-        if obj == None:
+        if obj is None:
             return
         else:
             key = self.construct_key(obj)
