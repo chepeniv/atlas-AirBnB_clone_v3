@@ -8,7 +8,6 @@ sys.path.append('../')
 from models import storage, storage_type
 from models.state import State
 from flask import Flask, abort, render_template
-from markupsafe import escape
 
 app = Flask(__name__)
 
@@ -24,20 +23,17 @@ def get_sorted_states():
     '''
     returns a sorted list of value pairs containing a name and id each
     '''
-    states = storage.all(State).values()
     state_names = []
+    states = storage.all(State).values()
+
+    if len(states) == 0:
+        return None
+
     for state in states:
         state_names.append((state.name, state.id))
+
     state_names.sort(key=by_name)
     return state_names
-
-
-@app.route("/", strict_slashes=False)
-def welcome():
-    '''
-    welcome page
-    '''
-    return "task 8 States List"
 
 
 @app.route("/states_list", strict_slashes=False)
@@ -47,7 +43,10 @@ def list_all_states():
     order
     '''
     state_names = get_sorted_states()
-    return render_template("7-states_list.html", states=state_names)
+    if State:
+        return render_template("7-states_list.html", states=state_names)
+    else:
+        abort(404)
 
 
 @app.teardown_appcontext
