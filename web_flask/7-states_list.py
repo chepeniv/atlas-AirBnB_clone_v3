@@ -1,88 +1,61 @@
 #!/usr/bin/python3
 '''
-task 7 - list of states
-
+task 8 - list of states
 '''
 
 import sys
 sys.path.append('../')
 from models import storage, storage_type
+from models.state import State
 from flask import Flask, abort, render_template
 from markupsafe import escape
 
 app = Flask(__name__)
 
 
+def by_name(pair):
+    '''
+    function to indicate to .sort()
+    '''
+    return pair[0]
+
+
+def get_sorted_states():
+    '''
+    returns a sorted list of value pairs containing a name and id each
+    '''
+    states = storage.all(State).values()
+    state_names = []
+    for state in states:
+        state_names.append((state.name, state.id))
+    state_names.sort(key=by_name)
+    return state_names
+
+
 @app.route("/", strict_slashes=False)
-def hello():
+def welcome():
     '''
-    serve text, upon request, to route /
+    welcome page
     '''
-    return "Hello HBNB!"
+    return "task 8 States List"
 
 
-@app.route("/hbnb", strict_slashes=False)
-def hbnb():
+@app.route("/states_list", strict_slashes=False)
+def list_all_states():
     '''
-    serve text, upon request, to route /hbnb
+    serves a template that displays all State objects by name in alphabetical
+    order
     '''
-    return "HBNB"
+    state_names = get_sorted_states()
+    return render_template("7-states_list.html", states=state_names)
 
 
-@app.route("/c/<text>", strict_slashes=False)
-def c_text(text):
+@app.teardown_appcontext
+def close_database(self):
     '''
-    process the given url and serve the resulting text on route /c/<text>
+    close the database after each serve
     '''
-    text = text.replace("_", " ")
-    return f"C {escape(text)}"
-
-
-@app.route("/python", strict_slashes=False)
-@app.route("/python/<text>", strict_slashes=False)
-def python_text(text="is_cool"):
-    '''
-    process the given url and serve the resulting text on route /python/<text>
-    '''
-    text = text.replace("_", " ")
-    return f"Python {escape(text)}"
-
-
-@app.route("/number/<n>", strict_slashes=False)
-def number(n):
-    '''
-    process the given url and output the result on route /number/<n>
-    '''
-    if n.isdecimal():
-        n = int(n)
-        return f"{n} is a number"
-    else:
-        abort(404)
-
-
-@app.route("/number_template/<n>", strict_slashes=False)
-def number_template(n):
-    '''
-    return a dynamic template webpage based on the url
-    '''
-    if n.isdecimal():
-        n = int(n)
-        return render_template("5-number.html", number=n)
-    else:
-        abort(404)
-
-
-@app.route("/number_odd_or_even/<n>", strict_slashes=False)
-def odd_even_template(n):
-    '''
-    returns a template that determines whether a number is even or not
-    '''
-    if n.isdecimal():
-        n = int(n)
-        odd = n % 2
-        return render_template("6-number_odd_or_even.html", number=n, odd=odd)
-    else:
-        abort(404)
+    storage.close()
 
 
 if __name__ == '__main__':
