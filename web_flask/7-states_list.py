@@ -16,7 +16,7 @@ def by_name(state):
     '''
     function to indicate to .sort()
     '''
-    return state.get('name')
+    return state.name
 
 
 def get_sorted_states():
@@ -30,7 +30,7 @@ def get_sorted_states():
         return None
 
     for state in states:
-        state_names.append(state.to_dict())
+        state_names.append(state)
 
     state_names.sort(key=by_name)
     return state_names
