@@ -12,11 +12,11 @@ from flask import Flask, abort, render_template
 app = Flask(__name__)
 
 
-def by_name(pair):
+def by_name(state):
     '''
     function to indicate to .sort()
     '''
-    return pair[0]
+    return state.get('name')
 
 
 def get_sorted_states():
@@ -30,7 +30,7 @@ def get_sorted_states():
         return None
 
     for state in states:
-        state_names.append((state.name, state.id))
+        state_names.append(state.to_dict())
 
     state_names.sort(key=by_name)
     return state_names
