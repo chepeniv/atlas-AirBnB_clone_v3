@@ -23,17 +23,17 @@ def get_sorted_states():
     '''
     returns a sorted list of value pairs containing a name and id each
     '''
-    state_names = []
+    states_list = []
     states = storage.all(State).values()
 
     if len(states) == 0:
         return None
 
     for state in states:
-        state_names.append(state)
+        states_list.append(state)
 
-    state_names.sort(key=by_name)
-    return state_names
+    states_list.sort(key=by_name)
+    return states_list
 
 
 @app.route("/states_list", strict_slashes=False)
@@ -42,9 +42,9 @@ def list_all_states():
     serves a template that displays all State objects by name in alphabetical
     order
     '''
-    state_names = get_sorted_states()
+    states = get_sorted_states()
     if State:
-        return render_template("7-states_list.html", states=state_names)
+        return render_template("7-states_list.html", states=states)
     else:
         abort(404)
 

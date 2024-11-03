@@ -12,56 +12,16 @@ from flask import Flask, abort, render_template
 app = Flask(__name__)
 
 
-# loading cities of state :
-    # for DBStorage use relationship cities
-    # otherwise use getter cities
-# after each request remove the sqlalchemy session
-# routes:
-    # /cities_by_states
-    # H1 - States
-    # UL - listing all states sorted by name
-        # LI - state.id: <b>state.name</b>
-        # UL - cities of state sorted by name
-            # LI - city.id: <b>city.name<b>
-
-def by_name(pair):
-    '''
-    function to indicate to .sort()
-    '''
-    return pair[0]
-
-
-def get_sorted_states():
-    '''
-    returns a sorted list of value pairs containing a name and id each
-    '''
-    state_names = []
-    states = storage.all(State).values()
-
-    if len(states) == 0:
-        return None
-
-    for state in states:
-        state_names.append((state.name, state.id))
-
-    state_names.sort(key=by_name)
-    return state_names
-
-def get_state_cities(state):
-    if storage_type == 'db':
-        pass
-    else:
-        pass
-
-@app.route("/states_list", strict_slashes=False)
+@app.route("/cities_by_states", strict_slashes=False)
 def list_all_states():
     '''
     serves a template that displays all State objects by name in alphabetical
     order
     '''
-    state_names = get_sorted_states()
-    if State:
-        return render_template("7-states_list.html", states=state_names)
+    states = storage.all(State).values()
+    states = list(states)
+    if len(states) > 0:
+        return render_template("8-cities_by_states.html", states=states)
     else:
         abort(404)
 
