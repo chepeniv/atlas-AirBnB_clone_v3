@@ -41,6 +41,8 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 	z-index: 1;
+	max-height: 300px;
+	overflow: scroll;
 }
 
 ul {

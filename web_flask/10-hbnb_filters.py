@@ -8,14 +8,19 @@ sys.path.append('../')
 from models import storage, storage_type
 from models.state import State
 from models.amenity import Amenity
-from flask import Flask, abort, render_template
+from flask import Flask, abort, render_template, url_for, redirect
 
 app = Flask(__name__)
 
-# update class .popover in 6-filters.css
-#       enable scrolling and set max height of 300px
-# all loaded objects will be loaded from DBStorage and must be
-#       sorted alphabetically by name
+
+@app.route("/", strict_slashes=False)
+def hello():
+    '''
+    homepage landing that redirects to hbnb_filters()
+    '''
+    return redirect(url_for('hbnb_filters'))
+
+
 @app.route("/hbnb_filters", strict_slashes=False)
 def hbnb_filters():
     '''
