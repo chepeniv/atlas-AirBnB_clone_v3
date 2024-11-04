@@ -57,6 +57,7 @@ def state_by_id(idnum):
     else:
         return render_template("9-states.html", states=[], single=False)
 
+
 @app.teardown_appcontext
 def close_database(self):
     '''
