@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 file_name=$(basename $1 .py);
-#echo "file name : $file_name"
 
 HBNB_ENV=dev \
 HBNB_MYSQL_USER=hbnb_$HBNB_ENV \

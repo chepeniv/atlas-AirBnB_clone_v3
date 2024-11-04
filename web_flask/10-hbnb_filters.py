@@ -7,6 +7,7 @@ import sys
 sys.path.append('../')
 from models import storage, storage_type
 from models.state import State
+from models.amenity import Amenity
 from flask import Flask, abort, render_template
 
 app = Flask(__name__)
@@ -22,17 +23,15 @@ def hbnb_filters():
     all of its cities in alphabetical order
     '''
     states = storage.all(State).values()
+    states = list(states)
 
-    state = None
-    for s in states:
-        if s.id == idnum:
-            state = s
-            break
+    amenities = storage.all(Amenity).values()
+    amenities = list(amenities)
 
-    if state is not None:
-        return render_template("9-states.html", states=[state], single=True)
-    else:
-        return render_template("9-states.html", states=[], single=False)
+    return render_template(
+            "10-hbnb_filters.html",
+            states=states,
+            amenities=amenities)
 
 
 @app.teardown_appcontext
