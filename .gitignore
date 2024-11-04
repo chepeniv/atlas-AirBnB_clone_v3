@@ -1,9 +1,5 @@
 __pycache__
 file.json
-*.test.py
-*.test.sql
-console_err
-error.log
-flask.log
-console.log
-*.test.sh
+*.test.*
+*.error.log
+*.log

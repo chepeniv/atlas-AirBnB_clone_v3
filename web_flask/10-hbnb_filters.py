@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-task 9 - cities by states
+task 10 - hbnb filters
 '''
 
 import sys
@@ -11,7 +11,18 @@ from flask import Flask, abort, render_template
 
 app = Flask(__name__)
 
-
+# /hbnb_filters
+# duplicate 6-index.html into templates/10-hbnb_filters.html
+#       replace content of H4 under each filter title (H3 states and H3
+#       amenities)by &nbsp;
+# into web_flask/static/styles
+#       copy 3-footer.css, 3-header.css, 4-common.css, 6-filters.css
+#       update class .popover in 6-filters.css
+#           enable scrolling and set max height of 300px
+# into web_flask/static/images
+#       copy icon.png, logo.png,
+# all loaded objects (states, cities, and amenities) will be loaded from
+#       DBStorage and must be sorted alphabetically by name
 @app.route("/states", strict_slashes=False)
 def all_states():
     '''
