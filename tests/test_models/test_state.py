@@ -2,8 +2,10 @@
 
 import unittest, os
 from models.state import State
-from models import storage
+from models import storage, storage_type
 
+
+@unittest.skipIf(storage_type == 'db', 'Tests not designed for DBStorage')
 class TestStateFile(unittest.TestCase):
 
     def setUp(self):
@@ -20,9 +22,6 @@ class TestStateFile(unittest.TestCase):
 
     def tearDown(self):
         storage.delete(self.state)
-
-    def test_state_cities(self):
-        self.assertIn(self.state.cities)
 
 class TestStateDB(unittest.TestCase):
 

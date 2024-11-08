@@ -2,7 +2,10 @@
 
 import unittest
 from models.review import Review
+from models import storage_type
 
+
+@unittest.skipIf(storage_type == 'db', 'Tests not designed for DBStorage')
 class TestReviewFile(unittest.TestCase):
 
     def test_review__init__(self):

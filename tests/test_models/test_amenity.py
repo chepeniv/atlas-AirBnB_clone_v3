@@ -3,7 +3,7 @@
 import unittest
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
-from models import storage
+from models import storage, storage_type
 import os
 
 ################################
@@ -12,6 +12,9 @@ import os
 # bd and file storage modes
 ################################
 
+
+
+@unittest.skipIf(storage_type == 'db', 'Tests not designed for DBStorage')
 class TestAmenityFile(unittest.TestCase):
 
     def test_amenity__init__(self):

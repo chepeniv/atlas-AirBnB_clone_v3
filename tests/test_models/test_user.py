@@ -4,7 +4,10 @@
 import unittest, os
 from models.user import User
 from models.engine.file_storage import FileStorage
+from models import storage_type
 
+
+@unittest.skipIf(storage_type == 'db', 'Tests not designed for DBStorage')
 class TestUser(unittest.TestCase):
 
     @classmethod
