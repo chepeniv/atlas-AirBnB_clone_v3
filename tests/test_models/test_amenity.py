@@ -3,6 +3,7 @@
 import unittest
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
+from models import storage
 import os
 
 ################################
@@ -29,7 +30,7 @@ class TestAmenityFile(unittest.TestCase):
 
     # cleans up after setup
     def tearDown(self):
-        self.amenity.dispose()
+        storage.delete(self.amenity)
 
     # test to see if amenity inherits from base and basemodel
     def test_amenity_inherit(self):
