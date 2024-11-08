@@ -163,7 +163,7 @@ One day, we dream of having a beautiful front-end, real-time rental bookings, an
 ## Contributors (Or... Who to Blame)
 * **John Wilson**– Wannabe Python Guru, occasional meme enthusiast.
 * **Jose 'Chepe' Olmos** – The one who said “JSON is the way.” i never actually said this
-* **AlexAndrea "Ariel" Lopez ** 
-* **Stephen Newby** – Aspiring High-Level Improvisor
+* **AlexAndrea "Ariel" Lopez** -
+* **Stephen Newby** – Aspiring High-Level Improviser
 
     Feel free to fork, contribute, or send us some encouraging words as we slowly inch towards internet stardom. And remember, even if you don't book the place, you can always create it in our console.
