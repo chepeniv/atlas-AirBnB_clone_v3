@@ -2,6 +2,7 @@
 
 import unittest, os
 from models.state import State
+from models import storage
 
 class TestStateFile(unittest.TestCase):
 
@@ -18,7 +19,7 @@ class TestStateFile(unittest.TestCase):
         self.assertEqual(state.name, "")
 
     def tearDown(self):
-        self.state.dispose()
+        storage.delete(self.state)
 
     def test_state_cities(self):
         self.assertIn(self.state.cities)

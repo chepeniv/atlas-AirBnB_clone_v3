@@ -5,8 +5,10 @@ from datetime import datetime
 from uuid import uuid4
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+from models import storage_type
 
 
+@unittest.skipIf(storage_type == 'db', 'Tests not designed for DBStorage')
 class TestBaseModelFile(unittest.TestCase):
 
     @classmethod
