@@ -12,9 +12,9 @@
 	- [x] update `DBStorage`
 		- [x] add `get()`
 		- [x] add `count()`
-	- [ ] update `FileStorage`
-		- [ ] add `get()`
-		- [ ] add `count()`
+	- [x] update `FileStorage`
+		- [x] add `get()`
+		- [x] add `count()`
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
 
@@ -33,6 +33,8 @@
 - [ ] (11 pts) 13. http access control (cors) - **chepe**
 
 ## extra
+
+- [ ] write init .sh script for file storage mode
 
 ## completed
 
