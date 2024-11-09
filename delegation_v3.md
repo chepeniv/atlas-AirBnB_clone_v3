@@ -5,8 +5,22 @@
 ## in progress
 
 - [ ] (26 pts) 1. unittest - **snewby**
+- [~] (24 pts) 3. improve storage - **chepe**
+	- [x] update `HBNBCommand`
+		- [x] add `do_get()`
+		- [x] add `do_count()`
+	- [x] update `DBStorage`
+		- [x] add `get()`
+		- [x] add `count()`
+	- [ ] update `FileStorage`
+		- [ ] add `get()`
+		- [ ] add `count()`
+	- [ ] update `test_file_storage.py`
+	- [ ] update `test_db_storage.py`
+
+## queue
+
 - [ ] (23 pts) 2. code review - **snewby**
-- [ ] (24 pts) 3. improve storage - **chepe**
 - [ ] (13 pts) 4. status of your api - **chepe**
 - [ ] (11 pts) 5. some stats - **chepe**
 - [ ] (11 pts) 6. not found - **snewby**
