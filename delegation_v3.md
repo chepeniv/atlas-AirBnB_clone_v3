@@ -18,6 +18,9 @@
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
 - [ ] (13 pts) 4. status of your api - **chepe**
+	- [ ] update `app.py`
+	- [ ] update `index.py`
+	- [ ] update `v1/views/__init__.py`
 
 ## queue
 
