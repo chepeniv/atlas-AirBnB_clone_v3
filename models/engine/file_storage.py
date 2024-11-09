@@ -41,6 +41,25 @@ class FileStorage:
                     objects_of_class.update({key: value})
             return objects_of_class
 
+    def get(self, kind, id_num):
+        '''
+        attempts to retrieve and return the object specified by the class and
+        id number given. if no such object is found `None` is returned
+        '''
+        if kind and id_num:
+            key = kind.__name__ + "." + id_num
+            return self.__objects.get(key)
+        else:
+            return None
+
+    def count(self, kind=None):
+        '''
+        returns a count of all the objects found in storage for the given class.
+        if no class is given then a count for _all_ objects regardless of class
+        is returned instead
+        '''
+        pass
+
     def new(self, obj):
         """ adds a new object to the dictionary object with
         the key string <class>.<id>
