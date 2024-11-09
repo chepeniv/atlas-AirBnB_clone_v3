@@ -58,7 +58,7 @@ class FileStorage:
         if no class is given then a count for _all_ objects regardless of class
         is returned instead
         '''
-        pass
+        return len(self.all(kind))
 
     def new(self, obj):
         """ adds a new object to the dictionary object with
