@@ -96,8 +96,6 @@ class DBStorage:
         adds a new object to the dictionary object with
         the key string <class>.<id>
         """
-        # this might just be enough, since obj would
-        # presumably already be mapped to the database table
         self.__session.add(obj)
 
     def save(self):
@@ -114,8 +112,6 @@ class DBStorage:
             self.__session.close()
         except InvalidRequestError:
             pass
-        # create all tables in the database (sqlalchemy)
-        # use Session.refresh() ?
         metadata_create_all(self.__engine)
         self.__session = self.__session_generator()
 
