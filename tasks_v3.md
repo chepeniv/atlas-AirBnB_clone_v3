@@ -2,6 +2,8 @@
 
 ## 0. restart from scratch
 
+**DONE**
+
 ## 1. never fail
 
 `atlas-AirBnB_clone_v3/tests`
@@ -261,3 +263,18 @@ in `api/v1/views/reviews.py` :
 - `PUT /api/v1/reviews/<reviews_id>` update the matching reviews object
 
 ## 13. http access control (cors)
+
+cross-origin http request is made when a resource request another resource from
+a domain or port that is different from the one the first resource is hosted on
+
+[definition of CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+this is needed because it allows a web client to make request on your api.
+without correctly setup CORS, a web client wont be able to access the data
+
+install `pip3 install flask_cors` and use the `CORS` class from the
+module `flask_cors`
+
+update `api/v1/app.py` and create a `CORS` instance allowing `/*` for `0.0.0.0`
+
+this will be updated when the API is deployed to production
