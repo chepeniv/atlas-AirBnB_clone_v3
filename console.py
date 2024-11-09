@@ -4,11 +4,11 @@ this is the launch point of our CLI
 which imports and customize the cmd.Cmd class
 """
 
-import os
 import cmd
 from console_util import cmd_utils
 from models import storage, storage_type, db
 from models.engine import valid_models
+from os import system
 
 
 # chepe-work:
@@ -168,7 +168,7 @@ class HBNBCommand(cmd.Cmd):
         '''
         wipes the terminal window
         '''
-        os.system('clear')
+        system('clear')
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
