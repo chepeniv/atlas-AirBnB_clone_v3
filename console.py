@@ -4,6 +4,7 @@ this is the launch point of our CLI
 which imports and customize the cmd.Cmd class
 """
 
+import os
 import cmd
 from console_util import cmd_utils
 from models import storage, storage_type, db
@@ -162,6 +163,12 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     do_delete = do_destroy
+
+    def do_clear(self, args):
+        '''
+        wipes the terminal window
+        '''
+        os.system('clear')
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
