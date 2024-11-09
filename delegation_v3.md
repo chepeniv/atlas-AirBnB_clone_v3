@@ -17,11 +17,11 @@
 		- [x] add `count()`
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
+- [ ] (13 pts) 4. status of your api - **chepe**
 
 ## queue
 
 - [ ] (23 pts) 2. code review - **snewby**
-- [ ] (13 pts) 4. status of your api - **chepe**
 - [ ] (11 pts) 5. some stats - **chepe**
 - [ ] (11 pts) 6. not found - **snewby**
 - [ ] (25 pts) 7. state - **chepe**
