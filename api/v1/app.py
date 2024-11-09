@@ -18,7 +18,8 @@ import sys
 sys.path.append('../')
 from models import storage, storage_type
 from models.state import State
-from flask import Flask, abort, render_template
+from flask import Flask, abort, render_template, jsonify
+
 
 app = Flask(__name__)
 
@@ -64,6 +65,13 @@ def close_database(self):
     '''
     storage.close()
 
+
+@app.errorhandler(404)
+def not_found(e):
+    """
+    handles all 404 errors to return a json 404 file
+    """
+    return jsonify({"error": "Not found"}), 404
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
