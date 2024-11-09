@@ -87,21 +87,32 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(str(instance))
 
-    def do_get(self, string_arg):
+    def do_get(self, usr_input):
         '''
         directly accesses object from storage
         '''
         # testing calls
-        storage.get("A", "B")
+        if usr_input:
+            usr_input = usr_input.split()
+            id_num = usr_input[1] if len(usr_input) > 1 else None
+            model = usr_input[0] if len(usr_input) > 0 else None
+            model = valid_models().get(model)
+        else:
+            id_num = None
+            model = None
+        storage.get(model, id_num)
 
-    def do_count(self, string_arg):
+    def do_count(self, usr_input):
         '''
         counts all of the objects of a given class in storage
         if no class is given then it counts everything in storage instead
         '''
         # testing calls
-        storage.count()
-        storage.count("C")
+        if usr_input:
+            model = self.get_class(usr_input)
+        else:
+            model = None
+        storage.count(model)
 
     def do_all(self, args):
         """ outputs string representations for every existing
