@@ -56,11 +56,9 @@ class DBStorage:
         self.__session = self.__session_generator()
 
     def all(self, search_class=None):
-
         """
         returns a dictionary of objects based on the class given
         """
-        # call self.save() first?
         results = {}
         if search_class is None:
             for table in valid_models().values():
@@ -85,9 +83,13 @@ class DBStorage:
         if no class is given then a count for _all_ objects regardless of class
         is returned instead
         '''
-        # counts the total number of all objects in storage if no class is given
-        # counts the total number of objects of given class in storage
-        print("DBStorage.count({})".format(kind))
+        if kind:
+            return self.__session.query(kind).count()
+        else:
+            count = 0
+            for model in valid_models().values():
+                count += self.__session.query(model).count()
+            return count
 
     def new(self, obj):
         """

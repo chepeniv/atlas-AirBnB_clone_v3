@@ -100,8 +100,7 @@ class HBNBCommand(cmd.Cmd):
             id_num = None
             model = None
         if model:
-            print("request: DBStorage.get({}, {})".format(model, id_num))
-            print("object retrieved:")
+            print("object extracted from storage:")
             print(storage.get(model, id_num))
         else:
             print("** no valid class specified **")
@@ -111,12 +110,16 @@ class HBNBCommand(cmd.Cmd):
         counts all of the objects of a given class in storage
         if no class is given then it counts everything in storage instead
         '''
-        # testing calls
         if usr_input:
             model = self.get_class(usr_input)
+            if not model:
+                print("** invalid class specified **")
+                return
+            print("total {} objects in storage:".format(usr_input))
         else:
             model = None
-        storage.count(model)
+            print("total objects in storage:")
+        print(storage.count(model))
 
     def do_all(self, args):
         """ outputs string representations for every existing
