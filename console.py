@@ -36,8 +36,7 @@ class HBNBCommand(cmd.Cmd):
                 cmd_utils.print_fields(model)
                 print(end="\n\n")
         else:
-            model = args.split()
-            model = valid_models().get(model[0])
+            model = self.get_class(args)
             cmd_utils.print_fields(model)
             print()
 
@@ -195,6 +194,15 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
                 return None
             return instance
+
+    def get_class(self, args):
+        '''
+        return class from string
+        '''
+        model = args.split()
+        model = model[0]
+        model = valid_models().get(model)
+        return model
 
 
 if __name__ == '__main__':
