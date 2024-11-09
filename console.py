@@ -91,7 +91,6 @@ class HBNBCommand(cmd.Cmd):
         '''
         directly accesses object from storage
         '''
-        # testing calls
         if usr_input:
             usr_input = usr_input.split()
             id_num = usr_input[1] if len(usr_input) > 1 else None
@@ -100,7 +99,12 @@ class HBNBCommand(cmd.Cmd):
         else:
             id_num = None
             model = None
-        storage.get(model, id_num)
+        if model:
+            print("request: DBStorage.get({}, {})".format(model, id_num))
+            print("object retrieved:")
+            print(storage.get(model, id_num))
+        else:
+            print("** no valid class specified **")
 
     def do_count(self, usr_input):
         '''

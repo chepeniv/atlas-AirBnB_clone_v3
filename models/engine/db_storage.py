@@ -77,9 +77,7 @@ class DBStorage:
         attempts to retrieve and return the object specified by the class and
         id number given. if no such object is found `None` is returned
         '''
-        # retrieves one objects based on id
-        # returns None if not found
-        print("DBStorage.get({}, {})".format(kind, id_num))
+        return self.__session.get(kind, id_num)
 
     def count(self, kind=None):
         '''
