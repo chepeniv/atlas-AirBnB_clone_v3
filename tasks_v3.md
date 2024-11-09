@@ -206,11 +206,58 @@ in `api/v1/views/amenities.py` :
 - `POST /api/v1/amenities` creates and stores a new instance of `Amenity`
 - `PUT /api/v1/amenities/<amenity_id>` update the matching amenity object
 
-
 ## 10. user
+
+`api/v1/views/users.py`
+`api/v1/views/__init__.py`
+
+in `api/v1/views/users.py` :
+- use `to_dict()` to retrieve an object into valid json
+- update `__init__.py` to import this file
+
+### restful api
+
+- `GET /api/v1/users` retrieves all amenities
+- `GET /api/v1/users/<user_id>` retrieves the given user
+- `DELETE /api/v1/users/<user_id>` deletes the matching user from
+  storage
+- `POST /api/v1/users` creates and stores a new instance of `user`
+- `PUT /api/v1/users/<user_id>` update the matching user object
 
 ## 11. place
 
+`api/v1/views/places.py`
+`api/v1/views/__init__.py`
+
+in `api/v1/views/places.py` :
+- use `to_dict()` to retrieve an object into valid json
+- update `__init__.py` to import this file
+
+### restful api
+
+- `GET /api/v1/cities/<city_id>/places` retrieves all places of a given city
+- `GET /api/v1/places/<place_id>` retrieves the given place
+- `DELETE /api/v1/places/<place_id>` deletes the matching place from
+  storage
+- `POST /api/v1/cities/<city_id>/places` creates and stores a new instance of `place`
+- `PUT /api/v1/places/<place_id>` update the matching places object
+
 ## 12. reviews
+
+`api/v1/views/places_reviews.py`
+`api/v1/views/__init__.py`
+
+in `api/v1/views/reviews.py` :
+- use `to_dict()` to retrieve an object into valid json
+- update `__init__.py` to import this file
+
+### restful api
+
+- `GET /api/v1/places/<place_id>/reviews` retrieves all amenities
+- `GET /api/v1/reviews/<reviews_id>` retrieves the given reviews
+- `DELETE /api/v1/reviews/<reviews_id>` deletes the matching reviews from
+  storage
+- `POST /api/v1/places/<place_id/reviews` creates and stores a new instance of `reviews`
+- `PUT /api/v1/reviews/<reviews_id>` update the matching reviews object
 
 ## 13. http access control (cors)
