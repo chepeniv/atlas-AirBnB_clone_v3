@@ -37,8 +37,11 @@
 
 ## extra
 
-- [ ] write init .sh script for file storage mode
+- [ ] reformat `data/100-hbnb.sql` and rename to `data/100-dump.sql`
+- [ ] reformat `data/7-states_list.sql`
+- [ ] create `data/100-dump.txt` based on `data/100-dump.sql`
 
 ## completed
 
 - [x] (10 pts) 0. fork and update v2
+- [x] write init .sh script for file storage mode
