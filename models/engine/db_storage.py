@@ -72,6 +72,25 @@ class DBStorage:
             query = self.__session.query(search_class)
             return self.construct_dict(query)
 
+    def get(self, kind, id_num):
+        '''
+        attempts to retrieve and return the object specified by the class and
+        id number given. if no such object is found `None` is returned
+        '''
+        # retrieves one objects based on id
+        # returns None if not found
+        print("DBStorage.get({}, {})".format(kind, id_num)
+
+    def count(self, kind=None):
+        '''
+        returns a count of all the objects found in storage for the given class.
+        if no class is given then a count for _all_ objects regardless of class
+        is returned instead
+        '''
+        # counts the total number of all objects in storage if no class is given
+        # counts the total number of objects of given class in storage
+        print("DBStorage.count({})".format(kind))
+
     def new(self, obj):
         """
         adds a new object to the dictionary object with
