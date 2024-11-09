@@ -87,20 +87,21 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(str(instance))
 
-    def do_destroy(self, arg):
-        'delete instance given by the class name and id'
-        if arg.lower() == 'all':
-            # define expunge() for DBStorage and FileStorage
-            # and call storage.expunge()
-            return
-        instance = self.get_instance(arg)
-        if instance is None:
-            return
-        else:
-            instance.delete()
-            storage.save()
+    def do_get(self, string_arg):
+        '''
+        directly accesses object from storage
+        '''
+        # testing calls
+        storage.get("A", "B")
 
-    do_delete = do_destroy
+    def do_count(self, string_arg):
+        '''
+        counts all of the objects of a given class in storage
+        if no class is given then it counts everything in storage instead
+        '''
+        # testing calls
+        storage.count()
+        storage.count("C")
 
     def do_all(self, args):
         """ outputs string representations for every existing
@@ -147,6 +148,21 @@ class HBNBCommand(cmd.Cmd):
         value = attr_val[1]
 
         cmd_utils.update(instance, attr, value)
+
+    def do_destroy(self, arg):
+        'delete instance given by the class name and id'
+        if arg.lower() == 'all':
+            # define expunge() for DBStorage and FileStorage
+            # and call storage.expunge()
+            return
+        instance = self.get_instance(arg)
+        if instance is None:
+            return
+        else:
+            instance.delete()
+            storage.save()
+
+    do_delete = do_destroy
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'

@@ -79,7 +79,7 @@ class DBStorage:
         '''
         # retrieves one objects based on id
         # returns None if not found
-        print("DBStorage.get({}, {})".format(kind, id_num)
+        print("DBStorage.get({}, {})".format(kind, id_num))
 
     def count(self, kind=None):
         '''
