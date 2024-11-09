@@ -68,7 +68,7 @@ create branch `storage_get_count` and update `DBStorage` and `FileStorage`
 
 - add method to retrieve one object
 	- `def get(self, kind, idnum):`
-	- returns `None`if not found
+	- returns `None` if not found
 - add method to count the number of objects in storage
 	- `def count(self, kind=None)`
 	- returns number of items found for the given class `kind` otherwise
