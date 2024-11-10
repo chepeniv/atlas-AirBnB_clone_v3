@@ -13,5 +13,5 @@ def status():
 	return a json string denoting the status of the blueprint
 	'''
 	message = {"status": "OK"}
-    message = dumps(message)
-    return message
+	message = dumps(message)
+	return message
