@@ -1,4 +1,6 @@
-clear;
+clear -x;
+
+echo path supplied $1
 
 HBNB_ENV=test \
 HBNB_MYSQL_USER=hbnb_test \
@@ -6,4 +8,4 @@ HBNB_MYSQL_PWD=hbnb_test_pwd \
 HBNB_MYSQL_HOST=localhost \
 HBNB_MYSQL_DB=hbnb_test_db \
 HBNB_TYPE_STORAGE=db \
-python3 -m unittest discover -v 1>unittest.log 2>&1
+python3 -m unittest -v $1 | tee unittest.log

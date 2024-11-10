@@ -1,38 +1,120 @@
 #!/usr/bin/python3
 
-import unittest, os
+import unittest
+import os
 from datetime import datetime
 from uuid import uuid4
 from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.user import User
+
+
+# def setUpModule():
+#     runs at the start of the module
+#     pass
+
+# def tearDownModule():
+#     runs at the end of the module
+#     pass
+
 
 class TestFileStorage(unittest.TestCase):
-    """ working comment:
+    # assert a current state of item
+    # execute action,
+    # validate result of action on item
+    # to test if it works, it’s better to isolate from the system
 
-    save(self) 
-        json serializes __objects into a __file_path
-        check state of __file_path before and after
+    # get the number of current records in the table states
+    # execute the console command: create State name="California"
+    # get  the number of current records in the table states
+    # if the difference is +1 => test passed
 
-    reload(self)
-        deserializes __file_path into __objects
-        check state of __objects before and after
+    # __init__
+    # new -- assert on __objects
+    # save -- assert on file.json
+    # reload -- assert on __objects, case file exist, file not exist
+    # delete -- assert on __objects, case object not exist, object exist
+    # close -- calls reload
+    # construct_key -- assert on return
 
-    check how this is integrated into BaseModel
-        __init__ calls FileStorage.new(obj)
-        save calls FileStorage.save()
-    """
+    def setUp(self):
+        self.storage.all().clear()
+        self.storage.save()
+        self.storage.reload()
+
+    # def tearDown():
+    #     pass
 
     @classmethod
     def setUpClass(cls):
         cls.storage = FileStorage()
         cls.json_file = "file.json"
-        if os.path.exists(cls.json_file):
-            os.remove(cls.json_file)
+        # if os.path.exists(cls.json_file):
+        #     os.remove(cls.json_file)
 
     @classmethod
     def tearDownClass(cls):
         if os.path.exists(cls.json_file):
             os.remove(cls.json_file)
+
+    def test_fs_count_empty(self):
+        items = self.storage.all().items()
+        items_count = len(items)
+        self.assertEqual(items_count, 0)
+        self.assertEqual(self.storage.count(), 0)
+
+    def test_fs_count_class(self):
+        self.assertEqual(self.storage.count(State), 0)
+        self.assertEqual(self.storage.count(City), 0)
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.assertEqual(self.storage.count(State), 4)
+        self.assertEqual(self.storage.count(City), 3)
+
+    def test_fs_count_all(self):
+        self.assertEqual(self.storage.count(), 0)
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(User())
+        self.storage.new(User())
+        self.assertEqual(self.storage.count(), 9)
+
+    def test_fs_get_no_object(self):
+        self.assertIsNone(self.storage.get(State, "invalid_id"))
+        self.storage.new(State)
+        self.assertIsNone(self.storage.get(State, "invalid_id"))
+
+    def test_fs_get_object(self):
+        new_state = State()
+        self.storage.new(new_state)
+        values_state = self.storage.all().values()
+        values_state = list(values_state)
+        values_state = values_state[0]
+        get_state = self.storage.get(State, values_state.id)
+        self.assertIsInstance(get_state, State)
+        self.assertEqual(get_state, values_state)
+
+        self.storage.all().clear()
+
+        new_city = City()
+        self.storage.new(new_city)
+        values_city = self.storage.all().values()
+        values_city = list(values_city)
+        values_city = values_city[0]
+        get_city = self.storage.get(City, values_city.id)
+        self.assertIsInstance(get_city, City)
+        self.assertEqual(get_city, values_city)
 
     def test_fs_properties(self):
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
@@ -45,9 +127,10 @@ class TestFileStorage(unittest.TestCase):
     def test_fs_new(self):
         time = datetime.now().isoformat()
         base_id = str(uuid4())
-        kwargs = {'id': base_id, 'created_at': time, 'updated_at': time}
+        kwargs = {'name': 'Name', 'id': base_id,
+                  'created_at': time, 'updated_at': time}
 
-        new = BaseModel(**kwargs)
+        new = State(**kwargs)
         key = self.storage.construct_key(new)
 
         self.assertNotIn(key, self.storage.all().keys())
@@ -58,7 +141,7 @@ class TestFileStorage(unittest.TestCase):
         with open(self.json_file, 'r') as json_file:
             old_json = json_file.read()
 
-        new = BaseModel()
+        self.storage.new(State())
         self.storage.save()
 
         with open(self.json_file, 'r') as json_file:
@@ -67,7 +150,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(old_json, new_json)
 
     def test_fs_reload(self):
-        new = BaseModel()
+        new = State()
         new.save()
 
         old_state = self.storage.all().keys()
@@ -82,6 +165,7 @@ class TestFileStorage(unittest.TestCase):
         new_state = self.storage.all().keys()
         new_state = list(new_state)
         self.assertEqual(new_state, old_state)
+
 
 if __name__ == '__main__':
     unittest.main()
