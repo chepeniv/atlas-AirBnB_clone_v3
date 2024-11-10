@@ -30,9 +30,8 @@ class TestFileStorage(unittest.TestCase):
     # construct_key -- assert on return
 
     def setUp(self):
-        json_file = open(self.json_file, "w")
-        json_file.write("")
-        json_file.close()
+        self.storage.all().clear()
+        self.storage.save()
         self.storage.reload()
 
     # def tearDown():
@@ -42,8 +41,8 @@ class TestFileStorage(unittest.TestCase):
     def setUpClass(cls):
         cls.storage = FileStorage()
         cls.json_file = "file.json"
-        if os.path.exists(cls.json_file):
-            os.remove(cls.json_file)
+        # if os.path.exists(cls.json_file):
+        #     os.remove(cls.json_file)
 
     @classmethod
     def tearDownClass(cls):
@@ -51,58 +50,63 @@ class TestFileStorage(unittest.TestCase):
             os.remove(cls.json_file)
 
     def test_fs_count_empty(self):
-        items = self.storaeg.all().items()
+        items = self.storage.all().items()
         items_count = len(items)
-        assertEqual(items_count, 0)
-        assertEqual(self.storage.count(), 0)
+        self.assertEqual(items_count, 0)
+        self.assertEqual(self.storage.count(), 0)
 
     def test_fs_count_class(self):
-        assertEqual(self.storage.count(State), 0)
-        assertEqual(self.storage.count(City), 0)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(City)
-        self.storage.new(City)
-        self.storage.new(City)
-        assertEqual(self.storage.count(State), 4)
-        assertEqual(self.storage.count(City), 3)
+        self.assertEqual(self.storage.count(State), 0)
+        self.assertEqual(self.storage.count(City), 0)
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.assertEqual(self.storage.count(State), 4)
+        self.assertEqual(self.storage.count(City), 3)
 
     def test_fs_count_all(self):
-        assertEqual(self.storage.count(), 0)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(State)
-        self.storage.new(City)
-        self.storage.new(City)
-        self.storage.new(City)
-        self.storage.new(User)
-        self.storage.new(User)
-        assertEqual(self.storage.count(), 9)
+        self.assertEqual(self.storage.count(), 0)
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(State())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(City())
+        self.storage.new(User())
+        self.storage.new(User())
+        self.assertEqual(self.storage.count(), 9)
 
     def test_fs_get_no_object(self):
-        assertIsNone(self.storage.get(State, "invalid_id"))
+        self.assertIsNone(self.storage.get(State, "invalid_id"))
         self.storage.new(State)
-        assertIsNone(self.storage.get(State, "invalid_id"))
+        self.assertIsNone(self.storage.get(State, "invalid_id"))
 
     def test_fs_get_object(self):
-        self.storage.new(State)
+        new_state = State()
+        self.storage.new(new_state)
         values_state = self.storage.all().values()
+        values_state = list(values_state)
         values_state = values_state[0]
-        get_state = self.torage.get(State, state.id)
-        assertIsInstance(get_state, State)
-        assertIsEqual(get_state, values_state)
+        get_state = self.storage.get(State, values_state.id)
+        self.assertIsInstance(get_state, State)
+        self.assertEqual(get_state, values_state)
 
-        self.all().clear()
+        self.storage.all().clear()
 
-        self.storage.new(City)
-        values_city = self.all().values()
+        new_city = City()
+        self.storage.new(new_city)
+        values_city = self.storage.all().values()
+        values_city = list(values_city)
         values_city = values_city[0]
-        get_city = self.torage.get(City, city.id)
-        assertIsInstance(get_city, City)
-        assertIsEqual(get_city, values_city)
+        get_city = self.storage.get(City, values_city.id)
+        self.assertIsInstance(get_city, City)
+        self.assertEqual(get_city, values_city)
+
 
     def test_fs_properties(self):
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
@@ -128,7 +132,7 @@ class TestFileStorage(unittest.TestCase):
         with open(self.json_file, 'r') as json_file:
             old_json = json_file.read()
 
-        new = BaseModel()
+        self.storage.new(State())
         self.storage.save()
 
         with open(self.json_file, 'r') as json_file:
@@ -137,7 +141,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertNotEqual(old_json, new_json)
 
     def test_fs_reload(self):
-        new = BaseModel()
+        new = State()
         new.save()
 
         old_state = self.storage.all().keys()

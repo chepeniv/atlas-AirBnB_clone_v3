@@ -36,7 +36,8 @@ class FileStorage:
         else:
             class_name = search_class.__name__
             objects_of_class = {}
-            for (key, value) in self.__objects.items():
+            for key, value in self.__objects.items():
+                key = str(key)
                 if key.find(class_name) == 0:
                     objects_of_class.update({key: value})
             return objects_of_class
