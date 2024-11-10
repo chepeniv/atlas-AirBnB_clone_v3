@@ -12,5 +12,5 @@ def status():
     return a json string denoting the status of the blueprint
     '''
     message = {"status": "OK"}
-    # python object is automatically return as json object
+    # python objects are automatically returned as json by flask
     return message

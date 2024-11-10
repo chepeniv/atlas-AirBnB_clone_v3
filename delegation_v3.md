@@ -17,11 +17,6 @@
 		- [x] add `count()`
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
-- [x] (13 pts) 4. status of your api - **chepe**
-	- [x] complete documentation
-	- [x] update `app.py`
-	- [x] update `index.py`
-	- [x] update `v1/views/__init__.py`
 
 ## queue
 
@@ -44,5 +39,10 @@
 
 ## completed
 
-- [x] (10 pts) 0. fork and update v2
 - [x] write init .sh script for file storage mode
+- [x] (10 pts) 0. fork and update v2
+- [x] (13 pts) 4. status of your api - **chepe**
+	- [x] complete documentation
+	- [x] update `app.py`
+	- [x] update `index.py`
+	- [x] update `v1/views/__init__.py`
