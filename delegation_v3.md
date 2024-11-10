@@ -17,8 +17,8 @@
 		- [x] add `count()`
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
-- [ ] (13 pts) 4. status of your api - **chepe**
-	- [ ] complete documentation
+- [x] (13 pts) 4. status of your api - **chepe**
+	- [x] complete documentation
 	- [x] update `app.py`
 	- [x] update `index.py`
 	- [x] update `v1/views/__init__.py`

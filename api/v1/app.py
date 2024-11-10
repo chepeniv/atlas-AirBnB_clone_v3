@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 '''
-
+the entry point of the api_v1 app for airbnb
 '''
 
 import os
@@ -16,7 +16,8 @@ app.register_blueprint(app_views)
 @app.route("/", strict_slashes=False)
 def landing_page():
     '''
-    description
+    returns a welcome message to ensure that
+    the flask server is working as expected
     '''
     return "Welcome"
 

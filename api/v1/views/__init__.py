@@ -1,3 +1,8 @@
+#!/usr/bin/python3
+'''
+definitions and import for the flask app
+'''
+
 from flask import Blueprint
 
 
