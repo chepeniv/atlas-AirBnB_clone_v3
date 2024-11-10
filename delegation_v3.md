@@ -15,7 +15,7 @@
 	- [x] update `FileStorage`
 		- [x] add `get()`
 		- [x] add `count()`
-	- [ ] update `test_file_storage.py`
+	- [x] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
 
 ## queue
