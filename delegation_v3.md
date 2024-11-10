@@ -17,10 +17,6 @@
 		- [x] add `count()`
 	- [ ] update `test_file_storage.py`
 	- [ ] update `test_db_storage.py`
-- [ ] (13 pts) 4. status of your api - **chepe**
-	- [ ] update `app.py`
-	- [ ] update `index.py`
-	- [ ] update `v1/views/__init__.py`
 
 ## queue
 
@@ -37,8 +33,16 @@
 
 ## extra
 
-- [ ] write init .sh script for file storage mode
+- [ ] reformat `data/100-hbnb.sql` and rename to `data/100-dump.sql`
+- [ ] reformat `data/7-states_list.sql`
+- [ ] create `data/100-dump.txt` based on `data/100-dump.sql`
 
 ## completed
 
+- [x] write init .sh script for file storage mode
 - [x] (10 pts) 0. fork and update v2
+- [x] (13 pts) 4. status of your api - **chepe**
+	- [x] complete documentation
+	- [x] update `app.py`
+	- [x] update `index.py`
+	- [x] update `v1/views/__init__.py`

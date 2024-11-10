@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+
+echo "be sure to run this and all scripts from within their directory"
+
+# HBNB_MODELS_ROOT=../models \
 HBNB_MYSQL_USER=hbnb_dev \
 HBNB_MYSQL_PWD=hbnb_dev_pwd \
 HBNB_MYSQL_HOST=localhost \
