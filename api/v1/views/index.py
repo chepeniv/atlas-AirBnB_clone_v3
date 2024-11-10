@@ -1,4 +1,9 @@
 from api.v1.views import app_views
+from json import dumps
 
-# create route `/status` on the object `app_views` that returns json:
-# `"status": "OK"`
+
+@app_views.route('/status')
+def status():
+    message = {"status": "OK"}
+    message = dumps(message)
+    return message
