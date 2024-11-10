@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 
-import unittest
-import os
+import unittest, os
 from datetime import datetime
 from uuid import uuid4
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
-
 class TestFileStorage(unittest.TestCase):
     """ working comment:
 
-    save(self)
+    save(self) 
         json serializes __objects into a __file_path
         check state of __file_path before and after
 
@@ -23,23 +21,6 @@ class TestFileStorage(unittest.TestCase):
         __init__ calls FileStorage.new(obj)
         save calls FileStorage.save()
     """
-
-    # get -- assert on return
-    #    test .get() with object existing
-    #    test .get() with object not existing
-    # count -- assert on return
-    #    test .count() with multiple objects stored
-    #    test .count() with no objects stored
-
-    # additional test
-    # __init__
-    # new -- assert on __objects
-    # save -- assert on file.json
-    # reload -- assert on __objects, case file exist, file not exist
-    # delete -- assert on __objects, case object not exist, object exist
-    # close -- calls reload
-    # construct_key -- assert on return
-
 
     @classmethod
     def setUpClass(cls):
@@ -101,7 +82,6 @@ class TestFileStorage(unittest.TestCase):
         new_state = self.storage.all().keys()
         new_state = list(new_state)
         self.assertEqual(new_state, old_state)
-
 
 if __name__ == '__main__':
     unittest.main()

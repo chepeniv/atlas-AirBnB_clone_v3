@@ -21,13 +21,13 @@ class FileStorage:
         from models.amenity import Amenity
         from models.review import Review
         self.__classes = {
-                'User': User,
-                'State': State,
-                'City': City,
-                'Place': Place,
-                'Amenity': Amenity,
-                'Review': Review
-                }
+            'User': User,
+            'State': State,
+            'City': City,
+            'Place': Place,
+            'Amenity': Amenity,
+            'Review': Review
+        }
 
     def all(self, search_class=None):
         """ returns a dictionary of objects """
