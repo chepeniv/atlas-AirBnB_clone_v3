@@ -6,31 +6,21 @@ from datetime import datetime
 from uuid import uuid4
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.user import User
+
+
+# def setUpModule():
+#     # runs at the start of the module
+#     pass
+
+# def tearDownModule():
+#     # runs at the end of the module
+#     pass
 
 
 class TestFileStorage(unittest.TestCase):
-    """ working comment:
-
-    save(self)
-        json serializes __objects into a __file_path
-        check state of __file_path before and after
-
-    reload(self)
-        deserializes __file_path into __objects
-        check state of __objects before and after
-
-    check how this is integrated into BaseModel
-        __init__ calls FileStorage.new(obj)
-        save calls FileStorage.save()
-    """
-
-    # get -- assert on return
-    #    test .get() with object existing
-    #    test .get() with object not existing
-    # count -- assert on return
-    #    test .count() with multiple objects stored
-    #    test .count() with no objects stored
-
     # additional test
     # __init__
     # new -- assert on __objects
@@ -40,6 +30,14 @@ class TestFileStorage(unittest.TestCase):
     # close -- calls reload
     # construct_key -- assert on return
 
+    def setUp():
+        json_file = open(self.json_file, "w")
+        json_file.write("")
+        json_file.close()
+        self.storage.reload()
+
+    # def tearDown():
+    #     pass
 
     @classmethod
     def setUpClass(cls):
@@ -52,6 +50,41 @@ class TestFileStorage(unittest.TestCase):
     def tearDownClass(cls):
         if os.path.exists(cls.json_file):
             os.remove(cls.json_file)
+
+    def test_fs_count_empty():
+        # assert self.storage.__objects is empty
+        # assert self.storage.count() is 0
+        # assert both cases true with variables
+        pass
+
+    def test_fs_count_class():
+        # create 4 states
+        # create 3 cities
+        # assert self.storage.count(State) == 4
+        # assert self.storage.count(City) == 3
+        pass
+
+    def test_fs_count_all():
+        # create 4 states
+        # create 3 cities
+        # create 2 users
+        # assert self.storage.count() == 9
+        pass
+
+    def test_fs_get_no_object():
+        # assert self.storage.__objects is empty
+        # assert self.storage.get(State, id_false) is None
+        # self.storage.new(State)
+        # assert self.storage.get(State, id_false) is None
+        pass
+
+    def test_fs_get_object():
+        # create a State
+        # create a City
+        # assert self.storage.get(State, id_true) is state
+        # assert self.storage.get(City, id_true) is city
+        # assert on return
+        pass
 
     def test_fs_properties(self):
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
