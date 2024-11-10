@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""
+'''
 this module handles the file storage backend of
 our web service
-"""
+'''
 
 import json
 from datetime import datetime
@@ -30,7 +30,7 @@ class FileStorage:
         }
 
     def all(self, search_class=None):
-        """ returns a dictionary of objects """
+        ''' returns a dictionary of objects '''
         if search_class is None:
             return self.__objects
         else:
@@ -61,14 +61,14 @@ class FileStorage:
         return len(self.all(kind))
 
     def new(self, obj):
-        """ adds a new object to the dictionary object with
+        ''' adds a new object to the dictionary object with
         the key string <class>.<id>
-        """
+        '''
         key = self.construct_key(obj)
         self.__objects.update({key: obj})
 
     def save(self):
-        """ serializes objects into a json file """
+        ''' serializes objects into a json file '''
         decomposed = {}
         for key, obj in self.__objects.items():
             obj_dict = obj.to_dict()
@@ -83,7 +83,7 @@ class FileStorage:
             pass
 
     def reload(self):
-        """Deserializes objects from a JSON file."""
+        '''Deserializes objects from a JSON file.'''
         try:
             json_file = open(self.__file_path, 'r')
             json_data = json_file.read()
@@ -101,10 +101,10 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """
+        '''
         remove the given object from __objects if it exist within
         if nothing is given do nothing
-        """
+        '''
         if obj is None:
             return
         else:
@@ -116,5 +116,5 @@ class FileStorage:
         self.reload()
 
     def construct_key(self, obj):
-        """ helper method to construct key for object dictionary """
+        ''' helper method to construct key for object dictionary '''
         return type(obj).__name__ + "." + obj.id
