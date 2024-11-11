@@ -3,3 +3,6 @@ file.json
 *.test.*
 *.error.log
 *.log
+*.error
+*.out
+*.ignore
