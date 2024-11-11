@@ -1,22 +1,60 @@
 #!/usr/bin/python3
+'''
+a view for `State` objects that handles
+all default ESTful API actions
+'''
+
+from api.v1.views import app_views, storage, valid_models
+from flask import jsonify
 
 
-# `api/v1/views/states.py`
-# `api/v1/views/__init__.py`
+state_class = valid_models().get('State')
 
-# create a new view for `State` objects that handles all default RESTful API
-# actions
 
-# in `api/v1/views/states.py` :
-# - use `to_dict()` to retrieve an object into valid json
-# - update `__init__.py` to import this file
+@app_views.route('/states', methods=['GET'])
+def get_states():
+    '''
+    returns json list of all states
+    '''
+    states = storage.all(state_class)
+    json_states = []
+    for state in states.values():
+        json_states.append(state.to_dict())
+    return jsonify(json_states)
 
-# - `GET /api/v1/states` retrieves the list of all states
-# - `GET /api/v1/states/<state_id>` retrieves the matching `State` object
-# 	- if no match found raise `404`
-# - `DELETE /api/v1/states/<state_id>` deletes the matching `State` object
-# 	- if successful, return an empty dictionary along with the status code `200`
-# 	- if no match found raise `404`
+
+@app_views.route('/states/<state_id>', methods=['GET'])
+def get_state(state_id):
+    '''
+    returns json dict state found provided state_id
+    if not such state exist 404 error is raised
+    '''
+    state = storage.get(state_class, state_id)
+    if state:
+        state = state.to_dict()
+        return state
+    else:
+        return abort(404)
+
+
+@app_views.route('/states/<state_id>', methods=['DELETE'])
+def delete_state(state_id):
+    '''
+    returns json dict state found provided state_id
+    if not such state exist 404 error is raised
+    '''
+    state = storage.get(state_class, state_id)
+    if state:
+        storage.delete(state)
+        storage.save()
+        storage.reload()
+        return {}, 200
+    else:
+        # if no match found raise `404`
+        return abort(404)
+
+
+
 # - `POST /api/v1/states` create a `State` object
 # 	- use `request.get_json` from Flask to transform the http body request
 # 	  to a dictionary
@@ -25,6 +63,7 @@
 # 	- if the key `name` isn't provided raise a `400` error with the message
 # 	  `Missing name`
 # 	- if successful return a new `State` with the status code `201`
+
 # - `PUT /api/v1/states/<state_id>` updates a `State` object
 # 	- if `state_id` is invalid raise `404` error
 # 	- use `request.get_json` from flask to transform the http body request to
