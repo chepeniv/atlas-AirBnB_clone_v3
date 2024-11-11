@@ -4,7 +4,7 @@ definitions and import for the flask app
 '''
 
 from flask import Blueprint
-
+import amenities
 
 app_views = Blueprint('views', __name__, url_prefix='/api/v1')
 # documentation for positional arguments name and
