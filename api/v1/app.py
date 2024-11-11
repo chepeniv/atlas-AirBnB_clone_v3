@@ -5,7 +5,7 @@ the entry point of the api_v1 app for airbnb
 
 import os
 from api.v1.views import app_views, storage
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def landing_page():
     returns a welcome message to ensure that
     the flask server is working as expected
     '''
-    return "Welcome"
+    return render_template('welcome.html')
 
 @app.route("/storage", strict_slashes=False)
 def storagejinfo():
