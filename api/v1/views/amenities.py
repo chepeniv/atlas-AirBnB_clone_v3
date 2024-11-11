@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Handles app_views for amenities class
+"""
 from models import storage
 from models.amenity import Amenity
 from api.v1.views import app_views
