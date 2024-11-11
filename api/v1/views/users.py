@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Handles app_views for users class
+Handles app_views for User class
 """
 # from models import storage
 from models.user import User
@@ -9,7 +9,7 @@ from api.v1.views import app_views, storage
 
 
 @app_views.route('/users', methods=['GET', 'POST'], strict_slashes=False)
-def get_post_amenities():
+def get_post_user():
     """returns json list of all users in storage or returns new user"""
     if request.method == 'GET':
         users = []

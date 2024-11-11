@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Handles app_views for amenities class
+Handles app_views for Amenity class
 """
 from models.amenity import Amenity
 from flask import jsonify, abort, request
