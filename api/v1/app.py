@@ -5,7 +5,7 @@ the entry point of the api_v1 app for airbnb
 
 import os
 from api.v1.views import app_views, storage
-from flask import Flask, jsonify
+from flask import Flask
 
 
 app = Flask(__name__)
@@ -20,6 +20,16 @@ def landing_page():
     '''
     return "Welcome"
 
+@app.route("/storage", strict_slashes=False)
+def storagejinfo():
+    '''
+    returns information about the storage
+    type and mode currently being used
+    '''
+    storage_type = os.environ.get('HBNB_TYPE_STORAGE', 'file')
+    storage_mode = os.environ.get('HBNB_ENV', 'json')
+    storage_info = {"type" : storage_type, "mode": storage_mode}
+    return storage_info
 
 @app.teardown_appcontext
 def close_database(self):
@@ -34,7 +44,7 @@ def not_found(e):
     """
     handles all 404 errors to return a json 404 file
     """
-    return jsonify({"error": "Not found"}), 404
+    return {"error": "Not found"}, 404
 
 
 if __name__ == '__main__':

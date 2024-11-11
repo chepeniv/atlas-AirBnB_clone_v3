@@ -21,10 +21,8 @@ def count_each_model():
     '''
     retrieve and return the number of each object by type
     '''
-
     counts = {}
     for name, model in valid_models().items():
         count = storage.count(model)
         counts.update({name: count})
-
     return counts
