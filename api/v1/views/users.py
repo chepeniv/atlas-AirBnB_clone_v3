@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Handles app_views for amenities class
+Handles app_views for users class
 """
 from models import storage
 from models.user import User
@@ -10,7 +10,7 @@ from api.v1.views import app_views
 
 @app_views.route('/users', methods=['GET', 'POST'], strict_slashes=False)
 def get_post_amenities():
-    """returns json list of all amenities in storage or returns new user"""
+    """returns json list of all users in storage or returns new user"""
     if request.method == 'GET':
         users = []
         for user in storage.all(User).values():
@@ -38,7 +38,7 @@ def get_post_amenities():
             abort(400, description='Not a JSON')
 
 
-@app_views.route('/amenities/<user_id>', methods=['GET', 'DELETE', 'PUT'],
+@app_views.route('/users/<user_id>', methods=['GET', 'DELETE', 'PUT'],
                  strict_slashes=False)
 def get_user_id(user_id):
     """retrieves, deletes, or updates json'd user object"""
