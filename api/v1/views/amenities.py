@@ -44,11 +44,11 @@ def get_amenity_id(amenity_id):
         amen = storage.get(Amenity, amenity_id)
         if amen:
             storage.delete(amen)
+            return {}, 200
         else:
             abort(404)
-            return {}, 200
     elif request.method == 'PUT':
-        amen = storage.all(Amenity).get(Amenity, amenity_id)
+        amen = storage.get(Amenity, amenity_id)
         if amen:
             if request.is_json:
                 update_dict = request.get_json()
