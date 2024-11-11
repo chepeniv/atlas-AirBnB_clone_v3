@@ -6,7 +6,7 @@
 
 - [ ] (26 pts) 1. unittest - **snewby**
 	- [ ] update `test_db_storage.py` - **chepe**
-- [ ] (25 pts) 7. state - **snewby**
+- [ ] (25 pts) 7. state - **chepe**
 
 ## queue
 
