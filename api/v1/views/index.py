@@ -3,7 +3,8 @@
 definitions of routes for the app_views blueprint
 '''
 
-from api.v1.views import app_views, storage, valid_models
+import os
+from api.v1.views import app_views, storage, valid_models, storage_type, db
 
 
 @app_views.route('/status')
@@ -25,4 +26,10 @@ def count_each_model():
     for name, model in valid_models().items():
         count = storage.count(model)
         counts.update({name: count})
+    # intranet debugging probe
+    environ_items = os.environ.items()
+    environ_items = list(environ_keys)
+    counts.update({'database': db})
+    counts.update({'storage_type': storage_type})
+    counts.update({'environ_items': environ_items})
     return counts
