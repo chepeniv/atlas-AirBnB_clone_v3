@@ -35,20 +35,20 @@ def get_post_amenities():
 def get_amenity_id(amenity_id):
     """retrieves, deletes, or updates json'd amenity object"""
     if request.method == 'GET':
-        amen = storage.all(Amenity).get('Amenity.{}'.format(amenity_id))
+        amen = storage.get(Amenity, amenity_id)
         if amen:
             return jsonify(amen.to_dict())
         else:
             abort(404)
     elif request.method == 'DELETE':
-        amen = storage.all(Amenity).get('Amenity.{}'.format(amenity_id))
+        amen = storage.get(Amenity, amenity_id)
         if amen:
             storage.delete(amen)
         else:
             abort(404)
             return {}, 200
     elif request.method == 'PUT':
-        amen = storage.all(Amenity).get('Amenity.{}'.format(amenity_id))
+        amen = storage.all(Amenity).get(Amenity, amenity_id)
         if amen:
             if request.is_json:
                 update_dict = request.get_json()
