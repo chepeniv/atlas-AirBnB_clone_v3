@@ -50,7 +50,6 @@ def delete_state(state_id):
         storage.reload()
         return {}, 200
     else:
-        # if no match found raise `404`
         return abort(404)
 
 
