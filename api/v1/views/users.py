@@ -25,7 +25,8 @@ def get_post_amenities():
             if name:
                 if email:
                     if password:
-                        new_user = User(name=name)
+                        new_user = User(name=name, email=email,
+                                        password=password)
                         new_user.save()
                         return jsonify(new_user.to_dict()), 201
                     else:
