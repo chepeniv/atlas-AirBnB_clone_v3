@@ -8,6 +8,7 @@ our web service
 import os
 from datetime import datetime
 from sqlalchemy import create_engine
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.engine import valid_models
 
@@ -56,11 +57,9 @@ class DBStorage:
         self.__session = self.__session_generator()
 
     def all(self, search_class=None):
-
         """
         returns a dictionary of objects based on the class given
         """
-        # call self.save() first?
         results = {}
         if search_class is None:
             for table in valid_models().values():
@@ -72,13 +71,32 @@ class DBStorage:
             query = self.__session.query(search_class)
             return self.construct_dict(query)
 
+    def get(self, kind, id_num):
+        '''
+        attempts to retrieve and return the object specified by the class and
+        id number given. if no such object is found `None` is returned
+        '''
+        return self.__session.get(kind, id_num)
+
+    def count(self, kind=None):
+        '''
+        returns a count of all the objects found in storage for the given class.
+        if no class is given then a count for _all_ objects regardless of class
+        is returned instead
+        '''
+        if kind:
+            return self.__session.query(kind).count()
+        else:
+            count = 0
+            for model in valid_models().values():
+                count += self.__session.query(model).count()
+            return count
+
     def new(self, obj):
         """
         adds a new object to the dictionary object with
         the key string <class>.<id>
         """
-        # this might just be enough, since obj would
-        # presumably already be mapped to the database table
         self.__session.add(obj)
 
     def save(self):
@@ -95,8 +113,6 @@ class DBStorage:
             self.__session.close()
         except InvalidRequestError:
             pass
-        # create all tables in the database (sqlalchemy)
-        # use Session.refresh() ?
         metadata_create_all(self.__engine)
         self.__session = self.__session_generator()
 

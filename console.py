@@ -8,6 +8,7 @@ import cmd
 from console_util import cmd_utils
 from models import storage, storage_type, db
 from models.engine import valid_models
+from os import system
 
 
 # chepe-work:
@@ -36,8 +37,7 @@ class HBNBCommand(cmd.Cmd):
                 cmd_utils.print_fields(model)
                 print(end="\n\n")
         else:
-            model = args.split()
-            model = valid_models().get(model[0])
+            model = self.get_class(args)
             cmd_utils.print_fields(model)
             print()
 
@@ -87,20 +87,39 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(str(instance))
 
-    def do_destroy(self, arg):
-        'delete instance given by the class name and id'
-        if arg.lower() == 'all':
-            # define expunge() for DBStorage and FileStorage
-            # and call storage.expunge()
-            return
-        instance = self.get_instance(arg)
-        if instance is None:
-            return
+    def do_get(self, usr_input):
+        '''
+        directly accesses object from storage
+        '''
+        if usr_input:
+            usr_input = usr_input.split()
+            id_num = usr_input[1] if len(usr_input) > 1 else None
+            model = usr_input[0] if len(usr_input) > 0 else None
+            model = valid_models().get(model)
         else:
-            instance.delete()
-            storage.save()
+            id_num = None
+            model = None
+        if model:
+            print("object extracted from storage:")
+            print(storage.get(model, id_num))
+        else:
+            print("** no valid class specified **")
 
-    do_delete = do_destroy
+    def do_count(self, usr_input):
+        '''
+        counts all of the objects of a given class in storage
+        if no class is given then it counts everything in storage instead
+        '''
+        if usr_input:
+            model = self.get_class(usr_input)
+            if not model:
+                print("** invalid class specified **")
+                return
+            print("total {} objects in storage:".format(usr_input))
+        else:
+            model = None
+            print("total objects in storage:")
+        print(storage.count(model))
 
     def do_all(self, args):
         """ outputs string representations for every existing
@@ -148,6 +167,27 @@ class HBNBCommand(cmd.Cmd):
 
         cmd_utils.update(instance, attr, value)
 
+    def do_destroy(self, arg):
+        'delete instance given by the class name and id'
+        if arg.lower() == 'all':
+            # define expunge() for DBStorage and FileStorage
+            # and call storage.expunge()
+            return
+        instance = self.get_instance(arg)
+        if instance is None:
+            return
+        else:
+            instance.delete()
+            storage.save()
+
+    do_delete = do_destroy
+
+    def do_clear(self, args):
+        '''
+        wipes the terminal window
+        '''
+        system('clear')
+
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
         quit()
@@ -179,6 +219,15 @@ class HBNBCommand(cmd.Cmd):
                 print('** no instance found **')
                 return None
             return instance
+
+    def get_class(self, args):
+        '''
+        return class from string
+        '''
+        model = args.split()
+        model = model[0]
+        model = valid_models().get(model)
+        return model
 
 
 if __name__ == '__main__':

@@ -5,22 +5,31 @@ import os
 from datetime import datetime
 from uuid import uuid4
 from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
 from models.state import State
 from models.city import City
 from models.user import User
 
 
 # def setUpModule():
-#     # runs at the start of the module
+#     runs at the start of the module
 #     pass
 
 # def tearDownModule():
-#     # runs at the end of the module
+#     runs at the end of the module
 #     pass
 
 
 class TestFileStorage(unittest.TestCase):
+    # assert a current state of item
+    # execute action,
+    # validate result of action on item
+    # to test if it works, it’s better to isolate from the system
+
+    # get the number of current records in the table states
+    # execute the console command: create State name="California"
+    # get  the number of current records in the table states
+    # if the difference is +1 => test passed
+
     # __init__
     # new -- assert on __objects
     # save -- assert on file.json
@@ -107,7 +116,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsInstance(get_city, City)
         self.assertEqual(get_city, values_city)
 
-
     def test_fs_properties(self):
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
         self.storage.all().clear()
@@ -119,9 +127,10 @@ class TestFileStorage(unittest.TestCase):
     def test_fs_new(self):
         time = datetime.now().isoformat()
         base_id = str(uuid4())
-        kwargs = {'id': base_id, 'created_at': time, 'updated_at': time}
+        kwargs = {'name': 'Name', 'id': base_id,
+                  'created_at': time, 'updated_at': time}
 
-        new = BaseModel(**kwargs)
+        new = State(**kwargs)
         key = self.storage.construct_key(new)
 
         self.assertNotIn(key, self.storage.all().keys())
