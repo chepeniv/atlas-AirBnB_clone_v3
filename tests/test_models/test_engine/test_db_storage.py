@@ -4,13 +4,19 @@ import unittest
 import os
 from datetime import datetime
 from uuid import uuid4
-from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
 from models.state import State
 from models.city import City
 from models.user import User
 
 
 # def setUpModule():
+#     HBNB_ENV=test \
+#     HBNB_MYSQL_USER=hbnb_test \
+#     HBNB_MYSQL_PWD=hbnb_test_pwd \
+#     HBNB_MYSQL_HOST=localhost \
+#     HBNB_MYSQL_DB=hbnb_test_db \
+#     HBNB_TYPE_STORAGE=db \
 #     runs at the start of the module
 #     pass
 
@@ -18,6 +24,8 @@ from models.user import User
 #     runs at the end of the module
 #     pass
 
+# storage_type = os.environ.get('HBNB_TYPE_STORAGE', 'file')
+# db = os.environ.get('HBNB_ENV', 'test')
 
 class TestFileStorage(unittest.TestCase):
     # assert a current state of item
@@ -92,7 +100,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_fs_get_no_object(self):
         self.assertIsNone(self.storage.get(State, "invalid_id"))
-        self.storage.new(State)
+        self.storage.new(State())
         self.assertIsNone(self.storage.get(State, "invalid_id"))
 
     def test_fs_get_object(self):
