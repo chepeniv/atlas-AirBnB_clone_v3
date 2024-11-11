@@ -9,7 +9,6 @@
 - [ ] (23 pts) 2. code review - **snewby**
 	- [x] completed task
 	- [ ] reviewed
-- [ ] (11 pts) 5. some stats - **chepe**
 - [ ] (25 pts) 7. state - **chepe**
 
 ## queue
@@ -30,11 +29,6 @@
 
 - [x] write init .sh script for file storage mode
 - [x] (10 pts) 0. fork and update v2
-- [x] (13 pts) 4. status of your api - **chepe**
-	- [x] complete documentation
-	- [x] update `app.py`
-	- [x] update `index.py`
-	- [x] update `v1/views/__init__.py`
 - [x] (24 pts) 3. improve storage - **chepe**
 	- [x] update `HBNBCommand`
 		- [x] add `do_get()`
@@ -46,5 +40,11 @@
 		- [x] add `get()`
 		- [x] add `count()`
 	- [x] update `test_file_storage.py`
+- [x] (13 pts) 4. status of your api - **chepe**
+	- [x] complete documentation
+	- [x] update `app.py`
+	- [x] update `index.py`
+	- [x] update `v1/views/__init__.py`
+- [x] (11 pts) 5. some stats - **chepe**
 - [x] (11 pts) 6. not found - **snewby**
 - [x] (25 pts) 9. amenity - **snewby**
