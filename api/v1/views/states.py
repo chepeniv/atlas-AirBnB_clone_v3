@@ -47,14 +47,13 @@ def delete_state(state_id):
     if state:
         storage.delete(state)
         storage.save()
-        storage.reload()
         return {}, 200
     else:
         return abort(404)
 
 
 @app_views.route('/states', methods=['POST'])
-def post_state():
+def create_state():
     '''
     creates a new state object from the provided json
     if successful a json representation is returned
@@ -73,12 +72,27 @@ def post_state():
         return new_state.to_dict(), 201
 
 
-# - `PUT /api/v1/states/<state_id>` updates a `State` object
-# 	- if `state_id` is invalid raise `404` error
-# 	- use `request.get_json` from flask to transform the http body request to
-# 	  dictionary
-# 	- if the http body is not valid json raise a `400` error with the message
-# 	  `Not a JSON`
-# 	- update the `State` object with all key-value pairs of the dictionary
-# 	- ignore the keys: `id`, `created_at`, and `updated_at`
-# 	- return the `State` object with the code `200`
+@app_views.route('/states/<state_id>', methods=['PUT'])
+def update_state(state_id):
+    '''
+    updates the state object found via the state_id
+    if not such state exist 404 error is raised
+    '''
+    json_data = request.get_json()
+
+    if not json_data:
+        return "Not a JSON", abort(400)
+    if not 'name' in json_data:
+        return "Missing name", abort(400)
+
+    state = storage.get(state_class, state_id)
+
+    if state:
+        for key, value in json_data.items():
+            if (key not in {'id', 'created_at', 'updated_at'}
+                and hasattr(state, key)):
+                setattr(state, key, value)
+        storage.save()
+        return state.to_dict(), 200
+    else:
+        return abort(404)
