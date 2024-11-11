@@ -3,7 +3,7 @@
 definitions of routes for the app_views blueprint
 '''
 
-from api.v1.views import app_views
+from api.v1.views import app_views, storage
 
 
 @app_views.route('/status')

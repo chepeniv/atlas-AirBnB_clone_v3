@@ -4,8 +4,7 @@ the entry point of the api_v1 app for airbnb
 '''
 
 import os
-from models import storage
-from api.v1.views import app_views
+from api.v1.views import app_views, storage
 from flask import Flask, jsonify
 
 
