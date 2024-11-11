@@ -6,7 +6,7 @@ the entry point of the api_v1 app for airbnb
 import os
 from models import storage
 from api.v1.views import app_views
-from flask import Flask
+from flask import Flask, jsonify
 
 
 app = Flask(__name__)
@@ -29,6 +29,13 @@ def close_database(self):
     '''
     storage.close()
 
+
+@app.errorhandler(404)
+def not_found(e):
+    """
+    handles all 404 errors to return a json 404 file
+    """
+    return jsonify({"error": "Not found"}), 404
 
 if __name__ == '__main__':
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
