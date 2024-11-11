@@ -22,5 +22,6 @@ def count_each_model():
     counts = {}
     for name, model in valid_models().items():
         count = storage.count(model)
+        name = name.lower()
         counts.update({name: count})
     return counts
