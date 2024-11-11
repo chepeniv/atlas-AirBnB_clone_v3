@@ -25,7 +25,7 @@ def get_post_amenities():
                 new_amen.save()
                 return jsonify(new_amen.to_dict()), 201
             else:
-                abort(404, description='Missing name')
+                abort(400, description='Missing name')
         else:
             abort(400, description='Not a JSON')
 
