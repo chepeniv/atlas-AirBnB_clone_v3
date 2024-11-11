@@ -16,9 +16,7 @@ def get_post_places(city_id):
     if request.method == 'GET':
         city = storage.get(City, city_id)
         if city:
-            places = []
-            for place in storage.all(Place).values():
-                places.append(place.to_dict())
+            places = [place.to_dict() for place in city.places]
             return jsonify(places)
         else:
             abort(404)
@@ -33,15 +31,15 @@ def get_post_places(city_id):
                     user = storage.get(User, user_id)
                     if user:
                         if name:
-                            new_user = Place(**req)
-                            new_user.save()
-                            return jsonify(new_user.to_dict()), 201
+                            new_place = Place(**req)
+                            new_place.save()
+                            return jsonify(new_place.to_dict()), 201
                         else:
                             abort(400, description='Missing name')
                     else:
                         abort(404)
                 else:
-                    abort(400, description='Missing name')
+                    abort(400, description='Missing user_id')
             else:
                 abort(400, description='Not a JSON')
         else:
