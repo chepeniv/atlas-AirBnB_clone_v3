@@ -5,7 +5,7 @@ all default ESTful API actions
 '''
 
 from api.v1.views import app_views, storage, valid_models
-from flask import jsonify
+from flask import request
 
 
 state_class = valid_models().get('State')
@@ -20,7 +20,7 @@ def get_states():
     json_states = []
     for state in states.values():
         json_states.append(state.to_dict())
-    return jsonify(json_states)
+    return json_states
 
 
 @app_views.route('/states/<state_id>', methods=['GET'])
@@ -40,7 +40,7 @@ def get_state(state_id):
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
     '''
-    returns json dict state found provided state_id
+    deletes the state object found via the state_id
     if not such state exist 404 error is raised
     '''
     state = storage.get(state_class, state_id)
@@ -53,15 +53,25 @@ def delete_state(state_id):
         return abort(404)
 
 
+@app_views.route('/states', methods=['POST'])
+def post_state():
+    '''
+    creates a new state object from the provided json
+    if successful a json representation is returned
+    '''
+    json_data = request.get_json()
+    if not json_data:
+        return "Not a JSON", abort(400)
+    if not 'name' in json_data:
+        return "Missing name", abort(400)
 
-# - `POST /api/v1/states` create a `State` object
-# 	- use `request.get_json` from Flask to transform the http body request
-# 	  to a dictionary
-# 	- if invalid json is provided raise a `400` error with the message
-# 	  `Not a JSON`
-# 	- if the key `name` isn't provided raise a `400` error with the message
-# 	  `Missing name`
-# 	- if successful return a new `State` with the status code `201`
+    name = json_data.get('name')
+    new_state = state_class(name=name)
+    if new_state:
+        storage.new(new_state)
+        storage.save()
+        return new_state.to_dict(), 201
+
 
 # - `PUT /api/v1/states/<state_id>` updates a `State` object
 # 	- if `state_id` is invalid raise `404` error
