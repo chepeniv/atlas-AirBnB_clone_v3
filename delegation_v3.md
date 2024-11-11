@@ -6,9 +6,6 @@
 
 - [ ] (26 pts) 1. unittest - **snewby**
 	- [ ] update `test_db_storage.py` - **chepe**
-- [ ] (23 pts) 2. code review - **snewby**
-	- [x] completed task
-	- [ ] reviewed
 - [ ] (25 pts) 7. state - **snewby**
 
 ## queue
@@ -28,6 +25,9 @@
 
 - [x] write init .sh script for file storage mode
 - [x] (10 pts) 0. fork and update v2
+- [x] (23 pts) 2. code review - **snewby**
+	- [x] completed task
+	- [x] reviewed
 - [x] (24 pts) 3. improve storage - **chepe**
 	- [x] update `HBNBCommand`
 		- [x] add `do_get()`
