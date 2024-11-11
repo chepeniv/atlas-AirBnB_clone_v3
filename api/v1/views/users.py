@@ -2,10 +2,10 @@
 """
 Handles app_views for users class
 """
-from models import storage
+# from models import storage
 from models.user import User
 from flask import jsonify, abort, request
-from api.v1.views import app_views
+from api.v1.views import app_views, storage
 
 
 @app_views.route('/users', methods=['GET', 'POST'], strict_slashes=False)
@@ -22,19 +22,16 @@ def get_post_amenities():
             name = req.get('name')
             email = req.get('email')
             password = req.get('password')
-            if name:
-                if email:
-                    if password:
-                        new_user = User(name=name, email=email,
-                                        password=password)
-                        new_user.save()
-                        return jsonify(new_user.to_dict()), 201
-                    else:
-                        abort(400, description='Missing password')
+            if email:
+                if password:
+                    new_user = User(name=name, email=email,
+                                    password=password)
+                    new_user.save()
+                    return jsonify(new_user.to_dict()), 201
                 else:
-                    abort(400, description='Missing email')
+                    abort(400, description='Missing password')
             else:
-                abort(400, description='Missing name')
+                abort(400, description='Missing email')
         else:
             abort(400, description='Not a JSON')
 
@@ -53,7 +50,7 @@ def get_user_id(user_id):
         user = storage.get(User, user_id)
         if user:
             storage.delete(user)
-            return {}, 200
+            return jsonify({}), 200
         else:
             abort(404)
     elif request.method == 'PUT':
