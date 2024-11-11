@@ -2,7 +2,6 @@
 """
 Handles app_views for User class
 """
-# from models import storage
 from models.user import User
 from flask import jsonify, abort, request
 from api.v1.views import app_views, storage
@@ -18,7 +17,7 @@ def get_post_user():
         return jsonify(users)
     elif request.method == 'POST':
         if request.is_json:
-            req = request.get_json()  # or request.form.get('name')
+            req = request.get_json()
             email = req.get('email')
             password = req.get('password')
             if email:
