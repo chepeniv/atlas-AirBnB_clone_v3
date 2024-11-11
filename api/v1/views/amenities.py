@@ -4,8 +4,8 @@ Handles app_views for amenities class
 """
 from models import storage
 from models.amenity import Amenity
-from api.v1.views import app_views
 from flask import jsonify, abort, request
+from api.v1.views import app_views
 
 
 @app_views.route('/amenities', methods=['GET', 'POST'], strictslashes=False)
