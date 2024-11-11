@@ -19,13 +19,11 @@ def get_post_amenities():
     elif request.method == 'POST':
         if request.is_json:
             req = request.get_json()  # or request.form.get('name')
-            name = req.get('name')
             email = req.get('email')
             password = req.get('password')
             if email:
                 if password:
-                    new_user = User(name=name, email=email,
-                                    password=password)
+                    new_user = User(**req)
                     new_user.save()
                     return jsonify(new_user.to_dict()), 201
                 else:

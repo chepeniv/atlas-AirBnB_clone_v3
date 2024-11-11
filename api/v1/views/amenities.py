@@ -17,10 +17,10 @@ def get_post_amenities():
         return jsonify(amens)
     elif request.method == 'POST':
         if request.is_json:
-            req = request.get_json()  # or request.form.get('name')
+            req = request.get_json()
             name = req.get('name')
             if name:
-                new_amen = Amenity(name=name)
+                new_amen = Amenity(**req)
                 new_amen.save()
                 return jsonify(new_amen.to_dict()), 201
             else:
