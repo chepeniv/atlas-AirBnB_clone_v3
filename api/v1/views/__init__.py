@@ -14,5 +14,5 @@ valid_models = valid_models
 # pep8 will dislike this, but `__init__.py` wont be
 # checked but this will prevent circular imports later
 from api.v1.views.index import *
-from api.v1.views.amenities import *
+# from api.v1.views.amenities import *
 from api.v1.views.users import *
