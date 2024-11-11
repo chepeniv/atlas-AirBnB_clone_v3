@@ -8,7 +8,7 @@ from flask import jsonify, abort, request
 from api.v1.views import app_views
 
 
-@app_views.route('/amenities', methods=['GET', 'POST'], strictslashes=False)
+@app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)
 def get_post_amenities():
     """returns json list of all amenities in storage or returns new amenity"""
     if request.method == 'GET':
@@ -29,7 +29,7 @@ def get_post_amenities():
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'],
-                 strictslashes=False)
+                 strict_slashes=False)
 def get_amenity_id(amenity_id):
     """retrieves, deletes, or updates json'd amenity object"""
     if request.method == 'GET':
