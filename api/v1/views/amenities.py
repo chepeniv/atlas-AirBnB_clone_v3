@@ -12,7 +12,9 @@ from api.v1.views import app_views
 def get_post_amenities():
     """returns json list of all amenities in storage or returns new amenity"""
     if request.method == 'GET':
-        amens = storage.all(Amenity).to_dict()
+        amens = []
+        for amen in storage.all(Amenity).values():
+            amens.append(amen.to_dict())
         return jsonify(amens)
     elif request.method == 'POST':
         if request.is_json:
