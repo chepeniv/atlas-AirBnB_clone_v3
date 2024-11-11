@@ -8,6 +8,7 @@ our web service
 import os
 from datetime import datetime
 from sqlalchemy import create_engine
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker, scoped_session
 from models.engine import valid_models
 
