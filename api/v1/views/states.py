@@ -90,7 +90,7 @@ def update_state(state_id):
     if state:
         for key, value in json_data.items():
             if (key not in {'id', 'created_at', 'updated_at'}
-                and hasattr(state, key)):
+                    and hasattr(state, key)):
                 setattr(state, key, value)
         storage.save()
         return state.to_dict(), 200
