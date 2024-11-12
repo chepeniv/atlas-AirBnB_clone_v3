@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
-
-echo "be sure to run this and all scripts from within their directory"
+clear;
 
 # HBNB_MODELS_ROOT=../models \
 HBNB_ENV=dev \

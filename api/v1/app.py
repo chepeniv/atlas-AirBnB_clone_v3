@@ -5,7 +5,7 @@ the entry point of the api_v1 app for airbnb
 
 import os
 from api.v1.views import app_views, storage
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def landing_page():
     returns a welcome message to ensure that
     the flask server is working as expected
     '''
-    return "Welcome"
+    return render_template('welcome.html')
 
 @app.route("/storage", strict_slashes=False)
 def storagejinfo():
@@ -50,4 +50,9 @@ def not_found(e):
 if __name__ == '__main__':
     host = os.environ.get('HBNB_API_HOST', '0.0.0.0')
     port = os.environ.get('HBNB_API_PORT', 5000)
-    app.run(host=host, port=port, threaded=True)
+    app.run(
+            host=host,
+            port=port,
+            threaded=True
+            # ssl_context='adhoc'
+            )

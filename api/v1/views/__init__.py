@@ -11,10 +11,9 @@ app_views = Blueprint('views', __name__, url_prefix='/api/v1')
 storage = storage
 valid_models = valid_models
 
-# pep8 will dislike this, but `__init__.py` wont be
-# checked but this will prevent circular imports later
-from api.v1.views.index import *
 from api.v1.views.amenities import *
-from api.v1.views.users import *
+from api.v1.views.index import *
 from api.v1.views.places import *
 from api.v1.views.places_reviews import *
+from api.v1.views.states import *
+from api.v1.views.users import *
