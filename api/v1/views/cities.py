@@ -8,24 +8,27 @@ from api.v1.views import app_views, storage, valid_models
 from flask import request, abort
 
 
-city_class = valid_models().get('City')
-state_class = valid_models().get('State')
+CityClass = valid_models().get('City')
+StateClass = valid_models().get('State')
 
 
 @app_views.route(
     'states/<state_id>/cities',
     methods=['GET'],
     strict_slashes=False)
-def get_cities():
+def get_cities(state_id):
     '''
     returns json list of all cities found for a given state
     '''
-    # if the `state_id` is in valid raise `404` error
-    cities = storage.all(city_class)
-    json_cities = []
-    for city in cities.values():
-        json_cities.append(city.to_dict())
-    return json_cities
+    state = storage.get(StateClass, state_id)
+    if state:
+        cities = state.cities
+        json_cities = []
+        for city in cities:
+            json_cities.append(city.to_dict())
+        return json_cities
+    else:
+        return abort(404)
 
 
 @app_views.route(
@@ -37,7 +40,7 @@ def get_city(city_id):
     returns json dict city found provided city_id
     if not such city exist 404 error is raised
     '''
-    city = storage.get(city_class, city_id)
+    city = storage.get(CityClass, city_id)
     if city:
         city = city.to_dict()
         return city
@@ -54,7 +57,7 @@ def delete_city(city_id):
     deletes the city object found via the city_id
     if not such city exist 404 error is raised
     '''
-    city = storage.get(city_class, city_id)
+    city = storage.get(CityClass, city_id)
     if city:
         storage.delete(city)
         storage.save()
@@ -63,12 +66,11 @@ def delete_city(city_id):
         return abort(404)
 
 
-# `POST /api/v1/states/<state_id>/cities` creates a new city for state
 @app_views.route(
-    '/cities',
+    'states/<state_id>/cities',
     methods=['POST'],
     strict_slashes=False)
-def create_city():
+def create_city(state_id):
     '''
     creates a new city object from the provided json
     if successful a json representation is returned
@@ -81,7 +83,7 @@ def create_city():
         return "Missing name", abort(400)
 
     name = json_data.get('name')
-    new_city = city_class(name=name)
+    new_city = CityClass(name=name, state_id=state_id)
     if new_city:
         storage.new(new_city)
         storage.save()
@@ -101,7 +103,7 @@ def update_city(city_id):
         return "Not a JSON", abort(400)
 
     json_data = request.get_json()
-    city = storage.get(city_class, city_id)
+    city = storage.get(CityClass, city_id)
     if city:
         for key, value in json_data.items():
             if (key not in {'id', 'created_at', 'updated_at'}
