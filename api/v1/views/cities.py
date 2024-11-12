@@ -82,6 +82,10 @@ def create_city(state_id):
     if 'name' not in json_data:
         return "Missing name", abort(400)
 
+    state = storage.get(StateClass, state_id)
+    if not state:
+        return abort(404)
+
     name = json_data.get('name')
     new_city = CityClass(name=name, state_id=state_id)
     if new_city:
