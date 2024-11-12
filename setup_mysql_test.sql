@@ -1,13 +1,14 @@
--- Write a script that prepares a MySQL server for the project:
-
--- A database hbnb_test_db
--- A new user hbnb_test (in localhost)
--- The password of hbnb_test should be set to hbnb_test_pwd
--- hbnb_test should have all privileges on the database hbnb_test_db (and only this database)
--- hbnb_test should have SELECT privilege on the database performance_schema (and only this database)
--- If the database hbnb_test_db or the user hbnb_test already exists, your script should not fail
+-- Create db if it doesn't exist
 CREATE DATABASE IF NOT EXISTS hbnb_test_db;
+
+-- create user if it doesn't exist attached with password
 CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
+
+-- grant privileges foruser on test db
 GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
+
+-- grant privileges for user on schema db
 GRANT SELECT ON performance_schema.* TO 'hbnb_test'@'localhost';
+
+-- push privileges
 FLUSH PRIVILEGES;
