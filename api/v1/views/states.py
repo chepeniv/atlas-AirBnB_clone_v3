@@ -58,9 +58,10 @@ def create_state():
     creates a new state object from the provided json
     if successful a json representation is returned
     '''
-    json_data = request.get_json()
-    if not json_data:
+    if not request.is_json:
         return "Not a JSON", abort(400)
+
+    json_data = request.get_json()
     if not 'name' in json_data:
         return "Missing name", abort(400)
 
@@ -78,15 +79,11 @@ def update_state(state_id):
     updates the state object found via the state_id
     if not such state exist 404 error is raised
     '''
-    json_data = request.get_json()
-
-    if not json_data:
+    if not request.is_json:
         return "Not a JSON", abort(400)
-    if not 'name' in json_data:
-        return "Missing name", abort(400)
 
+    json_data = request.get_json()
     state = storage.get(state_class, state_id)
-
     if state:
         for key, value in json_data.items():
             if (key not in {'id', 'created_at', 'updated_at'}
