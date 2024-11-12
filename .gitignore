@@ -6,3 +6,5 @@ file.json
 *.error
 *.out
 *.ignore
+*.skip
+*.doc
