@@ -192,9 +192,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         'exit this CLI instance hbnb'
-        quit()
-    do_exit = do_quit
-    do_EOF = do_quit
+        return True
+
+    def do_exit(self, arg):
+        'exit this CLI instance hbnb'
+        raise SystemExit
+
+    def do_EOF(self, arg):
+        '''exit this CLI instance hbnb'''
+        raise SystemExit
 
     def emptyline(self):
         pass
