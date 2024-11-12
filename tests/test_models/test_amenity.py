@@ -1,10 +1,10 @@
 #!/usr/bin/python3
 
 import unittest
+from models import amenity
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from models import storage, storage_type
-import os
 
 ################################
 # chepe@Ariel: besides BaseModel lets use this one to test out the
@@ -44,7 +44,6 @@ class TestAmenityFile(unittest.TestCase):
     def test_amenity_many_to_many(self):
         # write test here
         pass
-        
 @unittest.skipUnless(storage_type == 'db', "Tests designed only for DBStorage")
 class TestAmenityDB(unittest.TestCase):
     """Amenity DB tests"""
