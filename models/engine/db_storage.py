@@ -39,10 +39,10 @@ class DBStorage:
 
     def __init__(self):
         env = os.environ.get('HBNB_ENV')
-        env_user = os.environ.get('HBNB_MYSOL_USER', 'hbnb_dev')
-        env_user_pwd = os.environ.get('HBNB_MYSOL_PWD', 'hbnb_dev_pwd')
-        env_host = os.environ.get('HBNB_MYSOL_HOST', 'localhost')
-        env_db = os.environ.get('HBNB_MYSOL_DB', 'hbnb_dev_db')
+        env_user = os.environ.get('HBNB_MYSQL_USER', 'hbnb_dev')
+        env_user_pwd = os.environ.get('HBNB_MYSQL_PWD', 'hbnb_dev_pwd')
+        env_host = os.environ.get('HBNB_MYSQL_HOST', 'localhost')
+        env_db = os.environ.get('HBNB_MYSQL_DB', 'hbnb_dev_db')
 
         self.__db_url = "mysql+mysqldb://{}:{}@{}/{}".format(
                 env_user, env_user_pwd, env_host, env_db)
