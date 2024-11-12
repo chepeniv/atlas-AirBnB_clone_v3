@@ -6,13 +6,12 @@
 
 - [ ] (26 pts) 1. unittest - **snewby**
 	- [ ] update `test_db_storage.py` - **chepe**
-- [ ] (27 pts) 8. city - **chepe**
+- [ ] refactor `cities.py` and `states.py` by creating `service_calls.py`
 
 ## queue
 
 - [ ] (29 pts) 11. place - **snewby**
 - [ ] (29 pts) 12. reviews - **snewby**
-- [ ] (11 pts) 13. http access control (cors) - **chepe**
 
 ## extra
 
@@ -46,5 +45,7 @@
 - [x] (11 pts) 5. some stats - **chepe**
 - [x] (11 pts) 6. not found - **snewby**
 - [x] (25 pts) 7. state - **chepe**
+- [x] (27 pts) 8. city - **chepe**
 - [x] (25 pts) 9. amenity - **snewby**
 - [x] (26 pts) 10. user - **snewby**
+- [x] (11 pts) 13. http access control (cors) - **chepe**
