@@ -11,7 +11,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-cors_app = CORS(app)
+cors_app = CORS(app, send_wildcard=True)
 # create a `CORS` instance allowing `/*` for `0.0.0.0`
 
 
