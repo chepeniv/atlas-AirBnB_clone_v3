@@ -11,7 +11,10 @@ from flask import request, abort
 state_class = valid_models().get('State')
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False)
+@app_views.route(
+    '/states',
+    methods=['GET'],
+    strict_slashes=False)
 def get_states():
     '''
     returns json list of all states
@@ -23,7 +26,10 @@ def get_states():
     return json_states
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route(
+    '/states/<state_id>',
+    methods=['GET'],
+    strict_slashes=False)
 def get_state(state_id):
     '''
     returns json dict state found provided state_id
@@ -37,7 +43,10 @@ def get_state(state_id):
         return abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route(
+    '/states/<state_id>',
+    methods=['DELETE'],
+    strict_slashes=False)
 def delete_state(state_id):
     '''
     deletes the state object found via the state_id
@@ -52,7 +61,10 @@ def delete_state(state_id):
         return abort(404)
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
+@app_views.route(
+    '/states',
+    methods=['POST'],
+    strict_slashes=False)
 def create_state():
     '''
     creates a new state object from the provided json
@@ -62,7 +74,7 @@ def create_state():
         return "Not a JSON", abort(400)
 
     json_data = request.get_json()
-    if not 'name' in json_data:
+    if 'name' not in json_data:
         return "Missing name", abort(400)
 
     name = json_data.get('name')
@@ -73,7 +85,10 @@ def create_state():
         return new_state.to_dict(), 201
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route(
+    '/states/<state_id>',
+    methods=['PUT'],
+    strict_slashes=False)
 def update_state(state_id):
     '''
     updates the state object found via the state_id
