@@ -11,8 +11,6 @@
 ## queue
 
 - [ ] (27 pts) 8. city - **chepe**
-- [ ] (29 pts) 11. place - **snewby**
-- [ ] (29 pts) 12. reviews - **snewby**
 - [ ] (11 pts) 13. http access control (cors) - **chepe**
 
 ## extra
@@ -48,3 +46,5 @@
 - [x] (11 pts) 6. not found - **snewby**
 - [x] (25 pts) 9. amenity - **snewby**
 - [x] (26 pts) 10. user - **snewby**
+- [x] (29 pts) 11. place - **snewby**
+- [x] (29 pts) 12. reviews - **snewby**
