@@ -6,7 +6,7 @@ the entry point of the api_v1 app for airbnb
 import os
 from api.v1.views import app_views, storage
 from flask import Flask, render_template
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
