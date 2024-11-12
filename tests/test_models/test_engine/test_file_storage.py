@@ -52,9 +52,6 @@ class TestFileStorage(unittest.TestCase):
         self.storage.save()
         self.storage.reload()
 
-    # def tearDown():
-    #     pass
-
     @classmethod
     def setUpClass(cls):
         cls.storage = FileStorage()
@@ -125,7 +122,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsInstance(get_city, City)
         self.assertEqual(get_city, values_city)
 
-
     def test_fs_properties(self):
         self.assertEqual(self.storage._FileStorage__file_path, "file.json")
         self.storage.all().clear()
@@ -174,6 +170,7 @@ class TestFileStorage(unittest.TestCase):
         new_state = self.storage.all().keys()
         new_state = list(new_state)
         self.assertEqual(new_state, old_state)
+
 
 class TestFileStorageDocs(unittest.TestCase):
     """Tests to check the documentation and style of FileStorage class"""
@@ -265,6 +262,7 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
 
 if __name__ == '__main__':
     unittest.main()
