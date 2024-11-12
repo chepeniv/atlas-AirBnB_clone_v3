@@ -49,6 +49,9 @@ class BaseModel:
 
     # redefined key word arguments from ISO format to datetime format
     def __init__(self, *args, **kwargs):
+        """
+        initializer
+        """
         if kwargs.get('id') is None:
             self.id = str(uuid4())
         else:
@@ -61,21 +64,24 @@ class BaseModel:
             if type(created_at) is str:
                 self.created_at = datetime.fromisoformat(created_at)
             else:
-                self.created_at = datetime.now()
+                self.created_at = datetime.utcnow()
 
             if type(updated_at) is str:
                 self.updated_at = datetime.fromisoformat(updated_at)
             else:
-                self.updated_at = datetime.now()
+                self.updated_at = datetime.utcnow()
 
             for key, value in kwargs.items():
                 if key not in ['__class__', 'id', 'created_at', 'updated_at']:
                     setattr(self, key, value)
         else:
             self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
+            self.updated_at = self.created_at
 
     def __str__(self):
+        """
+        str() replacement
+        """
         obj_str = "[{}] ({}) {}"
         return obj_str.format(type(self).__name__, self.id, self.to_dict())
 
