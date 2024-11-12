@@ -12,4 +12,3 @@ else:
 
 storage = Storage()
 storage.reload()
-

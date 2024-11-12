@@ -80,7 +80,8 @@ class DBStorage:
 
     def count(self, kind=None):
         '''
-        returns a count of all the objects found in storage for the given class.
+        returns a count of all the objects found in storage for the
+        given class.
         if no class is given then a count for _all_ objects regardless of class
         is returned instead
         '''
