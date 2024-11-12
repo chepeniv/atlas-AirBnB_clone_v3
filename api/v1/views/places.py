@@ -32,6 +32,7 @@ def get_post_places(city_id):
                     if user:
                         if name:
                             new_place = Place(**req)
+                            new_place.city_id = city_id
                             new_place.save()
                             return jsonify(new_place.to_dict()), 201
                         else:
