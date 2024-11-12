@@ -4,7 +4,7 @@ definition of functions used to process RESTful api request
 '''
 
 from models import storage
-from flask import request, abort
+from flask import abort
 
 
 def get_all_objects(model_class):

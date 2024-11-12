@@ -68,4 +68,4 @@ def update_state(state_id):
     updates the state object found via the state_id
     if not such state exist 404 error is raised
     '''
-    return update_object(request, model_class, obj_id)
+    return update_object(request, StateClass, state_id)
