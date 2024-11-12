@@ -18,6 +18,21 @@ def get_all_objects(model_class):
     return json_objects
 
 
+def get_all_objects_from(ParentClass, parent_id, children):
+    '''
+    returns json list of all objects belonging to the given parent
+    '''
+    parent = storage.get(ParentClass, parent_id)
+    if parent:
+        children = getattr(parent, children)
+        json_children = []
+        for child in children:
+            json_children.append(child.to_dict())
+        return json_children
+    else:
+        abort(404)
+
+
 def get_single_object(model_class, obj_id):
     '''
     returns json dict city found provided city_id
@@ -56,11 +71,46 @@ def create_object(request, model_class):
         return "Not a JSON", abort(400)
 
     json_data = request.get_json()
+    print(json_data)
     if 'name' not in json_data:
         return "Missing name", abort(400)
 
     name = json_data.get('name')
     new_obj = model_class(name=name)
+    if new_obj:
+        storage.new(new_obj)
+        storage.save()
+        return new_obj.to_dict(), 201
+
+
+def create_object_for(
+        parent=None,
+        child=None,
+        request=None,
+        required=None,
+        parent_id=None):
+    '''
+    creates a new object from the provided json
+    if successful a json representation is returned
+    '''
+    if not request.is_json:
+        return "Not a JSON", abort(400)
+
+    parent_id_value = parent_id.values()
+    parent_id_value = list(parent_id_value)
+    parent_id_value = parent_id_value[0]
+    parent = storage.get(parent, parent_id_value)
+    if not parent:
+        return abort(404)
+
+    json_data = request.get_json()
+    json_data.update(parent_id)
+
+    for key in required:
+        if key not in json_data.keys():
+            return f"Missing {key}", abort(400)
+
+    new_obj = child(**json_data)
     if new_obj:
         storage.new(new_obj)
         storage.save()
