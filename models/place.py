@@ -129,7 +129,7 @@ class Place(BaseModel, Base):
             all_amenities = storage.all(Amenity)
             place_amenities = []
             for amenity in all_amenities.values():
-                if amenity.id in amenity_ids:
+                if amenity.id in self.amenity_ids:
                     place_amenities.append(amenity)
             return place_amenities
 
@@ -148,5 +148,5 @@ class Place(BaseModel, Base):
         def amenities(self, amenity):
             from models import Amenity
             if (isinstance(amenity, Amenity) and
-                amenity.id not in self.amenity_ids): amenity_ids.append(
+                amenity.id not in self.amenity_ids): self.amenity_ids.append(
                     amenity.id)
