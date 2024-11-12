@@ -11,7 +11,7 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-cors_app = CORS(app, send_wildcard=True, origins=["0.0.0.0"])
+cors_setup = CORS(app, send_wildcard=True, origins=["0.0.0.0"])
 
 
 # @cross_origin(send_wildcard=True)
