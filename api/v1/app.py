@@ -5,7 +5,7 @@ the entry point of the api_v1 app for airbnb
 
 import os
 from api.v1.views import app_views, storage
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_cors import CORS, cross_origin
 
 
@@ -49,7 +49,7 @@ def not_found(e):
     """
     handles all 404 errors to return a json 404 file
     """
-    return {"error": "Not found"}, 404
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == '__main__':
