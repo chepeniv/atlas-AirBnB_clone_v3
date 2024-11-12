@@ -15,7 +15,7 @@ model_names = {
 }
 
 
-@app_views.route('/status')
+@app_views.route('/status', strict_slashes=False)
 def status():
     '''
     return a json string denoting the status of the blueprint
@@ -24,7 +24,7 @@ def status():
     return message
 
 
-@app_views.route('/stats')
+@app_views.route('/stats', strict_slashes=False)
 def count_each_model():
     '''
     retrieve and return the number of each object by type
