@@ -6,7 +6,6 @@ all default ESTful API actions
 
 from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
-from flask import request
 
 
 StateClass = valid_models().get('State')
@@ -56,7 +55,8 @@ def create_state():
     creates a new state object from the provided json
     if successful a json representation is returned
     '''
-    return create_object(request, StateClass)
+    required = ['name']
+    return create_object(StateClass, required)
 
 
 @app_views.route(
@@ -68,4 +68,4 @@ def update_state(state_id):
     updates the state object found via the state_id
     if not such state exist 404 error is raised
     '''
-    return update_object(request, StateClass, state_id)
+    return update_object(StateClass, state_id)

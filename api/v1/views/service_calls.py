@@ -4,7 +4,7 @@ definition of functions used to process RESTful api request
 '''
 
 from models import storage
-from flask import abort
+from flask import abort, request
 
 
 def get_all_objects(model_class):
@@ -43,7 +43,7 @@ def get_single_object(model_class, obj_id):
         obj = obj.to_dict()
         return obj
     else:
-        return abort(404)
+        abort(404)
 
 
 def delete_object(model_class, obj_id):
@@ -57,10 +57,10 @@ def delete_object(model_class, obj_id):
         storage.save()
         return {}, 200
     else:
-        return abort(404)
+        abort(404)
 
 
-def create_object(request, model_class):
+def create_object(model_class, required):
     '''
     creates a new object from the provided json
     if successful a json representation is returned
@@ -68,15 +68,14 @@ def create_object(request, model_class):
     # might need a bit more work to generalize further
     # that is, likely using kwargs to set object fields
     if not request.is_json:
-        return "Not a JSON", abort(400)
+        abort(400, "Not a JSON")
 
     json_data = request.get_json()
-    print(json_data)
-    if 'name' not in json_data:
-        return "Missing name", abort(400)
+    for key in required:
+        if key not in json_data.keys():
+            abort(400, f"Missing {key}")
 
-    name = json_data.get('name')
-    new_obj = model_class(name=name)
+    new_obj = model_class(**json_data)
     if new_obj:
         storage.new(new_obj)
         storage.save()
@@ -86,7 +85,6 @@ def create_object(request, model_class):
 def create_object_for(
         parent=None,
         child=None,
-        request=None,
         required=None,
         parent_id=None):
     '''
@@ -101,14 +99,14 @@ def create_object_for(
     parent_id_value = parent_id_value[0]
     parent = storage.get(parent, parent_id_value)
     if not parent:
-        return abort(404)
+        abort(404)
 
     json_data = request.get_json()
     json_data.update(parent_id)
 
     for key in required:
         if key not in json_data.keys():
-            return f"Missing {key}", abort(400)
+            abort(400, f"Missing {key}")
 
     new_obj = child(**json_data)
     if new_obj:
@@ -117,7 +115,7 @@ def create_object_for(
         return new_obj.to_dict(), 201
 
 
-def update_object(request, model_class, obj_id):
+def update_object(model_class, obj_id):
     '''
     updates the object found via the obj_id
     if not such object exist 404 error is raised
@@ -135,4 +133,4 @@ def update_object(request, model_class, obj_id):
         storage.save()
         return obj.to_dict(), 200
     else:
-        return abort(404)
+        abort(404)

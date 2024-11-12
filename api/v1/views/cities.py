@@ -6,7 +6,6 @@ all default RESTful API actions
 
 from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
-from flask import request, abort
 
 
 CityClass = valid_models().get('City')
@@ -60,8 +59,7 @@ def create_city(state_id):
     return create_object_for(
         parent=StateClass,
         child=CityClass,
-        request=request,
-        required=['name']
+        required=['name'],
         parent_id={'state_id': state_id})
 
 
@@ -74,4 +72,4 @@ def update_city(city_id):
     updates the city object found via the city_id
     if not such city exist 404 error is raised
     '''
-    return update_object(request, CityClass, city_id)
+    return update_object(CityClass, city_id)
