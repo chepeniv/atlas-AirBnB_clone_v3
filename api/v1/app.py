@@ -11,12 +11,11 @@ from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-cors_app = CORS(app, send_wildcard=True)
-# create a `CORS` instance allowing `/*` for `0.0.0.0`
+cors_app = CORS(app, send_wildcard=True, origins=["0.0.0.0"])
 
 
+# @cross_origin(send_wildcard=True)
 @app.route("/", strict_slashes=False)
-@cross_origin()
 def landing_page():
     '''
     returns a welcome message to ensure that
@@ -26,7 +25,7 @@ def landing_page():
 
 
 @app.route("/storage", strict_slashes=False)
-def storagejinfo():
+def storage_info():
     '''
     returns information about the storage
     type and mode currently being used
