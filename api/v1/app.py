@@ -16,6 +16,7 @@ cors_app = CORS(app, send_wildcard=True)
 
 
 @app.route("/", strict_slashes=False)
+@cross_origin()
 def landing_page():
     '''
     returns a welcome message to ensure that
