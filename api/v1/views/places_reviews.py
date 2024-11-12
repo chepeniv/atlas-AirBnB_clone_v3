@@ -34,6 +34,7 @@ def get_post_reviews(place_id):
                     if user:
                         if text:
                             new_review = Review(**req)
+                            new_review.place_id = place_id
                             new_review.save()
                             return jsonify(new_review.to_dict()), 201
                         else:
