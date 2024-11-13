@@ -8,7 +8,7 @@ from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
 
 
-StateClass = valid_models().get('State')
+State = valid_models().get('State')
 
 
 @app_views.route(
@@ -19,7 +19,7 @@ def get_states():
     '''
     returns json list of all states
     '''
-    return get_all_objects(StateClass)
+    return get_all_objects(State)
 
 
 @app_views.route(
@@ -31,7 +31,7 @@ def get_state(state_id):
     returns json dict state found provided state_id
     if not such state exist 404 error is raised
     '''
-    return get_single_object(StateClass, state_id)
+    return get_single_object(State, state_id)
 
 
 @app_views.route(
@@ -43,7 +43,7 @@ def delete_state(state_id):
     deletes the state object found via the state_id
     if not such state exist 404 error is raised
     '''
-    return delete_object(StateClass, state_id)
+    return delete_object(State, state_id)
 
 
 @app_views.route(
@@ -56,7 +56,7 @@ def create_state():
     if successful a json representation is returned
     '''
     required = ['name']
-    return create_object(StateClass, required)
+    return create_object(State, required)
 
 
 @app_views.route(
@@ -68,4 +68,4 @@ def update_state(state_id):
     updates the state object found via the state_id
     if not such state exist 404 error is raised
     '''
-    return update_object(StateClass, state_id)
+    return update_object(State, state_id)

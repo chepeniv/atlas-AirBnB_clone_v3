@@ -65,8 +65,6 @@ def create_object(model_class, required):
     creates a new object from the provided json
     if successful a json representation is returned
     '''
-    # might need a bit more work to generalize further
-    # that is, likely using kwargs to set object fields
     if not request.is_json:
         abort(400, "Not a JSON")
 

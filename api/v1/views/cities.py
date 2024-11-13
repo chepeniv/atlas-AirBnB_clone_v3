@@ -8,8 +8,8 @@ from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
 
 
-CityClass = valid_models().get('City')
-StateClass = valid_models().get('State')
+City = valid_models().get('City')
+State = valid_models().get('State')
 
 
 @app_views.route(
@@ -20,7 +20,7 @@ def get_cities(state_id):
     '''
     returns json list of all cities found for a given state
     '''
-    return get_all_objects_from(StateClass, state_id, 'cities')
+    return get_all_objects_from(State, state_id, 'cities')
 
 
 @app_views.route(
@@ -32,7 +32,7 @@ def get_city(city_id):
     returns json dict city found provided city_id
     if not such city exist 404 error is raised
     '''
-    return get_single_object(CityClass, city_id)
+    return get_single_object(City, city_id)
 
 
 @app_views.route(
@@ -44,7 +44,7 @@ def delete_city(city_id):
     deletes the city object found via the city_id
     if not such city exist 404 error is raised
     '''
-    return delete_object(CityClass, city_id)
+    return delete_object(City, city_id)
 
 
 @app_views.route(
@@ -57,8 +57,8 @@ def create_city(state_id):
     if successful a json representation is returned
     '''
     return create_object_for(
-        parent=StateClass,
-        child=CityClass,
+        parent=State,
+        child=City,
         required=['name'],
         parent_id={'state_id': state_id})
 
@@ -72,4 +72,4 @@ def update_city(city_id):
     updates the city object found via the city_id
     if not such city exist 404 error is raised
     '''
-    return update_object(CityClass, city_id)
+    return update_object(City, city_id)
