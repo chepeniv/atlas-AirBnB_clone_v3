@@ -4,17 +4,15 @@ a view for `State` objects that handles
 all default ESTful API actions
 '''
 
-from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
+from models.state import State
 
 
-State = valid_models().get('State')
-
-
-@app_views.route(
-    '/states',
-    methods=['GET'],
-    strict_slashes=False)
+# @app_views.route(
+#     '/states',
+#     methods=['GET'],
+#     strict_slashes=False)
+@view_route('/states', 'GET')
 def get_states():
     '''
     returns json list of all states
@@ -22,10 +20,7 @@ def get_states():
     return get_all_objects(State)
 
 
-@app_views.route(
-    '/states/<state_id>',
-    methods=['GET'],
-    strict_slashes=False)
+@view_route('/states/<state_id>', 'GET')
 def get_state(state_id):
     '''
     returns json dict state found provided state_id
@@ -34,10 +29,7 @@ def get_state(state_id):
     return get_single_object(State, state_id)
 
 
-@app_views.route(
-    '/states/<state_id>',
-    methods=['DELETE'],
-    strict_slashes=False)
+@view_route('/states/<state_id>', 'DELETE')
 def delete_state(state_id):
     '''
     deletes the state object found via the state_id
@@ -46,10 +38,7 @@ def delete_state(state_id):
     return delete_object(State, state_id)
 
 
-@app_views.route(
-    '/states',
-    methods=['POST'],
-    strict_slashes=False)
+@view_route('/states', 'POST')
 def create_state():
     '''
     creates a new state object from the provided json
@@ -59,10 +48,7 @@ def create_state():
     return create_object(State, required)
 
 
-@app_views.route(
-    '/states/<state_id>',
-    methods=['PUT'],
-    strict_slashes=False)
+@view_route('/states/<state_id>', 'PUT')
 def update_state(state_id):
     '''
     updates the state object found via the state_id

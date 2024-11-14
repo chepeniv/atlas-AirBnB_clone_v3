@@ -4,18 +4,12 @@ a view for `City` objects that handles
 all default RESTful API actions
 '''
 
-from api.v1.views import app_views, valid_models
 from api.v1.views.service_calls import *
+from models.city import City
+from models.state import State
 
 
-City = valid_models().get('City')
-State = valid_models().get('State')
-
-
-@app_views.route(
-    'states/<state_id>/cities',
-    methods=['GET'],
-    strict_slashes=False)
+@view_route('states/<state_id>/cities', 'GET')
 def get_cities(state_id):
     '''
     returns json list of all cities found for a given state
@@ -23,10 +17,7 @@ def get_cities(state_id):
     return get_all_objects_from(State, state_id, 'cities')
 
 
-@app_views.route(
-    '/cities/<city_id>',
-    methods=['GET'],
-    strict_slashes=False)
+@view_route('/cities/<city_id>', 'GET')
 def get_city(city_id):
     '''
     returns json dict city found provided city_id
@@ -35,10 +26,7 @@ def get_city(city_id):
     return get_single_object(City, city_id)
 
 
-@app_views.route(
-    '/cities/<city_id>',
-    methods=['DELETE'],
-    strict_slashes=False)
+@view_route('/cities/<city_id>', 'DELETE')
 def delete_city(city_id):
     '''
     deletes the city object found via the city_id
@@ -47,10 +35,7 @@ def delete_city(city_id):
     return delete_object(City, city_id)
 
 
-@app_views.route(
-    'states/<state_id>/cities',
-    methods=['POST'],
-    strict_slashes=False)
+@view_route('states/<state_id>/cities', 'POST')
 def create_city(state_id):
     '''
     creates a new city object from the provided json
@@ -63,10 +48,7 @@ def create_city(state_id):
         parent_id={'state_id': state_id})
 
 
-@app_views.route(
-    '/cities/<city_id>',
-    methods=['PUT'],
-    strict_slashes=False)
+@view_route('/cities/<city_id>', 'PUT')
 def update_city(city_id):
     '''
     updates the city object found via the city_id

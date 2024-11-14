@@ -5,6 +5,25 @@ definition of functions used to process RESTful api request
 
 from models import storage
 from flask import abort, request
+from api.v1.views import app_views
+
+
+def view_route(*params):
+    '''
+    decorator simplifying the implementation of another decorator
+    '''
+    route = params[0]
+    call = params[1]
+
+    def inner(func):
+        '''
+        application of decorator app_views.route to function
+        '''
+        func = (app_views.route(
+            route,
+            methods=[call],
+            strict_slashes=False))(func)
+    return inner
 
 
 def get_all_objects(model_class):
@@ -53,7 +72,7 @@ def delete_object(model_class, obj_id):
     '''
     obj = storage.get(model_class, obj_id)
     if obj:
-        storage.delete(obj)
+        obj.delete()
         storage.save()
         return {}, 200
     else:
