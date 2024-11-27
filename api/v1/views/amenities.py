@@ -1,64 +1,34 @@
 #!/usr/bin/python3
-"""
-Handles app_views for Amenity class
-"""
+''' '''
+from api.v1.views.service_calls import *
 from models.amenity import Amenity
-from flask import jsonify, abort, request
-from api.v1.views import app_views, storage
 
 
-@app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)
-def get_post_amenities():
-    """returns json list of all amenities in storage or returns new amenity"""
-    if request.method == 'GET':
-        amens = []
-        for amen in storage.all(Amenity).values():
-            amens.append(amen.to_dict())
-        return jsonify(amens)
-    elif request.method == 'POST':
-        if request.is_json:
-            req = request.get_json()
-            name = req.get('name')
-            if name:
-                new_amen = Amenity(**req)
-                new_amen.save()
-                return jsonify(new_amen.to_dict()), 201
-            else:
-                abort(400, description='Missing name')
-        else:
-            abort(400, description='Not a JSON')
+@view_route('/amenities', 'POST')
+def create_amenity():
+    ''' '''
+    return create_object(Amenity, required=['name'])
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'],
-                 strict_slashes=False)
-def get_amenity_id(amenity_id):
-    """retrieves, deletes, or updates json'd amenity object"""
-    if request.method == 'GET':
-        amen = storage.get(Amenity, amenity_id)
-        if amen:
-            return jsonify(amen.to_dict())
-        else:
-            abort(404)
-    elif request.method == 'DELETE':
-        amen = storage.get(Amenity, amenity_id)
-        if amen:
-            storage.delete(amen)
-            return {}, 200
-        else:
-            abort(404)
-    elif request.method == 'PUT':
-        amen = storage.get(Amenity, amenity_id)
-        if amen:
-            if request.is_json:
-                update_dict = request.get_json()
-                update_dict = {key: value for key, value
-                               in update_dict.items() if key not in
-                               ['id', 'created_at', 'updated_at']}
-                for key, value in update_dict.items():
-                    setattr(amen, key, value)
-                amen.save()
-                return jsonify(amen.to_dict()), 200
-            else:
-                abort(400, description='Not a JSON')
-        else:
-            abort(404)
+@view_route('/amenities', 'GET')
+def get_all_amenities():
+    ''' '''
+    return get_all_objects(Amenity)
+
+
+@view_route('/amenities/<amenity_id>', 'GET')
+def get_amenity(amenity_id):
+    ''' '''
+    return get_single_object(Amenity, amenity_id)
+
+
+@view_route('/amenities/<amenity_id>', 'PUT')
+def update_amenity(amenity_id):
+    ''' '''
+    return update_object(Amenity, amenity_id)
+
+
+@view_route('/amenities/<amenity_id>', 'DELETE')
+def delete_amenity(amenity_id):
+    ''' '''
+    return delete_object(Amenity, amenity_id)
