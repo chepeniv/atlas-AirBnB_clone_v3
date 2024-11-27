@@ -4,8 +4,6 @@
 
 ## in progress
 
-- [ ] (26 pts) 1. unittest - **snewby**
-	- [ ] update `test_db_storage.py` - **chepe**
 - [ ] refactor `cities.py` and `states.py` by creating `service_calls.py`
 
 ## queue
@@ -20,6 +18,8 @@
 
 - [x] write init .sh script for file storage mode
 - [x] (10 pts) 0. fork and update v2
+- [x] (26 pts) 1. unittest - **snewby**
+	- [ ] update `test_db_storage.py` - **chepe**
 - [x] (23 pts) 2. code review - **snewby**
 	- [x] completed task
 	- [x] reviewed
